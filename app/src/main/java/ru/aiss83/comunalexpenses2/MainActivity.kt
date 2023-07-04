@@ -1,22 +1,30 @@
 package ru.aiss83.comunalexpenses2
 
-import android.graphics.drawable.Icon
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,7 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
+import java.time.LocalDate
+import java.util.Date
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,43 +69,59 @@ fun MainContent(modifier: Modifier = Modifier) {
     // fetching local context
     val mContext = LocalContext.current
 
-    // Creating a Top bar
-    TopAppBar(
-        title = { Text("Menu options", modifier= modifier) },
-        modifier = modifier,
-        actions = {
-
-            // Creating Icon button favorites, on click
-            // would create a Toast message
-            IconButton(onClick = { Toast.makeText(mContext, "Favorite", Toast.LENGTH_SHORT).show() }) {
-                Icon(Icons.Default.Favorite, "")
-            }
-
-            // Creating Icon button for dropdown menu
-            IconButton(onClick = { mDisplayMenu = !mDisplayMenu }) {
-                Icon(Icons.Default.MoreVert, "")
-            }
-
-            // Creating a dropdown menu
-            DropdownMenu(
-                expanded = mDisplayMenu,
-                onDismissRequest = { mDisplayMenu = false }
-            ) {
-
-                // Creating dropdown menu item, on click
-                // would create a Toast message
-                DropdownMenuItem(text = { Text(text = "Settings") },
-                    onClick = {
-                        Toast.makeText(mContext, "Settings", Toast.LENGTH_SHORT).show()
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Communal Expenses") },
+                actions = {
+                    IconButton(onClick = { /*TODO*/ }) {
+                        Icon(Icons.Filled.List, null)
+                    }
                 })
+        },
+        floatingActionButtonPosition = FabPosition.End,
+        floatingActionButton = {
+            FloatingActionButton(onClick = {}) {
+                Text("+")
+            }
+        },
+        bottomBar = { BottomAppBar() { Text("BottomAppBar") } }
+    ) { contentPadding ->
+        LazyColumn(modifier = Modifier.padding(contentPadding)) {
+//            Text("BodyContent")
+        }
+    }
+}
 
-                // Creating dropdown menu item, on click
-                // would create a Toast message
-                DropdownMenuItem(text = {Text(text = "Logout")},
-                    onClick = { Toast.makeText(mContext, "Logout", Toast.LENGTH_SHORT).show() })
+@Composable
+fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
+    Card(modifier = modifier) {
+        Column() {
+            Text(text = record.date.toString())
+            // Cold water
+            Row {
+                Text(text = "Cold water")
+                Text(text = record.coldWater.toString())
+                Text(text = "Hot water")
+                Text(text = record.hotWater.toString())
+            }
+            // Electricity
+            Row {
+                Text(text = "kWh Day")
+                Text(text = record.kWhDay.toString())
+                Text(text = "kWh Night")
+                Text(text = record.kWhNight.toString())
             }
         }
-    )
+    }
+}
+
+@Preview
+@Composable
+fun ResourceCardPreview() {
+    ComunalExpenses2Theme {
+        ResourcesCard(record = ResourcesRecord(Dat), )
+    }
 }
 
 @Preview(showBackground = true)
