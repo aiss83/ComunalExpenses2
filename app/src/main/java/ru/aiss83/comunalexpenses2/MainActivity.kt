@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -31,13 +33,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 import java.time.LocalDate
+import java.util.Calendar
 import java.util.Date
+import java.util.GregorianCalendar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,18 +100,23 @@ fun MainContent(modifier: Modifier = Modifier) {
 
 @Composable
 fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
+    val cal = GregorianCalendar()
+    cal.time = record.date
+
     Card(modifier = modifier) {
-        Column() {
-            Text(text = record.date.toString())
+        Column(modifier = Modifier.padding(all = 4.dp)) {
+            Text(text = cal.toString())
             // Cold water
-            Row {
+            Row(modifier= Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(text = "Cold water")
                 Text(text = record.coldWater.toString())
                 Text(text = "Hot water")
                 Text(text = record.hotWater.toString())
             }
             // Electricity
-            Row {
+            Row(modifier= Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(text = "kWh Day")
                 Text(text = record.kWhDay.toString())
                 Text(text = "kWh Night")
@@ -120,7 +130,8 @@ fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
 @Composable
 fun ResourceCardPreview() {
     ComunalExpenses2Theme {
-        ResourcesCard(record = ResourcesRecord(Dat), )
+        ResourcesCard(record = ResourcesRecord(Calendar.getInstance().time,
+            0, 0, 0, 0), modifier = Modifier.fillMaxSize())
     }
 }
 
