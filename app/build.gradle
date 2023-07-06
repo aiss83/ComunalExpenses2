@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "ru.aiss83.comunalexpenses2"
-        minSdk 32
+        minSdk 31
         targetSdk 33
         versionCode 1
         versionName "1.0"

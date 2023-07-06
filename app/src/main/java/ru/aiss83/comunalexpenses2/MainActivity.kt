@@ -1,22 +1,25 @@
 package ru.aiss83.comunalexpenses2
 
-import android.annotation.SuppressLint
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardElevation
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -36,6 +39,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
@@ -74,6 +80,12 @@ fun MainContent(modifier: Modifier = Modifier) {
     // fetching local context
     val mContext = LocalContext.current
 
+    val resources = List<ResourcesRecord> (size = 3) {
+        ResourcesRecord(Calendar.getInstance().time, 0, 0, 0,0);
+        ResourcesRecord(Calendar.getInstance().time, 0, 0, 0,0);
+        ResourcesRecord(Calendar.getInstance().time, 0, 0, 0,0)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -90,22 +102,22 @@ fun MainContent(modifier: Modifier = Modifier) {
                 Text("+")
             }
         },
-        bottomBar = { BottomAppBar() { Text("BottomAppBar") } }
+        bottomBar = { BottomAppBar() { Text("BottomAppBar") } },
     ) { contentPadding ->
-        LazyColumn(modifier = Modifier.padding(contentPadding)) {
-//            Text("BodyContent")
+        LazyColumn(modifier = Modifier.padding(contentPadding), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            items(resources) {record ->
+                ResourcesCard(record = record)
+            }
         }
     }
 }
 
 @Composable
 fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
-    val cal = GregorianCalendar()
-    cal.time = record.date
 
-    Card(modifier = modifier) {
+    ElevatedCard(modifier = modifier, elevation = CardDefaults.cardElevation(5.dp)) {
         Column(modifier = Modifier.padding(all = 4.dp)) {
-            Text(text = cal.toString())
+            Text(text = SimpleDateFormat("dd.MM.yyy").format(record.date), style = MaterialTheme.typography.headlineSmall)
             // Cold water
             Row(modifier= Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween) {
@@ -131,7 +143,7 @@ fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
 fun ResourceCardPreview() {
     ComunalExpenses2Theme {
         ResourcesCard(record = ResourcesRecord(Calendar.getInstance().time,
-            0, 0, 0, 0), modifier = Modifier.fillMaxSize())
+            0, 0, 0, 0), modifier = Modifier.fillMaxWidth())
     }
 }
 
