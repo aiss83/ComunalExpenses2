@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -86,6 +87,8 @@ fun MainContent(modifier: Modifier = Modifier) {
         ResourcesRecord(Calendar.getInstance().time, 0, 0, 0,0)
     }
 
+    val contentPadding = PaddingValues(16.dp, 8.dp)
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -103,8 +106,8 @@ fun MainContent(modifier: Modifier = Modifier) {
             }
         },
         bottomBar = { BottomAppBar() { Text("BottomAppBar") } },
-    ) { contentPadding ->
-        LazyColumn(modifier = Modifier.padding(contentPadding), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+    ) { innerPadding ->
+        LazyColumn(modifier = Modifier.padding(innerPadding), contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(resources) {record ->
                 ResourcesCard(record = record)
             }
