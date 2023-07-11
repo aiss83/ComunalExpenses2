@@ -8,18 +8,17 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -50,6 +49,7 @@ import java.time.LocalDate
 import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,6 +106,7 @@ fun MainContent(modifier: Modifier = Modifier) {
             }
         },
         bottomBar = { BottomAppBar() { Text("BottomAppBar") } },
+        contentWindowInsets = WindowInsets(bottom = 8.dp, top = 8.dp, left = 4.dp, right = 4.dp)
     ) { innerPadding ->
         LazyColumn(modifier = Modifier.padding(innerPadding), contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(resources) {record ->
@@ -120,7 +121,18 @@ fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
 
     ElevatedCard(modifier = modifier, elevation = CardDefaults.cardElevation(5.dp)) {
         Column(modifier = Modifier.padding(all = 4.dp)) {
-            Text(text = SimpleDateFormat("dd.MM.yyy").format(record.date), style = MaterialTheme.typography.headlineSmall)
+            Row(modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = SimpleDateFormat("dd.MM.yyy", Locale("ru", "RU")).format(record.date),
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                IconButton(onClick = { /*TODO*/ }) {
+                    Icon(Icons.Filled.Share, "Share to...")
+                }
+            }
             // Cold water
             Row(modifier= Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween) {
