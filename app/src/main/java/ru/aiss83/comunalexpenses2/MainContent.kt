@@ -43,7 +43,7 @@ import java.util.Locale
 // to display Top Bar and options menu
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainContent(modifier: Modifier = Modifier) {
+fun MainContent(modifier: Modifier = Modifier, onNavigateToAddExpenses: () -> Unit) {
 
     // Create a boolean variable
     // to store the display menu state
@@ -72,7 +72,7 @@ fun MainContent(modifier: Modifier = Modifier) {
         },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            FloatingActionButton(onClick = {  }) {
+            FloatingActionButton(onClick = onNavigateToAddExpenses) {
                 Text("+")
             }
         },
@@ -139,6 +139,6 @@ fun ResourceCardPreview() {
 @Composable
 fun MainContentPreview() {
     ComunalExpenses2Theme {
-        MainContent(modifier = Modifier)
+        MainContent(modifier = Modifier, onNavigateToAddExpenses = {})
     }
 }
