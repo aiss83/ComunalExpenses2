@@ -34,7 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import ru.aiss83.comunalexpenses2.data.ResourcesRecord
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 import java.util.Calendar
 import java.util.Locale
