@@ -128,7 +128,7 @@ fun AddExpensesView(modifier: Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun AddExpensesViewPreview() {
     ComunalExpenses2Theme {
