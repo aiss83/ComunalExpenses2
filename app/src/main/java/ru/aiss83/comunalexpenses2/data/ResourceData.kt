@@ -1,31 +1,30 @@
 package ru.aiss83.comunalexpenses2.data
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
+import java.util.UUID
 
 @Entity(tableName = "resources_records")
-class ResourceData {
+data class ResourceData(
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
+    @PrimaryKey
     @ColumnInfo(name="recordId")
-    var id: Long = 0    // Resources record ID
+    val id: UUID = UUID.randomUUID(),    // Resources record ID
 
     @ColumnInfo(name = "date")
-    var date: Date? = null  // Record creation date
+    var date: Date = Date(),  // Record creation date
 
     @ColumnInfo(name = "waterHot")
-    var hotWater : Number = 0
+    var hotWater : Long = 0,
 
     @ColumnInfo(name = "waterCold")
-    var coldWater: Number = 0
+    var coldWater: Long = 0,
 
     @ColumnInfo(name = "electricityDay")
-    var dayElectricity: Number = 0
+    var dayElectricity: Long = 0,
 
     @ColumnInfo(name = "electricityNight")
-    var nightElectricity: Number = 0
-}
+    var nightElectricity: Long = 0
+)
