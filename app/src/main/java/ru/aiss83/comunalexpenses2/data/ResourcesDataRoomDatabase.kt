@@ -17,7 +17,7 @@ abstract class ResourcesDataRoomDatabase: RoomDatabase() {
         private var INSTANCE: ResourcesDataRoomDatabase? = null
 
         fun getInstance(context: Context): ResourcesDataRoomDatabase {
-            synchronized(this){
+            synchronized(this) {
                 var instance = INSTANCE
 
                 if (instance == null) {
