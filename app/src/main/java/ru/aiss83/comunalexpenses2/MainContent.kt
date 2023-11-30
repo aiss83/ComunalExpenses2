@@ -13,8 +13,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -34,16 +34,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.aiss83.comunalexpenses2.data.ResourcesRecord
+import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
-import java.util.Calendar
 import java.util.Locale
 
 // Creating a composable function
 // to display Top Bar and options menu
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainContent(modifier: Modifier = Modifier, onNavigateToAddExpenses: () -> Unit) {
+fun MainContent(modifier: Modifier = Modifier,
+                allResourceData: List<ResourceData>,
+                viewModel: ResourcesDataViewModel,
+                onNavigateToAddExpenses: () -> Unit) {
 
     // Create a boolean variable
     // to store the display menu state
@@ -52,12 +54,6 @@ fun MainContent(modifier: Modifier = Modifier, onNavigateToAddExpenses: () -> Un
     // fetching local context
     val mContext = LocalContext.current
 
-    val resources = List<ResourcesRecord> (size = 3) {
-        ResourcesRecord(Calendar.getInstance().time, 0, 0, 0,0);
-        ResourcesRecord(Calendar.getInstance().time, 0, 0, 0,0);
-        ResourcesRecord(Calendar.getInstance().time, 0, 0, 0,0)
-    }
-
     val contentPadding = PaddingValues(16.dp, 8.dp)
 
     Scaffold(
@@ -65,7 +61,7 @@ fun MainContent(modifier: Modifier = Modifier, onNavigateToAddExpenses: () -> Un
             TopAppBar(
                 title = { Text("Communal Expenses") },
                 actions = {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = { /*TODO settings view */ }) {
                         Icon(Icons.Filled.List, null)
                     }
                 })
@@ -80,17 +76,17 @@ fun MainContent(modifier: Modifier = Modifier, onNavigateToAddExpenses: () -> Un
         contentWindowInsets = WindowInsets(bottom = 8.dp, top = 8.dp, left = 4.dp, right = 4.dp)
     ) { innerPadding ->
         LazyColumn(modifier = Modifier.padding(innerPadding), contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            items(resources) {record ->
-                ResourcesCard(record = record)
+            items(allResourceData) { item ->
+                ResourcesCard(record = item)
             }
         }
     }
 }
 
 @Composable
-fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
+fun ResourcesCard(record: ResourceData, modifier: Modifier = Modifier) {
 
-    ElevatedCard(modifier = modifier, elevation = CardDefaults.cardElevation(5.dp)) {
+    Card(modifier = modifier, elevation = CardDefaults.cardElevation(5.dp)) {
         Column(modifier = Modifier.padding(all = 4.dp)) {
             Row(modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -100,7 +96,7 @@ fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
                     text = SimpleDateFormat("dd.MM.yyy", Locale("ru", "RU")).format(record.date),
                     style = MaterialTheme.typography.headlineSmall
                 )
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { /*TODO: send to someone */ }) {
                     Icon(Icons.Filled.Share, "Share to...")
                 }
             }
@@ -116,9 +112,9 @@ fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
             Row(modifier= Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(text = "kWh Day")
-                Text(text = record.kWhDay.toString())
+                Text(text = record.dayElectricity.toString())
                 Text(text = "kWh Night")
-                Text(text = record.kWhNight.toString())
+                Text(text = record.nightElectricity.toString())
             }
         }
     }
@@ -128,9 +124,10 @@ fun ResourcesCard(record: ResourcesRecord, modifier: Modifier = Modifier) {
 @Composable
 fun ResourceCardPreview() {
     ComunalExpenses2Theme {
-        ResourcesCard(record = ResourcesRecord(
-            Calendar.getInstance().time,
-            0, 0, 0, 0), modifier = Modifier.fillMaxWidth())
+//        ResourcesCard(
+//            record = ResourcesRecord(
+//            Calendar.getInstance().time,
+//            0, 0, 0, 0), modifier = Modifier.fillMaxWidth())
     }
 }
 
@@ -139,6 +136,6 @@ fun ResourceCardPreview() {
 @Composable
 fun MainContentPreview() {
     ComunalExpenses2Theme {
-        MainContent(modifier = Modifier, onNavigateToAddExpenses = {})
+//        MainContent(modifier = Modifier, onNavigateToAddExpenses = {})
     }
 }
