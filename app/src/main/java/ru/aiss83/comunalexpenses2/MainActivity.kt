@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ru.aiss83.comunalexpenses2.screens.MainScreen
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 
 class MainActivity : ComponentActivity() {
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
                                     as Application)
                         )
 
-                        MainNavigation(viewModel)
+                        MainScreen(viewModel)
                     }
                 }
             }
