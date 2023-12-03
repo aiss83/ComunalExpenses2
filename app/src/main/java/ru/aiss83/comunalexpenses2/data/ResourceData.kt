@@ -1,13 +1,16 @@
 package ru.aiss83.comunalexpenses2.data
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import java.util.Date
 import java.util.UUID
 
 @Entity(tableName = "resources_records")
-data class ResourceData(
+@Parcelize
+data class ResourceData (
 
     @PrimaryKey
     @ColumnInfo(name="recordId")
@@ -27,4 +30,4 @@ data class ResourceData(
 
     @ColumnInfo(name = "electricityNight")
     var nightElectricity: Long = 0
-)
+) : Parcelable

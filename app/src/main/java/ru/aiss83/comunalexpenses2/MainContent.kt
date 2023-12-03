@@ -42,40 +42,38 @@ import java.util.Locale
 // to display Top Bar and options menu
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainContent(modifier: Modifier = Modifier,
-                allResourceData: List<ResourceData>,
-                viewModel: ResourcesDataViewModel,
-                onNavigateToAddExpenses: () -> Unit) {
+fun MainContent(
+    allResourceData: List<ResourceData>,
+    viewModel: ResourcesDataViewModel,
+    onNavigateToAddExpenses: () -> Unit,
+    onNavigateToSettings: () -> Unit) {
 
-    // Create a boolean variable
-    // to store the display menu state
-    var mDisplayMenu by remember { mutableStateOf(false) }
-
-    // fetching local context
-    val mContext = LocalContext.current
-
-    val contentPadding = PaddingValues(16.dp, 8.dp)
+//    val contentPadding = PaddingValues(8.dp, 8.dp)
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Communal Expenses") },
                 actions = {
-                    IconButton(onClick = { /*TODO settings view */ }) {
+                    IconButton(
+                        onClick = onNavigateToSettings
+                    ) {
                         Icon(Icons.Filled.List, null)
                     }
                 })
         },
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
-            FloatingActionButton(onClick = onNavigateToAddExpenses) {
+            FloatingActionButton(
+                onClick = onNavigateToAddExpenses
+            ) {
                 Text("+")
             }
         },
-//        bottomBar = { BottomAppBar() { Text("BottomAppBar") } },
+
         contentWindowInsets = WindowInsets(bottom = 8.dp, top = 8.dp, left = 4.dp, right = 4.dp)
     ) { innerPadding ->
-        LazyColumn(modifier = Modifier.padding(innerPadding), contentPadding = contentPadding, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        LazyColumn(modifier = Modifier.padding(innerPadding), /*contentPadding = contentPadding,*/ verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(allResourceData) { item ->
                 ResourcesCard(record = item)
             }
@@ -84,11 +82,13 @@ fun MainContent(modifier: Modifier = Modifier,
 }
 
 @Composable
-fun ResourcesCard(record: ResourceData, modifier: Modifier = Modifier) {
+fun ResourcesCard(record: ResourceData) {
 
-    Card(modifier = modifier, elevation = CardDefaults.cardElevation(5.dp)) {
-        Column(modifier = Modifier.padding(all = 4.dp)) {
-            Row(modifier = Modifier.fillMaxWidth(),
+    val rowsModifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 2.dp)
+
+    Card(modifier = Modifier.fillMaxWidth().padding(8.dp), elevation = CardDefaults.cardElevation(5.dp)) {
+        Column() {
+            Row(modifier = rowsModifier,
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -101,7 +101,7 @@ fun ResourcesCard(record: ResourceData, modifier: Modifier = Modifier) {
                 }
             }
             // Cold water
-            Row(modifier= Modifier.fillMaxWidth(),
+            Row(modifier= rowsModifier,
                 horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(text = "Cold water")
                 Text(text = record.coldWater.toString())
@@ -109,7 +109,7 @@ fun ResourcesCard(record: ResourceData, modifier: Modifier = Modifier) {
                 Text(text = record.hotWater.toString())
             }
             // Electricity
-            Row(modifier= Modifier.fillMaxWidth(),
+            Row(modifier= rowsModifier,
                 horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(text = "kWh Day")
                 Text(text = record.dayElectricity.toString())
