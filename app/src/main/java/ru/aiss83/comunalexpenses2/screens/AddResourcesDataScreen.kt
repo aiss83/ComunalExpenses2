@@ -1,4 +1,4 @@
-package ru.aiss83.comunalexpenses2
+package ru.aiss83.comunalexpenses2.screens
 
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
@@ -25,21 +24,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ru.aiss83.comunalexpenses2.data.ResourcesRecord
+import androidx.navigation.NavHostController
+import ru.aiss83.comunalexpenses2.ResourcesDataViewModel
+import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 import java.util.Calendar
 import java.util.Locale
 
 @Composable
-fun AddExpensesView(modifier: Modifier) {
+fun AddResourcesDataScreen(
+    viewModel: ResourcesDataViewModel,
+    navController: NavHostController
+    ) {
 
     var coldWaterValue by remember { mutableStateOf("0") }
     var hotWaterValue by remember { mutableStateOf("0") }
     var daykWhValue by remember { mutableStateOf("0") }
     var nightkWhValue by remember { mutableStateOf("0") }
 
-    var resourcesRecord by rememberSaveable {
-            mutableStateOf(ResourcesRecord())
+    val resourcesRecord by rememberSaveable {
+            mutableStateOf(ResourceData())
     }
 
     Column(modifier = Modifier
@@ -107,11 +111,21 @@ fun AddExpensesView(modifier: Modifier) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround,
         ) {
-            TextButton(modifier = Modifier.weight(1.0f), onClick = {}) {
+            TextButton(modifier = Modifier.weight(1.0f), onClick = {
+                // Save changes to model and go back
+                resourcesRecord.coldWater = coldWaterValue.toLong()
+                resourcesRecord.hotWater = hotWaterValue.toLong()
+                resourcesRecord.dayElectricity = daykWhValue.toLong()
+                resourcesRecord.nightElectricity = nightkWhValue.toLong()
+                viewModel.addResourcesData(resourcesRecord)
+                navController.popBackStack()
+            }) {
                 Text(text = "Save")
             }
             Spacer(modifier = Modifier.weight(0.1f))
-            TextButton(modifier = Modifier.weight(1.0f), onClick = {}) {
+            TextButton(modifier = Modifier.weight(1.0f), onClick = {
+                navController.popBackStack()
+            }) {
                 Text(text = "Cancel")
             }
         }
@@ -122,6 +136,6 @@ fun AddExpensesView(modifier: Modifier) {
 @Composable
 fun AddExpensesViewPreview() {
     ComunalExpenses2Theme {
-        AddExpensesView(modifier = Modifier.fillMaxSize())
+//        AddExpensesView(modifier = Modifier.fillMaxSize())
     }
 }
