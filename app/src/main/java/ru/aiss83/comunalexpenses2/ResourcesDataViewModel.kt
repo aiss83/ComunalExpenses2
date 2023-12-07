@@ -29,6 +29,6 @@ class ResourcesDataViewModel(application: Application) : ViewModel() {
     }
 
     fun deleteResourceData(id: UUID) {
-        /* TODO: implement delete by UUID method in repository */
+        repository.deleteResourcesData(id)
     }
 }

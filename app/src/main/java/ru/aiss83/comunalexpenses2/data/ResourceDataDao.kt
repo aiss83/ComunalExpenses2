@@ -44,6 +44,9 @@ interface ResourceDataDao {
     @Delete
     fun deleteResourceData(data: ResourceData)
 
+    @Query("DELETE FROM resources_records WHERE recordId = (:id)")
+    fun deleteResourceData(id: UUID)
+
     /**
      * Update resources data record in database
      */

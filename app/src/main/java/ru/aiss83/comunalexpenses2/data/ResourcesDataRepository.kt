@@ -23,6 +23,12 @@ class ResourcesDataRepository(private val resourceDataDao: ResourceDataDao) {
         }
     }
 
+    fun deleteResourcesData(id: UUID) {
+        coroutineScope.launch(Dispatchers.IO) {
+            resourceDataDao.deleteResourceData(id)
+        }
+    }
+
     fun updateResourcesData(data: ResourceData) {
         coroutineScope.launch(Dispatchers.IO) {
             resourceDataDao.updateResourceData(data)

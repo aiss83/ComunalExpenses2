@@ -5,12 +5,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Card
@@ -31,12 +34,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.HorizontalAlignmentLine
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 import java.util.Locale
+import java.util.UUID
 
 // Creating a composable function
 // to display Top Bar and options menu
@@ -48,7 +54,9 @@ fun MainContent(
     onNavigateToAddExpenses: () -> Unit,
     onNavigateToSettings: () -> Unit) {
 
-//    val contentPadding = PaddingValues(8.dp, 8.dp)
+    val removeRecord = { id: UUID ->
+        viewModel.deleteResourceData(id)
+    }
 
     Scaffold(
         topBar = {
@@ -73,31 +81,40 @@ fun MainContent(
 
         contentWindowInsets = WindowInsets(bottom = 8.dp, top = 8.dp, left = 4.dp, right = 4.dp)
     ) { innerPadding ->
-        LazyColumn(modifier = Modifier.padding(innerPadding), /*contentPadding = contentPadding,*/ verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        LazyColumn(modifier = Modifier.padding(innerPadding), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(allResourceData) { item ->
-                ResourcesCard(record = item)
+                ResourcesCard(record = item, removeRecord)
             }
         }
     }
 }
 
 @Composable
-fun ResourcesCard(record: ResourceData) {
+fun ResourcesCard(record: ResourceData, onDataRemove: (id: UUID) -> Unit) {
 
-    val rowsModifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 2.dp)
+    val rowsModifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 8.dp, vertical = 2.dp)
 
-    Card(modifier = Modifier.fillMaxWidth().padding(8.dp), elevation = CardDefaults.cardElevation(5.dp)) {
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .padding(8.dp), elevation = CardDefaults.cardElevation(5.dp)) {
         Column() {
             Row(modifier = rowsModifier,
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.Start
             ) {
                 Text(
+                    modifier = Modifier.wrapContentWidth(Alignment.Start),
                     text = SimpleDateFormat("dd.MM.yyy", Locale("ru", "RU")).format(record.date),
                     style = MaterialTheme.typography.headlineSmall
                 )
-                IconButton(onClick = { /*TODO: send to someone */ }) {
+//                Spacer(modifier = Modifier.fillMaxWidth(0.6f))
+                IconButton(onClick = { /*TODO: send to someone */ }, modifier = Modifier.wrapContentWidth(Alignment.End)) {
                     Icon(Icons.Filled.Share, "Share to...")
+                }
+                IconButton(onClick = { onDataRemove(record.id) }, modifier = Modifier.wrapContentWidth(Alignment.End)) {
+                    Icon(Icons.Filled.Delete, contentDescription = "Delete record")
                 }
             }
             // Cold water
@@ -124,10 +141,6 @@ fun ResourcesCard(record: ResourceData) {
 @Composable
 fun ResourceCardPreview() {
     ComunalExpenses2Theme {
-//        ResourcesCard(
-//            record = ResourcesRecord(
-//            Calendar.getInstance().time,
-//            0, 0, 0, 0), modifier = Modifier.fillMaxWidth())
     }
 }
 
@@ -136,6 +149,5 @@ fun ResourceCardPreview() {
 @Composable
 fun MainContentPreview() {
     ComunalExpenses2Theme {
-//        MainContent(modifier = Modifier, onNavigateToAddExpenses = {})
     }
 }
