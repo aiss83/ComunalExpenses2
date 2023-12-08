@@ -1,12 +1,16 @@
 package ru.aiss83.comunalexpenses2
 
 import android.icu.text.SimpleDateFormat
+import android.widget.GridLayout
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -34,18 +38,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
+import java.util.Date
 import java.util.Locale
 import java.util.UUID
 
-// Creating a composable function
-// to display Top Bar and options menu
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContent(
@@ -94,7 +100,7 @@ fun ResourcesCard(record: ResourceData, onDataRemove: (id: UUID) -> Unit) {
 
     val rowsModifier = Modifier
         .fillMaxWidth()
-        .padding(horizontal = 8.dp, vertical = 2.dp)
+        .padding(horizontal = 4.dp, vertical = 4.dp)
 
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -102,19 +108,25 @@ fun ResourcesCard(record: ResourceData, onDataRemove: (id: UUID) -> Unit) {
         Column() {
             Row(modifier = rowsModifier,
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
                     modifier = Modifier.wrapContentWidth(Alignment.Start),
                     text = SimpleDateFormat("dd.MM.yyy", Locale("ru", "RU")).format(record.date),
                     style = MaterialTheme.typography.headlineSmall
                 )
-//                Spacer(modifier = Modifier.fillMaxWidth(0.6f))
-                IconButton(onClick = { /*TODO: send to someone */ }, modifier = Modifier.wrapContentWidth(Alignment.End)) {
-                    Icon(Icons.Filled.Share, "Share to...")
-                }
-                IconButton(onClick = { onDataRemove(record.id) }, modifier = Modifier.wrapContentWidth(Alignment.End)) {
-                    Icon(Icons.Filled.Delete, contentDescription = "Delete record")
+
+                Row {
+                    IconButton(
+                        onClick = { /*TODO: send to someone */ }
+                    ) {
+                        Icon(Icons.Filled.Share, "Share to...")
+                    }
+                    IconButton(
+                        onClick = { onDataRemove(record.id) }
+                    ) {
+                        Icon(Icons.Filled.Delete, contentDescription = "Delete record")
+                    }
                 }
             }
             // Cold water
@@ -137,10 +149,53 @@ fun ResourcesCard(record: ResourceData, onDataRemove: (id: UUID) -> Unit) {
     }
 }
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ResourceCardPreview() {
     ComunalExpenses2Theme {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Card (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                elevation = CardDefaults.cardElevation(5.dp)
+            ) {
+                Column {
+                    ConstraintLayout (modifier = Modifier.fillMaxWidth()) {
+
+                        val (text, buttons) = createRefs()
+                        Text(
+                            modifier = Modifier.constrainAs(text) {
+                                start.linkTo(parent.start, margin = 4.dp)
+                            },
+                            text = SimpleDateFormat("dd.MM.yyy", Locale("ru", "RU"))
+                                .format(Date(System.currentTimeMillis()))
+                        )
+                        Box (modifier = Modifier.constrainAs(buttons) {
+                            end.linkTo(parent.end, margin = 4.dp)
+                        }) {
+                            Row {
+                                IconButton(onClick = { /*TODO: send to someone */ }) {
+                                    Icon(Icons.Filled.Share, "Share to...")
+                                }
+                                IconButton(onClick = { }) {
+                                    Icon(Icons.Filled.Delete, contentDescription = "Delete record")
+                                }
+                            }
+                        }
+                    }
+
+                    Row (
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(text = "Test")
+                        Text(text = "100")
+                    }
+                }
+
+            }
+        }
+
     }
 }
 
