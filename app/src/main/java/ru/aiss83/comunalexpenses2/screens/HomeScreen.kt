@@ -1,16 +1,14 @@
-package ru.aiss83.comunalexpenses2
+package ru.aiss83.comunalexpenses2.screens
 
+import android.app.Application
 import android.icu.text.SimpleDateFormat
-import android.widget.GridLayout
-import androidx.compose.foundation.background
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -34,18 +32,16 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.HorizontalAlignmentLine
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import ru.aiss83.comunalexpenses2.DeleteConfirmationDialog
+import ru.aiss83.comunalexpenses2.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 import java.util.Date
@@ -55,14 +51,43 @@ import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainContent(
+fun HomeScreen(
     allResourceData: List<ResourceData>,
     viewModel: ResourcesDataViewModel,
     onNavigateToAddExpenses: () -> Unit,
     onNavigateToSettings: () -> Unit) {
 
+    var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
+    /* Store UUID to reove as string */
+    var boundToRemove by rememberSaveable { mutableStateOf("") }
+
     val removeRecord = { id: UUID ->
-        viewModel.deleteResourceData(id)
+        boundToRemove = id.toString()
+        openRemoveDialog = true
+    }
+
+    val localContext = LocalContext.current
+
+    val shareRecord = { id: UUID ->
+        viewModel.shareResourceData(id)
+    }
+
+    when {
+        openRemoveDialog -> {
+            DeleteConfirmationDialog(
+                onDismissRequest = {
+                    openRemoveDialog = false
+                    boundToRemove = ""
+                }
+            ) {
+                openRemoveDialog = false
+                if (boundToRemove.isNotEmpty()) {
+                    val id = UUID.fromString(boundToRemove)
+                    viewModel.deleteResourceData(id)
+                    boundToRemove = ""
+                }
+            }
+        }
     }
 
     Scaffold(
@@ -90,31 +115,21 @@ fun MainContent(
     ) { innerPadding ->
         LazyColumn(modifier = Modifier.padding(innerPadding), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             items(allResourceData) { item ->
-                ResourcesCard(record = item, removeRecord)
+                ResourcesCard(record = item, removeRecord, shareRecord)
             }
         }
     }
 }
 
 @Composable
-fun ResourcesCard(record: ResourceData, onDataRemove: (id: UUID) -> Unit) {
-
-    var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
+fun ResourcesCard(
+    record: ResourceData,
+    onDataRemove: (id: UUID) -> Unit,
+    onShare: (id: UUID) -> Unit) {
 
     val rowsModifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 4.dp, vertical = 4.dp)
-
-    when {
-        openRemoveDialog -> {
-            DeleteConfirmationDialog(
-                onDismissRequest = { openRemoveDialog = false }
-            ) {
-                openRemoveDialog = false
-                onDataRemove(record.id)
-            }
-        }
-    }
 
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -132,13 +147,13 @@ fun ResourcesCard(record: ResourceData, onDataRemove: (id: UUID) -> Unit) {
 
                 Row {
                     IconButton(
-                        onClick = { /*TODO: send to someone */ }
+                        onClick = { onShare(record.id) }
                     ) {
                         Icon(Icons.Filled.Share, "Share to...")
                     }
                     IconButton(
                         onClick = {
-                            openRemoveDialog = true
+                            onDataRemove(record.id)
                         }
                     ) {
                         Icon(Icons.Filled.Delete, contentDescription = "Delete record")

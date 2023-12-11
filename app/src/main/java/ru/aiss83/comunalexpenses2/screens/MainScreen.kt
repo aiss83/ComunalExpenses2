@@ -1,14 +1,11 @@
 package ru.aiss83.comunalexpenses2.screens
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
-import ru.aiss83.comunalexpenses2.MainContent
 import ru.aiss83.comunalexpenses2.NavRoutes
 import ru.aiss83.comunalexpenses2.ResourcesDataViewModel
 
@@ -19,7 +16,7 @@ fun MainScreen(viewModel: ResourcesDataViewModel) {
 
     NavHost(navController = navController, startDestination= NavRoutes.Home.route) {
         composable(route = NavRoutes.Home.route) {
-            MainContent(
+            HomeScreen(
                 allResourceData = allResourcesData,
                 viewModel = viewModel,
                 onNavigateToAddExpenses = {
