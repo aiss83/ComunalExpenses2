@@ -35,6 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -98,9 +99,22 @@ fun MainContent(
 @Composable
 fun ResourcesCard(record: ResourceData, onDataRemove: (id: UUID) -> Unit) {
 
+    var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
+
     val rowsModifier = Modifier
         .fillMaxWidth()
         .padding(horizontal = 4.dp, vertical = 4.dp)
+
+    when {
+        openRemoveDialog -> {
+            DeleteConfirmationDialog(
+                onDismissRequest = { openRemoveDialog = false }
+            ) {
+                openRemoveDialog = false
+                onDataRemove(record.id)
+            }
+        }
+    }
 
     Card(modifier = Modifier
         .fillMaxWidth()
@@ -123,7 +137,9 @@ fun ResourcesCard(record: ResourceData, onDataRemove: (id: UUID) -> Unit) {
                         Icon(Icons.Filled.Share, "Share to...")
                     }
                     IconButton(
-                        onClick = { onDataRemove(record.id) }
+                        onClick = {
+                            openRemoveDialog = true
+                        }
                     ) {
                         Icon(Icons.Filled.Delete, contentDescription = "Delete record")
                     }
