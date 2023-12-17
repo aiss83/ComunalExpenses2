@@ -58,15 +58,13 @@ fun HomeScreen(
     onNavigateToSettings: () -> Unit) {
 
     var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
-    /* Store UUID to reove as string */
+    /* Store UUID to remove as string */
     var boundToRemove by rememberSaveable { mutableStateOf("") }
 
     val removeRecord = { id: UUID ->
         boundToRemove = id.toString()
         openRemoveDialog = true
     }
-
-    val localContext = LocalContext.current
 
     val shareRecord = { id: UUID ->
         viewModel.shareResourceData(id)
