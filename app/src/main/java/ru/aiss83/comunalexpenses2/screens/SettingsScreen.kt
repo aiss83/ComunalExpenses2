@@ -22,7 +22,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -56,7 +55,7 @@ fun SettingsScreen(navHostController: NavHostController) {
             .fillMaxSize()
             .padding(it),
             contentAlignment = Alignment.Center) {
-            Text(text = "Settings screen", style = MaterialTheme.typography.headlineSmall)
+            SettingsContent()
         }
     }
 }
@@ -97,7 +96,7 @@ fun SettingsContent() {
     }
 }
 
-@Preview
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun SettingsContentPreview() {
     ComunalExpenses2Theme {

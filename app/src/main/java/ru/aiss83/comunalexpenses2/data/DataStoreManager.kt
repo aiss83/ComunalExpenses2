@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 interface DataStoreManager {
     suspend fun saveSettings(data: SettingsData)
 
-    fun getSettings(): Flow<SettingsData>
+    val settingsData: Flow<SettingsData>
 }
