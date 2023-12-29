@@ -38,14 +38,19 @@ class MainActivity : ComponentActivity() {
 
                     owner?.let {
                         val prefs = DataStoreManagerFactory().create(SettingsDataSource.PREFERENCES_DATA_STORE, dataSource)
-                        val viewModel: ResourcesDataViewModel = viewModel(
+                        val resourceDataViewModel: ResourcesDataViewModel = viewModel(
                             it,
                             "ResourcesDataViewModel",
                             ResourcesDataViewModelFactory(LocalContext.current.applicationContext
                                     as Application)
                         )
+                        val settingsViewModel: SettingsViewModel = viewModel(
+                            it,
+                            "SettingsViewModel",
+                            SettingsViewModelFactory(prefs)
+                        )
 
-                        MainScreen(viewModel)
+                        MainScreen(resourceDataViewModel, settingsViewModel)
                     }
                 }
             }

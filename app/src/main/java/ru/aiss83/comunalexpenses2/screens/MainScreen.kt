@@ -8,9 +8,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
 import ru.aiss83.comunalexpenses2.NavRoutes
 import ru.aiss83.comunalexpenses2.ResourcesDataViewModel
+import ru.aiss83.comunalexpenses2.SettingsViewModel
 
 @Composable
-fun MainScreen(viewModel: ResourcesDataViewModel) {
+fun MainScreen(viewModel: ResourcesDataViewModel, settingsModel: SettingsViewModel) {
     val allResourcesData by viewModel.allResourcesData.observeAsState(initial = listOf())
     val navController = rememberNavController()
 
@@ -30,7 +31,7 @@ fun MainScreen(viewModel: ResourcesDataViewModel) {
             AddResourcesDataScreen(viewModel = viewModel, navController = navController)
         }
         composable(route = NavRoutes.Settings.route) {
-            SettingsScreen(navHostController = navController)
+            SettingsScreen(viewModel = settingsModel, navHostController = navController)
         }
     }
 }

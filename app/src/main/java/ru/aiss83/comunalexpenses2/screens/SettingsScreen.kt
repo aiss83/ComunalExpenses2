@@ -1,6 +1,7 @@
 package ru.aiss83.comunalexpenses2.screens
 
 import android.widget.EditText
+import androidx.compose.compiler.plugins.kotlin.ComposeCallableIds.remember
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,17 +24,42 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import ru.aiss83.comunalexpenses2.SettingsViewModel
+import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(navHostController: NavHostController) {
+fun SettingsScreen(viewModel: SettingsViewModel, navHostController: NavHostController) {
+
+    val settings by viewModel.settingsData.collectAsStateWithLifecycle(
+        initialValue = SettingsData("", 0, 0)
+    )
+
+    var streetValue by remember { mutableStateOf(settings.street) }
+    var houseValue by remember { mutableIntStateOf(settings.house) }
+    var flatValue by remember { mutableIntStateOf(settings.flat) }
+
+    fun textLeadZerosToInt(text: String) : Int {
+        val value = text.trimStart('0')
+        if (value.isNotEmpty() && value.isNotBlank()) {
+            return value.toInt()
+        }
+
+        return 0
+    }
 
     Scaffold(
         topBar = {
@@ -45,7 +71,9 @@ fun SettingsScreen(navHostController: NavHostController) {
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /*TODO: implement save to storage table */ }) {
+                    IconButton(onClick = {
+                        viewModel.saveSettings(streetValue, houseValue, flatValue)
+                    }) {
                         Icon(imageVector = Icons.Default.Done, contentDescription = "Save settings")
                     }
                 })
@@ -54,39 +82,60 @@ fun SettingsScreen(navHostController: NavHostController) {
         Box(modifier = Modifier
             .fillMaxSize()
             .padding(it),
-            contentAlignment = Alignment.Center) {
-            SettingsContent()
+            contentAlignment = Alignment.TopCenter) {
+            SettingsContent(
+                streetValue = streetValue,
+                streetValueChanged = { text ->
+                    streetValue = text
+                },
+                houseValue = houseValue.toString(),
+                houseValueChanged = {text ->
+                    houseValue = textLeadZerosToInt(text)
+                },
+                flatValue = flatValue.toString(),
+                flatValueChanged = { text ->
+                    flatValue = textLeadZerosToInt(text)
+                }
+            )
         }
     }
 }
 
 @Composable
-fun SettingsContent() {
+fun SettingsContent(
+    streetValue: String,
+    streetValueChanged: (String) -> Unit = {},
+    houseValue: String,
+    houseValueChanged: (String) -> Unit = {},
+    flatValue: String,
+    flatValueChanged: (String) -> Unit = {}
+) {
+
     Card(modifier = Modifier
         .padding(4.dp)
         .wrapContentSize(Alignment.TopStart)) {
         Column {
             Row (modifier = Modifier.fillMaxWidth(1.0f)) {
-                TextField(value = "",
-                    onValueChange = {},
+                TextField(value = streetValue,
+                    onValueChange = streetValueChanged,
                     label = {
                         Text(text = "Street")
                     }
                 )
             }
             Row {
-                TextField(value = "",
-                    onValueChange = {},
+                TextField(value = houseValue,
+                    onValueChange = houseValueChanged,
                     label = {
-                        Text(text = "Flat")
+                        Text(text = "House")
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(0.5f)
                 )
-                TextField(value = "",
-                    onValueChange = {},
+                TextField(value = flatValue,
+                    onValueChange = flatValueChanged,
                     label = {
-                        Text(text = "House")
+                        Text(text = "Flat")
                     },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier.weight(0.5f)
@@ -101,7 +150,7 @@ fun SettingsContent() {
 fun SettingsContentPreview() {
     ComunalExpenses2Theme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            SettingsContent()
+            SettingsContent(streetValue = "", houseValue = "", flatValue = "")
         }
     }
 }
