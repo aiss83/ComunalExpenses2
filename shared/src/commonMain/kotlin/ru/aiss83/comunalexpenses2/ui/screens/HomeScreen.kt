@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.ui.components.DeleteConfirmationDialog
+import ru.aiss83.comunalexpenses2.utils.shareText
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -54,7 +55,18 @@ fun HomeScreen(
     }
 
     val shareRecord = { id: Uuid ->
-        // TODO: Implement share functionality for KMP
+        val record = allResourceData.find { it.id == id }
+        if (record != null) {
+            val shareText = buildString {
+                appendLine("Communal Expenses - ${record.formatDate()}")
+                appendLine()
+                appendLine("Cold Water: ${record.coldWater}")
+                appendLine("Hot Water: ${record.hotWater}")
+                appendLine("Electricity (Day): ${record.dayElectricity} kWh")
+                appendLine("Electricity (Night): ${record.nightElectricity} kWh")
+            }
+            shareText(shareText, "Communal Expenses")
+        }
     }
 
     if (openRemoveDialog) {
