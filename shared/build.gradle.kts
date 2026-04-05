@@ -24,6 +24,16 @@ kotlin {
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
+        // Apply linker opts at compilation level so they propagate through static framework
+        iosTarget.compilations.all {
+            compileTaskProvider.configure {
+                compilerOptions {
+                    freeCompilerArgs.add("-linker-options")
+                    freeCompilerArgs.add("-lsqlite3")
+                }
+            }
+        }
+
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
@@ -32,7 +42,6 @@ kotlin {
                 "-Xbinary=bundleId=ru.aiss83.comunalexpenses2.shared",
                 "-opt-in=kotlinx.cinterop.ExperimentalForeignApi"
             )
-            // Link system sqlite3 library (required by SQLDelight native driver)
             linkerOpts("-lsqlite3")
         }
     }
