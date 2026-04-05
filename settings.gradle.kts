@@ -17,3 +17,4 @@ rootProject.name = "ComunalExpenses2"
 
 include(":androidApp")
 include(":shared")
+include(":iosApp")

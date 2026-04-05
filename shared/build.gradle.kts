@@ -27,6 +27,11 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "Shared"
             isStatic = true
+            binaryOption("bundleId", "ru.aiss83.comunalexpenses2.shared")
+            freeCompilerArgs += listOf(
+                "-Xbinary=bundleId=ru.aiss83.comunalexpenses2.shared",
+                "-opt-in=kotlinx.cinterop.ExperimentalForeignApi"
+            )
         }
     }
 
