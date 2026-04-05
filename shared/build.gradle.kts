@@ -32,6 +32,8 @@ kotlin {
                 "-Xbinary=bundleId=ru.aiss83.comunalexpenses2.shared",
                 "-opt-in=kotlinx.cinterop.ExperimentalForeignApi"
             )
+            // Link system sqlite3 library (required by SQLDelight native driver)
+            linkerOpts("-lsqlite3")
         }
     }
 
