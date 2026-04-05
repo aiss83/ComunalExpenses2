@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS resources_records (
+    recordId TEXT NOT NULL PRIMARY KEY,
+    date INTEGER NOT NULL,
+    waterHot INTEGER NOT NULL DEFAULT 0,
+    waterCold INTEGER NOT NULL DEFAULT 0,
+    electricityDay INTEGER NOT NULL DEFAULT 0,
+    electricityNight INTEGER NOT NULL DEFAULT 0
+);
+
+getAllResourceData:
+SELECT * FROM resources_records ORDER BY date DESC;
+
+findResourceDataById:
+SELECT * FROM resources_records WHERE recordId = :recordId;
+
+findResourceDataByDate:
+SELECT * FROM resources_records WHERE date = :dataDate;
+
+insertResourceData:
+INSERT INTO resources_records (recordId, date, waterHot, waterCold, electricityDay, electricityNight)
+VALUES (?, ?, ?, ?, ?, ?);
+
+updateResourceData:
+UPDATE resources_records
+SET date = :date, waterHot = :waterHot, waterCold = :waterCold, electricityDay = :electricityDay, electricityNight = :electricityNight
+WHERE recordId = :recordId;
+
+deleteResourceData:
+DELETE FROM resources_records WHERE recordId = :recordId;
+
+deleteAllResourceData:
+DELETE FROM resources_records;
