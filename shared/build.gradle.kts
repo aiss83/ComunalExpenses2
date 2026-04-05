@@ -120,3 +120,18 @@ sqldelight {
         }
     }
 }
+
+// Xcode integration: create a configuration for the framework that Xcode can consume
+val xcodeFrameworksDir = layout.buildDirectory.dir("xcode-frameworks")
+
+tasks.register<Copy>("embedAndSignAppleFrameworkForXcode") {
+    val framework = kotlin.targets.getByName("iosSimulatorArm64").binaries.getFramework("Debug")
+    from(framework.outputDirectory)
+    into(xcodeFrameworksDir.map { it.dir("Debug/iphonesimulator/framework") })
+}
+
+tasks.register<Copy>("embedAndSignAppleFrameworkForXcodeRelease") {
+    val framework = kotlin.targets.getByName("iosSimulatorArm64").binaries.getFramework("Release")
+    from(framework.outputDirectory)
+    into(xcodeFrameworksDir.map { it.dir("Release/iphonesimulator/framework") })
+}
