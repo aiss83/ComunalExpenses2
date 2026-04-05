@@ -5,7 +5,6 @@ import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
-import org.koin.java.KoinJavaComponent
 
 /**
  * Android implementation of SQLDelight driver factory.

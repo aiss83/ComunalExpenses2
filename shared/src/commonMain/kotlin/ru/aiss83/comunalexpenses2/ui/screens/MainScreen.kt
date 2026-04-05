@@ -2,6 +2,7 @@ package ru.aiss83.comunalexpenses2.ui.screens
 
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,7 +35,7 @@ fun App(
 
             when (currentRoute) {
                 AppRoute.Home -> {
-                    val allResourcesData by resourcesDataViewModel.allResourcesData
+                    val allResourcesData by resourcesDataViewModel.allResourcesData.collectAsState()
                     HomeScreen(
                         allResourceData = allResourcesData,
                         viewModel = resourcesDataViewModel,

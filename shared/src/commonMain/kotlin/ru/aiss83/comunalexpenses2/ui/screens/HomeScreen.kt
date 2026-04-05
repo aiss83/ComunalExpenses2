@@ -34,9 +34,10 @@ import androidx.compose.ui.unit.dp
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.ui.components.DeleteConfirmationDialog
+import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalUuidApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     allResourceData: List<ResourceData>,
@@ -100,6 +101,7 @@ fun HomeScreen(
     }
 }
 
+@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun ResourcesCard(
     record: ResourceData,

@@ -15,3 +15,10 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Build directories
+**/build/
+.gradle/
+*.iml
+.DS_Store
+.qwen/

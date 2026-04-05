@@ -8,12 +8,14 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.data.ResourceDataRepository
+import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
  * ViewModel for managing utility meter readings (resource data).
  * Uses StateFlow instead of LiveData for KMP compatibility.
  */
+@OptIn(ExperimentalUuidApi::class)
 class ResourcesDataViewModel(
     private val repository: ResourceDataRepository
 ) : ViewModel() {

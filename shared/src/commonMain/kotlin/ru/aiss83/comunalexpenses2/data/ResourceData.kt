@@ -1,17 +1,20 @@
 package ru.aiss83.comunalexpenses2.data
 
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
  * Domain model for utility meter readings.
  * Represents a single record of resource consumption (water, electricity).
  */
+@OptIn(ExperimentalUuidApi::class)
 data class ResourceData(
     val id: Uuid = Uuid.random(),
-    val date: Long = Instant.fromEpochMilliseconds(System.currentTimeMillis()).toEpochMilliseconds(),
+    val date: Long = Clock.System.now().toEpochMilliseconds(),
     val hotWater: Long = 0,
     val coldWater: Long = 0,
     val dayElectricity: Long = 0,

@@ -26,7 +26,10 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
+@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun AddResourcesDataScreen(
     viewModel: ResourcesDataViewModel,

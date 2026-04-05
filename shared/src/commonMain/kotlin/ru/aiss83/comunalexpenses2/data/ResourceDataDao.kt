@@ -7,11 +7,28 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+
+/**
+ * Extension function to convert SQLDelight record to domain model.
+ */
+@OptIn(ExperimentalUuidApi::class)
+private fun Resources_records.toResourceData(): ResourceData {
+    return ResourceData(
+        id = Uuid.parse(recordId),
+        date = date,
+        hotWater = waterHot,
+        coldWater = waterCold,
+        dayElectricity = electricityDay,
+        nightElectricity = electricityNight
+    )
+}
 
 /**
  * DAO-like wrapper for ResourceData operations using SQLDelight.
  */
+@OptIn(ExperimentalUuidApi::class)
 class ResourceDataDao(private val database: ResourcesDatabase) {
 
     private val queries = database.resourcesRecordsQueries

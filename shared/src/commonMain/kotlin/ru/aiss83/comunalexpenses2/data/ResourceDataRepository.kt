@@ -1,12 +1,14 @@
 package ru.aiss83.comunalexpenses2.data
 
 import kotlinx.coroutines.flow.Flow
+import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
  * Repository for ResourceData operations.
  * Provides a clean API for the ViewModel to interact with the database.
  */
+@OptIn(ExperimentalUuidApi::class)
 class ResourceDataRepository(private val dao: ResourceDataDao) {
 
     /**
