@@ -10,9 +10,10 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.automirrored.rounded.List
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -91,14 +92,14 @@ fun HomeScreen(
                 title = { Text("Communal Expenses") },
                 actions = {
                     IconButton(onClick = onNavigateToSettings) {
-                        Icon(Icons.Filled.List, "Settings")
+                        Icon(Icons.AutoMirrored.Rounded.List, "Settings")
                     }
                 }
             )
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onNavigateToAddExpenses) {
-                Text("+")
+                Icon(Icons.Rounded.Add, "Add reading")
             }
         }
     ) { innerPadding ->
@@ -142,10 +143,10 @@ fun ResourcesCard(
 
                 Row {
                     IconButton(onClick = { onShare(record.id) }) {
-                        Icon(Icons.Filled.Share, "Share to...")
+                        Icon(Icons.Rounded.Share, "Share to...")
                     }
                     IconButton(onClick = { onDataRemove(record.id) }) {
-                        Icon(Icons.Filled.Delete, contentDescription = "Delete record")
+                        Icon(Icons.Rounded.Delete, contentDescription = "Delete record")
                     }
                 }
             }

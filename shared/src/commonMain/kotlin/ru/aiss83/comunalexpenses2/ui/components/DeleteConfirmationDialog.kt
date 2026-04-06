@@ -3,7 +3,7 @@ package ru.aiss83.comunalexpenses2.ui.components
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
@@ -22,7 +22,7 @@ fun DeleteConfirmationDialog(
     AlertDialog(
         modifier = Modifier.wrapContentSize(Alignment.Center),
         icon = {
-            Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete record")
+            Icon(imageVector = Icons.Rounded.Delete, contentDescription = "Delete record")
         },
         title = {
             Text(text = "Delete confirmation")
