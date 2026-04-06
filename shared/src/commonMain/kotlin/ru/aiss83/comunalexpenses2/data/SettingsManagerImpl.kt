@@ -4,15 +4,13 @@ import com.russhwolf.settings.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 
 /**
  * Interface for settings storage using multiplatform-settings.
  */
 interface SettingsManager {
     val settingsData: Flow<SettingsData>
-
-    suspend fun saveSettings(data: SettingsData)
+    fun saveSettings(data: SettingsData)
 }
 
 /**
@@ -38,11 +36,10 @@ class SettingsManagerImpl(private val settings: Settings) : SettingsManager {
         )
     }
 
-    override suspend fun saveSettings(data: SettingsData) {
+    override fun saveSettings(data: SettingsData) {
         settings.putString(KEY_STREET, data.street)
         settings.putInt(KEY_HOUSE, data.house)
         settings.putInt(KEY_FLAT, data.flat)
-        // Notify observers about the change
         _settingsData.value = data
     }
 }
