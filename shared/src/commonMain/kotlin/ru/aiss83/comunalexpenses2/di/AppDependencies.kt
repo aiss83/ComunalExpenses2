@@ -5,32 +5,29 @@ import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 
 /**
- * Simple dependency injection container.
- * Holds all shared instances of repositories, ViewModels, and services.
- * This is a manual DI approach to avoid framework dependencies in KMP.
+ * Legacy singleton DI container.
+ *
+ * @deprecated Use [AppContainer] with Compose-aware ViewModel providers instead.
+ * Kept for backward compatibility with existing code.
  */
+@Deprecated(
+    message = "Use AppContainer with container.resourcesDataViewModel instead",
+    replaceWith = ReplaceWith("AppContainer")
+)
 object AppDependencies {
 
-    // Database
-    val database: ResourcesDatabase by lazy { createDatabase() }
+    private val container by lazy { AppContainer() }
 
-    // DAO
-    val resourceDataDao: ResourceDataDao by lazy { ResourceDataDao(database) }
+    val database: ResourcesDatabase get() = container.database
+    val resourceDataDao: ResourceDataDao get() = container.resourceDataDao
+    val resourceDataRepository: ResourceDataRepository get() = container.resourceDataRepository
+    val settingsManager: SettingsManager get() = container.settingsManager
 
-    // Repository
-    val resourceDataRepository: ResourceDataRepository by lazy {
-        ResourceDataRepository(resourceDataDao)
-    }
-
-    // Settings
-    val settingsManager: SettingsManager by lazy { createSettingsManager() }
-
-    // ViewModels (created with factories when needed)
     fun createResourcesDataViewModel(): ResourcesDataViewModel {
-        return ResourcesDataViewModel(resourceDataRepository)
+        return container.resourcesDataViewModel
     }
 
     fun createSettingsViewModel(): SettingsViewModel {
-        return SettingsViewModel(settingsManager)
+        return container.settingsViewModel
     }
 }

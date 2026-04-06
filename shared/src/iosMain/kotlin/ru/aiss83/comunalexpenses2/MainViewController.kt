@@ -1,14 +1,15 @@
 package ru.aiss83.comunalexpenses2
 
 import androidx.compose.runtime.remember
-import androidx.compose.ui.interop.LocalUIViewController
 import androidx.compose.ui.window.ComposeUIViewController
-import ru.aiss83.comunalexpenses2.di.AppDependencies
+import ru.aiss83.comunalexpenses2.di.AppContainer
+import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
+import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 import ru.aiss83.comunalexpenses2.ui.screens.App
 
 /**
  * Factory function to create the main UIViewController for iOS.
- * This is exposed to Swift via Kotlin/Native interop.
+ * Uses AppContainer for dependency injection with ViewModel caching.
  *
  * Usage from Swift:
  * ```swift
@@ -21,9 +22,10 @@ fun MainViewController() = ComposeUIViewController(
         enforceStrictPlistSanityCheck = false
     }
 ) {
-    val dependencies = remember { AppDependencies }
-    val resourcesDataViewModel = dependencies.createResourcesDataViewModel()
-    val settingsViewModel = dependencies.createSettingsViewModel()
+    // AppContainer survives recomposition via remember, ViewModels are cached inside it
+    val container = remember { AppContainer() }
+    val resourcesDataViewModel = container.resourcesDataViewModel
+    val settingsViewModel = container.settingsViewModel
 
     App(
         resourcesDataViewModel = resourcesDataViewModel,
