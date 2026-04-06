@@ -4,14 +4,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +35,7 @@ import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalUuidApi::class)
+@OptIn(ExperimentalUuidApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun AddResourcesDataScreen(
     viewModel: ResourcesDataViewModel,
@@ -48,99 +54,106 @@ fun AddResourcesDataScreen(
             "${currentDate.monthNumber.toString().padStart(2, '0')}." +
             "${currentDate.year}"
 
-    Column(
-        modifier = Modifier.fillMaxHeight().padding(all = 4.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth().padding(4.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Add Readings") },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                    }
+                },
+                actions = {
+                    TextButton(
+                        onClick = {
+                            viewModel.addResourcesData(
+                                ResourceData(
+                                    coldWater = coldWaterValue.toLongOrNull() ?: 0,
+                                    hotWater = hotWaterValue.toLongOrNull() ?: 0,
+                                    dayElectricity = daykWhValue.toLongOrNull() ?: 0,
+                                    nightElectricity = nightkWhValue.toLongOrNull() ?: 0
+                                )
+                            )
+                            onNavigateBack()
+                        }
+                    ) {
+                        Text("Save")
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(innerPadding)
+                .padding(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Date header
             Text(
                 text = formattedDate,
                 style = MaterialTheme.typography.headlineSmall
             )
-        }
 
-        // Cold water
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-        ) {
-            TextField(
-                value = coldWaterValue,
-                label = { Text(text = "Cold Water") },
-                onValueChange = { newText -> coldWaterValue = newText.trimStart { it == '0' } },
-                modifier = Modifier.weight(1.0f),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+            // Water readings
+            Text(
+                text = "Water Readings",
+                style = MaterialTheme.typography.titleMedium
             )
-            Spacer(modifier = Modifier.weight(0.1f))
-            TextField(
-                value = hotWaterValue,
-                label = { Text(text = "Hot Water") },
-                onValueChange = { newText -> hotWaterValue = newText.trimStart { it == '0' } },
-                modifier = Modifier.weight(1.0f),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
-        }
-
-        // Electricity
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-        ) {
-            TextField(
-                value = daykWhValue,
-                label = { Text(text = "kWh Day") },
-                onValueChange = { newText -> daykWhValue = newText.trimStart { it == '0' } },
-                modifier = Modifier.weight(1.0f),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
-            Spacer(modifier = Modifier.weight(0.1f))
-            TextField(
-                value = nightkWhValue,
-                label = { Text(text = "kWh Night") },
-                onValueChange = { newText -> nightkWhValue = newText.trimStart { it == '0' } },
-                modifier = Modifier.weight(1.0f),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-            )
-        }
-
-        Spacer(modifier = Modifier.weight(1.0f))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceAround,
-        ) {
-            TextButton(
-                modifier = Modifier.weight(1.0f),
-                onClick = {
-                    resourcesRecord.copy(
-                        coldWater = coldWaterValue.toLong(),
-                        hotWater = hotWaterValue.toLong(),
-                        dayElectricity = daykWhValue.toLong(),
-                        nightElectricity = nightkWhValue.toLong()
-                    )
-                    viewModel.addResourcesData(
-                        ResourceData(
-                            coldWater = coldWaterValue.toLong(),
-                            hotWater = hotWaterValue.toLong(),
-                            dayElectricity = daykWhValue.toLong(),
-                            nightElectricity = nightkWhValue.toLong()
-                        )
-                    )
-                    onNavigateBack()
-                }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text(text = "Save")
+                TextField(
+                    value = coldWaterValue,
+                    onValueChange = { coldWaterValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
+                    label = { Text("Cold Water") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                TextField(
+                    value = hotWaterValue,
+                    onValueChange = { hotWaterValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
+                    label = { Text("Hot Water") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
             }
-            Spacer(modifier = Modifier.weight(0.1f))
-            TextButton(
-                modifier = Modifier.weight(1.0f),
-                onClick = { onNavigateBack() }
+
+            // Electricity readings
+            Text(
+                text = "Electricity Readings",
+                style = MaterialTheme.typography.titleMedium
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
             ) {
-                Text(text = "Cancel")
+                TextField(
+                    value = daykWhValue,
+                    onValueChange = { daykWhValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
+                    label = { Text("kWh Day") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+                TextField(
+                    value = nightkWhValue,
+                    onValueChange = { nightkWhValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
+                    label = { Text("kWh Night") },
+                    modifier = Modifier.weight(1f),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Cancel button at bottom
+            TextButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onNavigateBack
+            ) {
+                Text("Cancel")
             }
         }
     }
