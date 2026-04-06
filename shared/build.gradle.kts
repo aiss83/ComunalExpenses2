@@ -77,6 +77,11 @@ kotlin {
                 // Navigation (Decompose)
                 implementation("com.arkivanov.decompose:decompose:3.3.0")
                 implementation("com.arkivanov.decompose:extensions-compose:3.3.0")
+
+                // Koin DI
+                api("io.insert-koin:koin-core:4.0.2")
+                api("io.insert-koin:koin-compose:4.0.2")
+                api("io.insert-koin:koin-compose-viewmodel-navigation:4.0.2")
             }
         }
 
@@ -90,6 +95,9 @@ kotlin {
             dependencies {
                 implementation("androidx.activity:activity-compose:1.10.1")
                 implementation("app.cash.sqldelight:android-driver:2.0.2")
+                implementation("io.insert-koin:koin-android:3.5.6")
+                implementation("io.insert-koin:koin-androidx-compose:3.5.6")
+                implementation("io.insert-koin:koin-compose:4.0.2")
             }
         }
 
