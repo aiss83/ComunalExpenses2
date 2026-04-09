@@ -1,0 +1,47 @@
+/* 
+  Localizable.strings
+  Russian localization for Comunal Expenses iOS app
+*/
+
+/* App name */
+"app_name" = "Коммунальные расходы";
+
+/* Home Screen */
+"home_title" = "Коммунальные расходы";
+"home_settings_content_desc" = "Настройки";
+"home_add_content_desc" = "Добавить показания";
+"home_cold_water" = "Хол. вода";
+"home_hot_water" = "Гор. вода";
+"home_kwh_day" = "кВт·ч День";
+"home_kwh_night" = "кВт·ч Ночь";
+"home_share_content_desc" = "Поделиться...";
+"home_delete_content_desc" = "Удалить запись";
+"home_share_title" = "Коммунальные расходы";
+
+/* Add Readings Screen */
+"add_readings_title" = "Добавить показания";
+"add_readings_back_content_desc" = "Назад";
+"add_readings_save" = "Сохранить";
+"add_readings_cancel" = "Отмена";
+"add_readings_water_section" = "Показания воды";
+"add_readings_electricity_section" = "Показания электричества";
+"add_readings_cold_water" = "Хол. вода";
+"add_readings_hot_water" = "Гор. вода";
+"add_readings_kwh_day" = "кВт·ч День";
+"add_readings_kwh_night" = "кВт·ч Ночь";
+
+/* Settings Screen */
+"settings_title" = "Настройки";
+"settings_back_content_desc" = "На главную";
+"settings_save_content_desc" = "Сохранить настройки";
+"settings_street" = "Улица";
+"settings_house" = "Дом";
+"settings_flat" = "Квартира";
+"settings_address_label" = "Адрес";
+
+/* Delete Confirmation Dialog */
+"delete_dialog_title" = "Подтверждение удаления";
+"delete_dialog_text" = "Вы уверены, что хотите удалить запись навсегда?";
+"delete_dialog_confirm" = "Подтвердить";
+"delete_dialog_dismiss" = "Отмена";
+"delete_dialog_icon_desc" = "Удалить запись";

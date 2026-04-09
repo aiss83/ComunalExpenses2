@@ -27,9 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import comunalexpenses2.shared.generated.resources.*
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import kotlin.uuid.ExperimentalUuidApi
@@ -57,10 +59,10 @@ fun AddResourcesDataScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Add Readings") },
+                title = { Text(stringResource(Res.string.add_readings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, "Back")
+                        Icon(Icons.AutoMirrored.Rounded.ArrowBack, stringResource(Res.string.add_readings_back_content_desc))
                     }
                 },
                 actions = {
@@ -77,7 +79,7 @@ fun AddResourcesDataScreen(
                             onNavigateBack()
                         }
                     ) {
-                        Text("Save")
+                        Text(stringResource(Res.string.add_readings_save))
                     }
                 }
             )
@@ -98,7 +100,7 @@ fun AddResourcesDataScreen(
 
             // Water readings
             Text(
-                text = "Water Readings",
+                text = stringResource(Res.string.add_readings_water_section),
                 style = MaterialTheme.typography.titleMedium
             )
             Row(
@@ -108,14 +110,14 @@ fun AddResourcesDataScreen(
                 TextField(
                     value = coldWaterValue,
                     onValueChange = { coldWaterValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
-                    label = { Text("Cold Water") },
+                    label = { Text(stringResource(Res.string.add_readings_cold_water)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 TextField(
                     value = hotWaterValue,
                     onValueChange = { hotWaterValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
-                    label = { Text("Hot Water") },
+                    label = { Text(stringResource(Res.string.add_readings_hot_water)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
@@ -123,7 +125,7 @@ fun AddResourcesDataScreen(
 
             // Electricity readings
             Text(
-                text = "Electricity Readings",
+                text = stringResource(Res.string.add_readings_electricity_section),
                 style = MaterialTheme.typography.titleMedium
             )
             Row(
@@ -133,14 +135,14 @@ fun AddResourcesDataScreen(
                 TextField(
                     value = daykWhValue,
                     onValueChange = { daykWhValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
-                    label = { Text("kWh Day") },
+                    label = { Text(stringResource(Res.string.add_readings_kwh_day)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 TextField(
                     value = nightkWhValue,
                     onValueChange = { nightkWhValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
-                    label = { Text("kWh Night") },
+                    label = { Text(stringResource(Res.string.add_readings_kwh_night)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
@@ -153,7 +155,7 @@ fun AddResourcesDataScreen(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = onNavigateBack
             ) {
-                Text("Cancel")
+                Text(stringResource(Res.string.add_readings_cancel))
             }
         }
     }

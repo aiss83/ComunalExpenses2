@@ -32,6 +32,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import comunalexpenses2.shared.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.ui.components.DeleteConfirmationDialog
@@ -55,10 +57,23 @@ fun HomeScreen(
         openRemoveDialog = true
     }
 
+    val dismissRemove = {
+        openRemoveDialog = false
+        boundToRemove = ""
+    }
+
+    val confirmRemove = {
+        openRemoveDialog = false
+        if (boundToRemove.isNotEmpty()) {
+            val id = Uuid.parse(boundToRemove)
+            viewModel.deleteResourceData(id)
+        }
+    }
+
     val shareRecord = { id: Uuid ->
         val record = allResourceData.find { it.id == id }
         if (record != null) {
-            val shareText = buildString {
+            val shareTextContent = buildString {
                 appendLine("Communal Expenses - ${record.formatDate()}")
                 appendLine()
                 appendLine("Cold Water: ${record.coldWater}")
@@ -66,40 +81,31 @@ fun HomeScreen(
                 appendLine("Electricity (Day): ${record.dayElectricity} kWh")
                 appendLine("Electricity (Night): ${record.nightElectricity} kWh")
             }
-            shareText(shareText, "Communal Expenses")
+            shareText(shareTextContent, "Communal Expenses")
         }
     }
 
     if (openRemoveDialog) {
         DeleteConfirmationDialog(
-            onDismissRequest = {
-                openRemoveDialog = false
-                boundToRemove = ""
-            }
-        ) {
-            openRemoveDialog = false
-            if (boundToRemove.isNotEmpty()) {
-                val id = Uuid.parse(boundToRemove)
-                viewModel.deleteResourceData(id)
-                boundToRemove = ""
-            }
-        }
+            onDismissRequest = dismissRemove,
+            onConfirmation = confirmRemove
+        )
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Communal Expenses") },
+                title = { Text(stringResource(Res.string.home_title)) },
                 actions = {
                     IconButton(onClick = onNavigateToSettings) {
-                        Icon(Icons.Rounded.Settings, "Settings")
+                        Icon(Icons.Rounded.Settings, stringResource(Res.string.home_settings_content_desc))
                     }
                 }
             )
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onNavigateToAddExpenses) {
-                Icon(Icons.Rounded.Add, "Add reading")
+                Icon(Icons.Rounded.Add, stringResource(Res.string.home_add_content_desc))
             }
         }
     ) { innerPadding ->
@@ -143,10 +149,10 @@ fun ResourcesCard(
 
                 Row {
                     IconButton(onClick = { onShare(record.id) }) {
-                        Icon(Icons.Rounded.Share, "Share to...")
+                        Icon(Icons.Rounded.Share, stringResource(Res.string.home_share_content_desc))
                     }
                     IconButton(onClick = { onDataRemove(record.id) }) {
-                        Icon(Icons.Rounded.Delete, contentDescription = "Delete record")
+                        Icon(Icons.Rounded.Delete, stringResource(Res.string.home_delete_content_desc))
                     }
                 }
             }
@@ -155,9 +161,9 @@ fun ResourcesCard(
                 modifier = rowsModifier,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "Cold water")
+                Text(text = stringResource(Res.string.home_cold_water))
                 Text(text = record.coldWater.toString())
-                Text(text = "Hot water")
+                Text(text = stringResource(Res.string.home_hot_water))
                 Text(text = record.hotWater.toString())
             }
             // Electricity
@@ -165,9 +171,9 @@ fun ResourcesCard(
                 modifier = rowsModifier,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = "kWh Day")
+                Text(text = stringResource(Res.string.home_kwh_day))
                 Text(text = record.dayElectricity.toString())
-                Text(text = "kWh Night")
+                Text(text = stringResource(Res.string.home_kwh_night))
                 Text(text = record.nightElectricity.toString())
             }
         }

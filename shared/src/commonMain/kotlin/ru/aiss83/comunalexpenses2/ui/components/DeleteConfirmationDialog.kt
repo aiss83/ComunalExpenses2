@@ -12,6 +12,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import comunalexpenses2.shared.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 
 @Composable
@@ -22,23 +24,23 @@ fun DeleteConfirmationDialog(
     AlertDialog(
         modifier = Modifier.wrapContentSize(Alignment.Center),
         icon = {
-            Icon(imageVector = Icons.Rounded.Delete, contentDescription = "Delete record")
+            Icon(imageVector = Icons.Rounded.Delete, contentDescription = stringResource(Res.string.delete_dialog_icon_desc))
         },
         title = {
-            Text(text = "Delete confirmation")
+            Text(text = stringResource(Res.string.delete_dialog_title))
         },
         text = {
-            Text(text = "Are you sure to delete record permanently?")
+            Text(text = stringResource(Res.string.delete_dialog_text))
         },
         onDismissRequest = { onDismissRequest() },
         confirmButton = {
             TextButton(onClick = { onConfirmation() }) {
-                Text(text = "Confirm")
+                Text(text = stringResource(Res.string.delete_dialog_confirm))
             }
         },
         dismissButton = {
             TextButton(onClick = { onDismissRequest() }) {
-                Text(text = "Dismiss")
+                Text(text = stringResource(Res.string.delete_dialog_dismiss))
             }
         }
     )

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name -->
+    <string name="app_name">Comunal Expenses</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Communal Expenses</string>
+    <string name="home_settings_content_desc">Settings</string>
+    <string name="home_add_content_desc">Add reading</string>
+    <string name="home_cold_water">Cold water</string>
+    <string name="home_hot_water">Hot water</string>
+    <string name="home_kwh_day">kWh Day</string>
+    <string name="home_kwh_night">kWh Night</string>
+    <string name="home_share_content_desc">Share to...</string>
+    <string name="home_delete_content_desc">Delete record</string>
+    <string name="home_share_title">Communal Expenses</string>
+
+    <!-- Add Readings Screen -->
+    <string name="add_readings_title">Add Readings</string>
+    <string name="add_readings_back_content_desc">Back</string>
+    <string name="add_readings_save">Save</string>
+    <string name="add_readings_cancel">Cancel</string>
+    <string name="add_readings_water_section">Water Readings</string>
+    <string name="add_readings_electricity_section">Electricity Readings</string>
+    <string name="add_readings_cold_water">Cold Water</string>
+    <string name="add_readings_hot_water">Hot Water</string>
+    <string name="add_readings_kwh_day">kWh Day</string>
+    <string name="add_readings_kwh_night">kWh Night</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_back_content_desc">Back to home</string>
+    <string name="settings_save_content_desc">Save settings</string>
+    <string name="settings_street">Street</string>
+    <string name="settings_house">House</string>
+    <string name="settings_flat">Flat</string>
+    <string name="settings_address_label">Address</string>
+
+    <!-- Delete Confirmation Dialog -->
+    <string name="delete_dialog_title">Delete confirmation</string>
+    <string name="delete_dialog_text">Are you sure to delete record permanently?</string>
+    <string name="delete_dialog_confirm">Confirm</string>
+    <string name="delete_dialog_dismiss">Dismiss</string>
+    <string name="delete_dialog_icon_desc">Delete record</string>
+</resources>

@@ -1,0 +1,47 @@
+/* 
+  Localizable.strings
+  English localization for Comunal Expenses iOS app
+*/
+
+/* App name */
+"app_name" = "Comunal Expenses";
+
+/* Home Screen */
+"home_title" = "Communal Expenses";
+"home_settings_content_desc" = "Settings";
+"home_add_content_desc" = "Add reading";
+"home_cold_water" = "Cold water";
+"home_hot_water" = "Hot water";
+"home_kwh_day" = "kWh Day";
+"home_kwh_night" = "kWh Night";
+"home_share_content_desc" = "Share to...";
+"home_delete_content_desc" = "Delete record";
+"home_share_title" = "Communal Expenses";
+
+/* Add Readings Screen */
+"add_readings_title" = "Add Readings";
+"add_readings_back_content_desc" = "Back";
+"add_readings_save" = "Save";
+"add_readings_cancel" = "Cancel";
+"add_readings_water_section" = "Water Readings";
+"add_readings_electricity_section" = "Electricity Readings";
+"add_readings_cold_water" = "Cold Water";
+"add_readings_hot_water" = "Hot Water";
+"add_readings_kwh_day" = "kWh Day";
+"add_readings_kwh_night" = "kWh Night";
+
+/* Settings Screen */
+"settings_title" = "Settings";
+"settings_back_content_desc" = "Back to home";
+"settings_save_content_desc" = "Save settings";
+"settings_street" = "Street";
+"settings_house" = "House";
+"settings_flat" = "Flat";
+"settings_address_label" = "Address";
+
+/* Delete Confirmation Dialog */
+"delete_dialog_title" = "Delete confirmation";
+"delete_dialog_text" = "Are you sure to delete record permanently?";
+"delete_dialog_confirm" = "Confirm";
+"delete_dialog_dismiss" = "Dismiss";
+"delete_dialog_icon_desc" = "Delete record";

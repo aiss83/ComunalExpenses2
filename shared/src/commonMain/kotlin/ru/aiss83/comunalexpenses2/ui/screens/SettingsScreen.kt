@@ -28,6 +28,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import comunalexpenses2.shared.generated.resources.*
+import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 
 /**
@@ -62,12 +64,12 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Settings") },
+                title = { Text(stringResource(Res.string.settings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
-                            contentDescription = "Back to home"
+                            contentDescription = stringResource(Res.string.settings_back_content_desc)
                         )
                     }
                 },
@@ -82,7 +84,7 @@ fun SettingsScreen(
                             onNavigateBack()
                         }
                     ) {
-                        Icon(Icons.Rounded.Done, "Save settings")
+                        Icon(Icons.Rounded.Done, stringResource(Res.string.settings_save_content_desc))
                     }
                 }
             )
@@ -98,7 +100,7 @@ fun SettingsScreen(
             TextField(
                 value = streetValue,
                 onValueChange = { streetValue = it },
-                label = { Text("Street") },
+                label = { Text(stringResource(Res.string.settings_street)) },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -109,14 +111,14 @@ fun SettingsScreen(
                 TextField(
                     value = houseValue,
                     onValueChange = { houseValue = it.filter { c -> c.isDigit() } },
-                    label = { Text("House") },
+                    label = { Text(stringResource(Res.string.settings_house)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 TextField(
                     value = flatValue,
                     onValueChange = { flatValue = it.filter { c -> c.isDigit() } },
-                    label = { Text("Flat") },
+                    label = { Text(stringResource(Res.string.settings_flat)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
@@ -125,7 +127,7 @@ fun SettingsScreen(
             // Display current formatted address as preview
             if (settings.isNotEmpty()) {
                 Text(
-                    text = "Address: ${settings.formatAddress()}",
+                    text = "${stringResource(Res.string.settings_address_label)}: ${settings.formatAddress()}",
                     style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.padding(top = 8.dp)
                 )

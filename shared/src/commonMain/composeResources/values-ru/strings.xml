@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App name -->
+    <string name="app_name">Коммунальные расходы</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Коммунальные расходы</string>
+    <string name="home_settings_content_desc">Настройки</string>
+    <string name="home_add_content_desc">Добавить показания</string>
+    <string name="home_cold_water">Хол. вода</string>
+    <string name="home_hot_water">Гор. вода</string>
+    <string name="home_kwh_day">кВт·ч День</string>
+    <string name="home_kwh_night">кВт·ч Ночь</string>
+    <string name="home_share_content_desc">Поделиться...</string>
+    <string name="home_delete_content_desc">Удалить запись</string>
+    <string name="home_share_title">Коммунальные расходы</string>
+
+    <!-- Add Readings Screen -->
+    <string name="add_readings_title">Добавить показания</string>
+    <string name="add_readings_back_content_desc">Назад</string>
+    <string name="add_readings_save">Сохранить</string>
+    <string name="add_readings_cancel">Отмена</string>
+    <string name="add_readings_water_section">Показания воды</string>
+    <string name="add_readings_electricity_section">Показания электричества</string>
+    <string name="add_readings_cold_water">Хол. вода</string>
+    <string name="add_readings_hot_water">Гор. вода</string>
+    <string name="add_readings_kwh_day">кВт·ч День</string>
+    <string name="add_readings_kwh_night">кВт·ч Ночь</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_back_content_desc">На главную</string>
+    <string name="settings_save_content_desc">Сохранить настройки</string>
+    <string name="settings_street">Улица</string>
+    <string name="settings_house">Дом</string>
+    <string name="settings_flat">Квартира</string>
+    <string name="settings_address_label">Адрес</string>
+
+    <!-- Delete Confirmation Dialog -->
+    <string name="delete_dialog_title">Подтверждение удаления</string>
+    <string name="delete_dialog_text">Вы уверены, что хотите удалить запись навсегда?</string>
+    <string name="delete_dialog_confirm">Подтвердить</string>
+    <string name="delete_dialog_dismiss">Отмена</string>
+    <string name="delete_dialog_icon_desc">Удалить запись</string>
+</resources>
