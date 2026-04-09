@@ -1,0 +1,5 @@
+/* 
+  InfoPlist.strings
+  English localization for app display name
+*/
+"CFBundleDisplayName" = "Comunal Expenses";

@@ -11,9 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Comunal Expenses</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Comunal Expenses</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>en</string>
