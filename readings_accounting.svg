@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a73e8"/>
+      <stop offset="100%" style="stop-color:#0d47a1"/>
+    </linearGradient>
+    <linearGradient id="waterGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#42a5f5"/>
+      <stop offset="100%" style="stop-color:#bbdefb"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Фон (скругленный квадрат) -->
+  <rect x="32" y="32" width="448" height="448" rx="96" ry="96" fill="url(#bg)"/>
+
+  <!-- Счетчик воды - капля слева -->
+  <g transform="translate(140, 200)">
+    <!-- Капля -->
+    <path d="M0,-80 C-35,-30 -55,10 -55,45 C-55,75 -30,95 0,95 C30,95 55,75 55,45 C55,10 35,-30 0,-80Z"
+          fill="url(#waterGrad)" opacity="0.9"/>
+    <!-- Блик на капле -->
+    <path d="M-20,20 C-20,10 -10,0 0,-5 C-5,10 -8,25 -8,35 C-8,50 -4,60 0,65"
+          fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+    <!-- Цифры внутри капли -->
+    <text x="0" y="65" text-anchor="middle" font-size="32" font-weight="bold" fill="#0d47a1" font-family="Arial, sans-serif">123</text>
+    <text x="0" y="85" text-anchor="middle" font-size="14" fill="#0d47a1" font-family="Arial, sans-serif">м³</text>
+  </g>
+
+  <!-- Счетчик электричества - молния справа -->
+  <g transform="translate(372, 200)">
+    <!-- Круглая подложка -->
+    <circle cx="0" cy="0" r="70" fill="#ffb300" opacity="0.9"/>
+    <!-- Молния -->
+    <polygon points="5,-75  -20,-20  -5,-20  -25,55  10,0  -8,0  25,-75"
+             fill="#fff" stroke="#ff8f00" stroke-width="2" stroke-linejoin="round"/>
+    <!-- Цифры -->
+    <text x="0" y="55" text-anchor="middle" font-size="28" font-weight="bold" fill="#e65100" font-family="Arial, sans-serif">456</text>
+    <text x="0" y="72" text-anchor="middle" font-size="12" fill="#e65100" font-family="Arial, sans-serif">кВт·ч</text>
+  </g>
+
+  <!-- Соединительная линия / график между ними -->
+  <g transform="translate(256, 280)">
+    <line x1="-100" y1="0" x2="100" y2="0" stroke="white" stroke-width="3" opacity="0.4"/>
+    <polyline points="-90,0 -70,-20 -50,15 -30,-10 -10,25 10,5 30,30 50,-15 70,10 90,0"
+              fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+    <!-- Точки на графике -->
+    <circle cx="-70" cy="-20" r="4" fill="white"/>
+    <circle cx="-10" cy="25" r="4" fill="white"/>
+    <circle cx="30" cy="30" r="4" fill="white"/>
+    <circle cx="70" cy="10" r="4" fill="white"/>
+  </g>
+
+  <!-- Надпись снизу -->
+  <text x="256" y="440" text-anchor="middle" font-size="30" font-weight="bold" fill="white" font-family="Arial, sans-serif" opacity="0.95">УЧЕТ ПОКАЗАНИЙ</text>
+</svg>
