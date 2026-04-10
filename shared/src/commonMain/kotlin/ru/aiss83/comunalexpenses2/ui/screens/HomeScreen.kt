@@ -72,6 +72,8 @@ fun HomeScreen(
         }
     }
 
+    val shareTitle = stringResource(Res.string.home_share_title)
+
     val shareRecord = { id: Uuid ->
         val record = allResourceData.find { it.id == id }
         if (record != null) {
@@ -83,7 +85,7 @@ fun HomeScreen(
                 hotWater = record.hotWater,
                 flatNumber = userSettings.flat
             )
-            shareText(shareTextContent, "Communal Expenses")
+            shareText(shareTextContent, shareTitle)
         }
     }
 
