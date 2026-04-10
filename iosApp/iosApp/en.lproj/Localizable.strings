@@ -1,10 +1,10 @@
 /* 
   Localizable.strings
-  English localization for Comunal Expenses iOS app
+  English localization for Communal Expenses iOS app
 */
 
 /* App name */
-"app_name" = "Comunal Expenses";
+"app_name" = "Communal Expenses";
 
 /* Home Screen */
 "home_title" = "Communal Expenses";
