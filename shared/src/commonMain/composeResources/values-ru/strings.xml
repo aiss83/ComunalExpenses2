@@ -35,6 +35,9 @@
     <string name="settings_house">Дом</string>
     <string name="settings_flat">Квартира</string>
     <string name="settings_address_label">Адрес</string>
+    <string name="settings_share_template">Шаблон сообщения</string>
+    <string name="settings_template_hint">Исп. $day_e $night_e $cold_w $hot_w $flat</string>
+    <string name="settings_template_preview">Предпросмотр шаблона</string>
 
     <!-- Delete Confirmation Dialog -->
     <string name="delete_dialog_title">Подтверждение удаления</string>

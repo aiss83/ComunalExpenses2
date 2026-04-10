@@ -23,6 +23,7 @@ class SettingsManagerImpl(private val settings: Settings) : SettingsManager {
         private const val KEY_STREET = "street_line"
         private const val KEY_HOUSE = "house_number_line"
         private const val KEY_FLAT = "flat_number_key"
+        private const val KEY_SHARE_TEMPLATE = "share_template"
     }
 
     private val _settingsData = MutableStateFlow(getCurrentSettings())
@@ -32,7 +33,8 @@ class SettingsManagerImpl(private val settings: Settings) : SettingsManager {
         return SettingsData(
             street = settings.getString(KEY_STREET, ""),
             house = settings.getInt(KEY_HOUSE, 0),
-            flat = settings.getInt(KEY_FLAT, 0)
+            flat = settings.getInt(KEY_FLAT, 0),
+            shareTemplate = settings.getString(KEY_SHARE_TEMPLATE, SettingsData.DEFAULT_SHARE_TEMPLATE)
         )
     }
 
@@ -40,6 +42,7 @@ class SettingsManagerImpl(private val settings: Settings) : SettingsManager {
         settings.putString(KEY_STREET, data.street)
         settings.putInt(KEY_HOUSE, data.house)
         settings.putInt(KEY_FLAT, data.flat)
+        settings.putString(KEY_SHARE_TEMPLATE, data.shareTemplate)
         _settingsData.value = data
     }
 }

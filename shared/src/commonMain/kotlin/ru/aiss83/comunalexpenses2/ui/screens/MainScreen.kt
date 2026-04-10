@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 import ru.aiss83.comunalexpenses2.ui.AppRoute
@@ -36,8 +37,10 @@ fun App(
             when (currentRoute) {
                 AppRoute.Home -> {
                     val allResourcesData by resourcesDataViewModel.allResourcesData.collectAsState()
+                    val userSettings by settingsViewModel.settingsData.collectAsState()
                     HomeScreen(
                         allResourceData = allResourcesData,
+                        userSettings = userSettings,
                         viewModel = resourcesDataViewModel,
                         onNavigateToAddExpenses = { navigateTo(AppRoute.EditResources) },
                         onNavigateToSettings = { navigateTo(AppRoute.Settings) }

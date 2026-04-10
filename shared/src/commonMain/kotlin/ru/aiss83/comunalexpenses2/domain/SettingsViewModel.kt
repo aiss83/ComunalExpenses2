@@ -29,11 +29,11 @@ class SettingsViewModel(
      *
      * @throws IllegalArgumentException if street is blank or house/flat are negative
      */
-    fun saveSettings(street: String, house: Int, flat: Int) {
+    fun saveSettings(street: String, house: Int, flat: Int, shareTemplate: String = SettingsData.DEFAULT_SHARE_TEMPLATE) {
         require(street.isNotBlank()) { "Street cannot be blank" }
         require(house >= 0) { "House must be non-negative, was $house" }
         require(flat >= 0) { "Flat must be non-negative, was $flat" }
 
-        settingsManager.saveSettings(SettingsData(street.trim(), house, flat))
+        settingsManager.saveSettings(SettingsData(street.trim(), house, flat, shareTemplate))
     }
 }

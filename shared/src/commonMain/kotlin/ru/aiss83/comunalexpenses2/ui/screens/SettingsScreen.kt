@@ -30,6 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import comunalexpenses2.shared.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
+import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 
 /**
@@ -53,12 +54,27 @@ fun SettingsScreen(
     var streetValue by remember { mutableStateOf(settings.street) }
     var houseValue by remember { mutableStateOf(settings.house.toString()) }
     var flatValue by remember { mutableStateOf(settings.flat.toString()) }
+    var shareTemplateValue by remember { mutableStateOf(settings.shareTemplate) }
 
     // Sync fields when settings change (e.g. after returning from another screen)
     LaunchedEffect(settings) {
         streetValue = settings.street
         houseValue = settings.house.toString()
         flatValue = settings.flat.toString()
+        shareTemplateValue = settings.shareTemplate
+    }
+
+    // Preview the template with sample values
+    val templatePreview = remember(shareTemplateValue, flatValue) {
+        val sampleFlat = parseSettingsInt(flatValue).takeIf { it > 0 } ?: 42
+        SettingsData.applyShareTemplate(
+            template = shareTemplateValue.ifBlank { SettingsData.DEFAULT_SHARE_TEMPLATE },
+            dayElectricity = 1234,
+            nightElectricity = 567,
+            coldWater = 890,
+            hotWater = 123,
+            flatNumber = sampleFlat
+        )
     }
 
     Scaffold(
@@ -79,7 +95,8 @@ fun SettingsScreen(
                             viewModel.saveSettings(
                                 street = streetValue,
                                 house = parseSettingsInt(houseValue),
-                                flat = parseSettingsInt(flatValue)
+                                flat = parseSettingsInt(flatValue),
+                                shareTemplate = shareTemplateValue.ifBlank { SettingsData.DEFAULT_SHARE_TEMPLATE }
                             )
                             onNavigateBack()
                         }
@@ -97,6 +114,7 @@ fun SettingsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+            // Address section
             TextField(
                 value = streetValue,
                 onValueChange = { streetValue = it },
@@ -132,6 +150,29 @@ fun SettingsScreen(
                     modifier = Modifier.padding(top = 8.dp)
                 )
             }
+
+            // Share template section
+            TextField(
+                value = shareTemplateValue,
+                onValueChange = { shareTemplateValue = it },
+                label = { Text(stringResource(Res.string.settings_share_template)) },
+                placeholder = { Text(stringResource(Res.string.settings_template_hint)) },
+                modifier = Modifier.fillMaxWidth(),
+                minLines = 3
+            )
+
+            // Template preview with sample values
+            Text(
+                text = stringResource(Res.string.settings_template_preview) + ":",
+                style = MaterialTheme.typography.labelMedium
+            )
+            Text(
+                text = templatePreview,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
         }
     }
 }

@@ -35,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import comunalexpenses2.shared.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
+import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.ui.components.DeleteConfirmationDialog
 import ru.aiss83.comunalexpenses2.utils.shareText
@@ -45,6 +46,7 @@ import kotlin.uuid.Uuid
 @Composable
 fun HomeScreen(
     allResourceData: List<ResourceData>,
+    userSettings: SettingsData,
     viewModel: ResourcesDataViewModel,
     onNavigateToAddExpenses: () -> Unit,
     onNavigateToSettings: () -> Unit
@@ -73,14 +75,14 @@ fun HomeScreen(
     val shareRecord = { id: Uuid ->
         val record = allResourceData.find { it.id == id }
         if (record != null) {
-            val shareTextContent = buildString {
-                appendLine("Communal Expenses - ${record.formatDate()}")
-                appendLine()
-                appendLine("Cold Water: ${record.coldWater}")
-                appendLine("Hot Water: ${record.hotWater}")
-                appendLine("Electricity (Day): ${record.dayElectricity} kWh")
-                appendLine("Electricity (Night): ${record.nightElectricity} kWh")
-            }
+            val shareTextContent = SettingsData.applyShareTemplate(
+                template = userSettings.shareTemplate,
+                dayElectricity = record.dayElectricity,
+                nightElectricity = record.nightElectricity,
+                coldWater = record.coldWater,
+                hotWater = record.hotWater,
+                flatNumber = userSettings.flat
+            )
             shareText(shareTextContent, "Communal Expenses")
         }
     }

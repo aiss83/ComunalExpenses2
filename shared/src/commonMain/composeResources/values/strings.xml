@@ -35,6 +35,9 @@
     <string name="settings_house">House</string>
     <string name="settings_flat">Flat</string>
     <string name="settings_address_label">Address</string>
+    <string name="settings_share_template">Share template</string>
+    <string name="settings_template_hint">Use $day_e $night_e $cold_w $hot_w $flat</string>
+    <string name="settings_template_preview">Template preview</string>
 
     <!-- Delete Confirmation Dialog -->
     <string name="delete_dialog_title">Delete confirmation</string>
