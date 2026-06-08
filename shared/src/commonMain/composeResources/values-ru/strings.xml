@@ -13,10 +13,12 @@
     <string name="home_kwh_night">кВт·ч Ночь</string>
     <string name="home_share_content_desc">Поделиться...</string>
     <string name="home_delete_content_desc">Удалить запись</string>
+    <string name="home_edit_content_desc">Изменить запись</string>
     <string name="home_share_title">Коммунальные расходы</string>
 
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Добавить показания</string>
+    <string name="add_readings_edit_title">Изменить показания</string>
     <string name="add_readings_back_content_desc">Назад</string>
     <string name="add_readings_save">Сохранить</string>
     <string name="add_readings_cancel">Отмена</string>
@@ -26,6 +28,9 @@
     <string name="add_readings_hot_water">Гор. вода</string>
     <string name="add_readings_kwh_day">кВт·ч День</string>
     <string name="add_readings_kwh_night">кВт·ч Ночь</string>
+    <string name="add_readings_discard_title">Отменить изменения?</string>
+    <string name="add_readings_discard_text">У вас есть несохраненные показания. Вы уверены, что хотите вернуться?</string>
+    <string name="add_readings_discard_confirm">Отменить</string>
 
     <!-- Settings Screen -->
     <string name="settings_title">Настройки</string>
@@ -38,6 +43,7 @@
     <string name="settings_share_template">Шаблон сообщения</string>
     <string name="settings_template_hint">Исп. $day_e $night_e $cold_w $hot_w $flat</string>
     <string name="settings_template_preview">Предпросмотр шаблона</string>
+    <string name="settings_keywords_hint">Ключевые слова: $day_e, $night_e, $cold_w, $hot_w, $flat — будут заменены на реальные значения при отправке</string>
 
     <!-- Delete Confirmation Dialog -->
     <string name="delete_dialog_title">Подтверждение удаления</string>

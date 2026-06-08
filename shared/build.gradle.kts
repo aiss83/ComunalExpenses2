@@ -74,10 +74,6 @@ kotlin {
                 implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
                 implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
 
-                // Navigation (Decompose)
-                implementation("com.arkivanov.decompose:decompose:3.3.0")
-                implementation("com.arkivanov.decompose:extensions-compose:3.3.0")
-
                 // Koin DI
                 api("io.insert-koin:koin-core:4.0.2")
                 api("io.insert-koin:koin-compose:4.0.2")

@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import org.koin.compose.KoinContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.context.GlobalContext
 import ru.aiss83.comunalexpenses2.data.AppContextHolder
 import ru.aiss83.comunalexpenses2.di.startKoinIfNeeded
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
@@ -25,10 +26,9 @@ class MainActivity : ComponentActivity(), KoinComponent {
         // Initialize context holder for shared module
         AppContextHolder.context = applicationContext
 
-        // Initialize Koin (only once)
-        if (!KoinHolder.initialized) {
+        // Initialize Koin only if not already started (idempotent check via Koin itself)
+        if (GlobalContext.getOrNull() == null) {
             startKoinIfNeeded()
-            KoinHolder.initialized = true
         }
 
         super.onCreate(savedInstanceState)
@@ -46,13 +46,5 @@ class MainActivity : ComponentActivity(), KoinComponent {
                 }
             }
         }
-    }
-
-    /**
-     * Holder to track Koin initialization state.
-     * Prevents double-initialization during Activity recreation.
-     */
-    object KoinHolder {
-        var initialized = false
     }
 }

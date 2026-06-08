@@ -13,10 +13,12 @@
     <string name="home_kwh_night">kWh Night</string>
     <string name="home_share_content_desc">Share to...</string>
     <string name="home_delete_content_desc">Delete record</string>
+    <string name="home_edit_content_desc">Edit record</string>
     <string name="home_share_title">Communal Expenses</string>
 
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Add Readings</string>
+    <string name="add_readings_edit_title">Edit Readings</string>
     <string name="add_readings_back_content_desc">Back</string>
     <string name="add_readings_save">Save</string>
     <string name="add_readings_cancel">Cancel</string>
@@ -26,6 +28,9 @@
     <string name="add_readings_hot_water">Hot Water</string>
     <string name="add_readings_kwh_day">kWh Day</string>
     <string name="add_readings_kwh_night">kWh Night</string>
+    <string name="add_readings_discard_title">Discard changes?</string>
+    <string name="add_readings_discard_text">You have unsaved readings. Are you sure you want to go back?</string>
+    <string name="add_readings_discard_confirm">Discard</string>
 
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
@@ -38,6 +43,7 @@
     <string name="settings_share_template">Share template</string>
     <string name="settings_template_hint">Use $day_e $night_e $cold_w $hot_w $flat</string>
     <string name="settings_template_preview">Template preview</string>
+    <string name="settings_keywords_hint">Keywords: $day_e, $night_e, $cold_w, $hot_w, $flat — will be replaced with actual values when sharing</string>
 
     <!-- Delete Confirmation Dialog -->
     <string name="delete_dialog_title">Delete confirmation</string>

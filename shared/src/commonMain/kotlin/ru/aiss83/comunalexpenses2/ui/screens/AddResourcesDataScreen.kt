@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -41,44 +42,95 @@ import kotlin.uuid.Uuid
 @Composable
 fun AddResourcesDataScreen(
     viewModel: ResourcesDataViewModel,
+    existingRecord: ResourceData? = null,
     onNavigateBack: () -> Unit
 ) {
-    var coldWaterValue by remember { mutableStateOf("0") }
-    var hotWaterValue by remember { mutableStateOf("0") }
-    var daykWhValue by remember { mutableStateOf("0") }
-    var nightkWhValue by remember { mutableStateOf("0") }
+    val isEditing = existingRecord != null
 
-    val resourcesRecord = remember { ResourceData() }
+    var coldWaterValue by remember { mutableStateOf(existingRecord?.coldWater?.toString() ?: "") }
+    var hotWaterValue by remember { mutableStateOf(existingRecord?.hotWater?.toString() ?: "") }
+    var daykWhValue by remember { mutableStateOf(existingRecord?.dayElectricity?.toString() ?: "") }
+    var nightkWhValue by remember { mutableStateOf(existingRecord?.nightElectricity?.toString() ?: "") }
+
+    var showDiscardDialog by remember { mutableStateOf(false) }
 
     // Get current date for display
-    val currentDate = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    val currentDate = if (isEditing) {
+        kotlinx.datetime.Instant.fromEpochMilliseconds(existingRecord!!.date)
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+    } else {
+        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+    }
     val formattedDate = "${currentDate.dayOfMonth.toString().padStart(2, '0')}." +
             "${currentDate.monthNumber.toString().padStart(2, '0')}." +
             "${currentDate.year}"
 
+    val hasInput = coldWaterValue.isNotEmpty() || hotWaterValue.isNotEmpty() ||
+            daykWhValue.isNotEmpty() || nightkWhValue.isNotEmpty()
+
+    val handleBack = {
+        if (!isEditing && hasInput) {
+            showDiscardDialog = true
+        } else {
+            onNavigateBack()
+        }
+    }
+
+    val handleSave = {
+        val data = ResourceData(
+            id = existingRecord?.id ?: Uuid.random(),
+            date = existingRecord?.date ?: Clock.System.now().toEpochMilliseconds(),
+            coldWater = coldWaterValue.toLongOrNull() ?: 0,
+            hotWater = hotWaterValue.toLongOrNull() ?: 0,
+            dayElectricity = daykWhValue.toLongOrNull() ?: 0,
+            nightElectricity = nightkWhValue.toLongOrNull() ?: 0
+        )
+        if (isEditing) {
+            viewModel.updateResourceData(data)
+        } else {
+            viewModel.addResourcesData(data)
+        }
+        onNavigateBack()
+    }
+
+    // Discard confirmation dialog
+    if (showDiscardDialog) {
+        AlertDialog(
+            onDismissRequest = { showDiscardDialog = false },
+            title = { Text(stringResource(Res.string.add_readings_discard_title)) },
+            text = { Text(stringResource(Res.string.add_readings_discard_text)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDiscardDialog = false
+                    onNavigateBack()
+                }) {
+                    Text(stringResource(Res.string.add_readings_discard_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDiscardDialog = false }) {
+                    Text(stringResource(Res.string.add_readings_cancel))
+                }
+            }
+        )
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(Res.string.add_readings_title)) },
+                title = {
+                    Text(
+                        if (isEditing) stringResource(Res.string.add_readings_edit_title)
+                        else stringResource(Res.string.add_readings_title)
+                    )
+                },
                 navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
+                    IconButton(onClick = handleBack) {
                         Icon(Icons.AutoMirrored.Rounded.ArrowBack, stringResource(Res.string.add_readings_back_content_desc))
                     }
                 },
                 actions = {
-                    TextButton(
-                        onClick = {
-                            viewModel.addResourcesData(
-                                ResourceData(
-                                    coldWater = coldWaterValue.toLongOrNull() ?: 0,
-                                    hotWater = hotWaterValue.toLongOrNull() ?: 0,
-                                    dayElectricity = daykWhValue.toLongOrNull() ?: 0,
-                                    nightElectricity = nightkWhValue.toLongOrNull() ?: 0
-                                )
-                            )
-                            onNavigateBack()
-                        }
-                    ) {
+                    TextButton(onClick = handleSave) {
                         Text(stringResource(Res.string.add_readings_save))
                     }
                 }
@@ -153,7 +205,7 @@ fun AddResourcesDataScreen(
             // Cancel button at bottom
             TextButton(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = onNavigateBack
+                onClick = handleBack
             ) {
                 Text(stringResource(Res.string.add_readings_cancel))
             }

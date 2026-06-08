@@ -64,17 +64,9 @@ fun SettingsScreen(
         shareTemplateValue = settings.shareTemplate
     }
 
-    // Preview the template with sample values
-    val templatePreview = remember(shareTemplateValue, flatValue) {
-        val sampleFlat = parseSettingsInt(flatValue).takeIf { it > 0 } ?: 42
-        SettingsData.applyShareTemplate(
-            template = shareTemplateValue.ifBlank { SettingsData.DEFAULT_SHARE_TEMPLATE },
-            dayElectricity = 1234,
-            nightElectricity = 567,
-            coldWater = 890,
-            hotWater = 123,
-            flatNumber = sampleFlat
-        )
+    // Preview the template as-is so keywords are clearly visible
+    val templatePreview = remember(shareTemplateValue) {
+        shareTemplateValue.ifBlank { SettingsData.DEFAULT_SHARE_TEMPLATE }
     }
 
     Scaffold(
@@ -161,7 +153,7 @@ fun SettingsScreen(
                 minLines = 3
             )
 
-            // Template preview with sample values
+            // Template preview with keyword placeholders
             Text(
                 text = stringResource(Res.string.settings_template_preview) + ":",
                 style = MaterialTheme.typography.labelMedium
@@ -172,6 +164,12 @@ fun SettingsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp)
+            )
+            Text(
+                text = stringResource(Res.string.settings_keywords_hint),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 4.dp)
             )
         }
     }

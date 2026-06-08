@@ -1,7 +1,7 @@
 package ru.aiss83.comunalexpenses2.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Delete
+import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material3.Card
@@ -49,6 +50,7 @@ fun HomeScreen(
     userSettings: SettingsData,
     viewModel: ResourcesDataViewModel,
     onNavigateToAddExpenses: () -> Unit,
+    onNavigateToEditExpenses: (ResourceData) -> Unit,
     onNavigateToSettings: () -> Unit
 ) {
     var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
@@ -117,8 +119,13 @@ fun HomeScreen(
             modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(allResourceData) { item ->
-                ResourcesCard(record = item, removeRecord, shareRecord)
+            items(allResourceData, key = { it.id }) { item ->
+                ResourcesCard(
+                    record = item,
+                    onEdit = { onNavigateToEditExpenses(item) },
+                    onDataRemove = removeRecord,
+                    onShare = shareRecord
+                )
             }
         }
     }
@@ -128,6 +135,7 @@ fun HomeScreen(
 @Composable
 fun ResourcesCard(
     record: ResourceData,
+    onEdit: () -> Unit,
     onDataRemove: (id: Uuid) -> Unit,
     onShare: (id: Uuid) -> Unit
 ) {
@@ -136,7 +144,10 @@ fun ResourcesCard(
         .padding(horizontal = 4.dp, vertical = 4.dp)
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(8.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clickable { onEdit() },
         elevation = CardDefaults.cardElevation(5.dp)
     ) {
         Column {
@@ -152,6 +163,9 @@ fun ResourcesCard(
                 )
 
                 Row {
+                    IconButton(onClick = { onEdit() }) {
+                        Icon(Icons.Rounded.Edit, stringResource(Res.string.home_edit_content_desc))
+                    }
                     IconButton(onClick = { onShare(record.id) }) {
                         Icon(Icons.Rounded.Share, stringResource(Res.string.home_share_content_desc))
                     }

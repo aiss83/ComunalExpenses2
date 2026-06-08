@@ -1,13 +1,16 @@
 package ru.aiss83.comunalexpenses2.ui.screens
 
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import ru.aiss83.comunalexpenses2.data.SettingsData
+import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 import ru.aiss83.comunalexpenses2.ui.AppRoute
@@ -24,37 +27,52 @@ fun App(
 ) {
     ComunalExpenses2Theme {
         Surface {
-            var currentRoute by remember { mutableStateOf(AppRoute.Home) }
-
-            val navigateTo = { route: AppRoute ->
-                currentRoute = route
-            }
+            var currentRoute: AppRoute by remember { mutableStateOf(AppRoute.Home) }
 
             val navigateBack = {
                 currentRoute = AppRoute.Home
             }
 
-            when (currentRoute) {
-                AppRoute.Home -> {
+            // Collect error state from ViewModel
+            val errorMessage by resourcesDataViewModel.errorMessage.collectAsState()
+
+            // Error dialog
+            if (errorMessage != null) {
+                AlertDialog(
+                    onDismissRequest = { resourcesDataViewModel.clearError() },
+                    title = { Text("Error") },
+                    text = { Text(errorMessage!!) },
+                    confirmButton = {
+                        TextButton(onClick = { resourcesDataViewModel.clearError() }) {
+                            Text("OK")
+                        }
+                    }
+                )
+            }
+
+            when (val route = currentRoute) {
+                is AppRoute.Home -> {
                     val allResourcesData by resourcesDataViewModel.allResourcesData.collectAsState()
                     val userSettings by settingsViewModel.settingsData.collectAsState()
                     HomeScreen(
                         allResourceData = allResourcesData,
                         userSettings = userSettings,
                         viewModel = resourcesDataViewModel,
-                        onNavigateToAddExpenses = { navigateTo(AppRoute.EditResources) },
-                        onNavigateToSettings = { navigateTo(AppRoute.Settings) }
+                        onNavigateToAddExpenses = { currentRoute = AppRoute.EditResources() },
+                        onNavigateToEditExpenses = { record -> currentRoute = AppRoute.EditResources(record) },
+                        onNavigateToSettings = { currentRoute = AppRoute.Settings }
                     )
                 }
 
-                AppRoute.EditResources -> {
+                is AppRoute.EditResources -> {
                     AddResourcesDataScreen(
                         viewModel = resourcesDataViewModel,
+                        existingRecord = route.existingRecord,
                         onNavigateBack = { navigateBack() }
                     )
                 }
 
-                AppRoute.Settings -> {
+                is AppRoute.Settings -> {
                     SettingsScreen(
                         viewModel = settingsViewModel,
                         onNavigateBack = { navigateBack() }
