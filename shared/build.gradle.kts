@@ -50,12 +50,12 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 // Compose Multiplatform
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.materialIconsExtended)
-                implementation(compose.components.resources)
-                implementation(compose.components.uiToolingPreview)
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material3)
+                api(compose.materialIconsExtended)
+                api(compose.components.resources)
+                api(compose.components.uiToolingPreview)
 
                 // Coroutines
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
@@ -64,20 +64,20 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
 
                 // SQLDelight
-                implementation("app.cash.sqldelight:coroutines-extensions:2.0.2")
-                implementation("app.cash.sqldelight:primitive-adapters:2.0.2")
+                implementation("app.cash.sqldelight:coroutines-extensions:2.1.0")
+                implementation("app.cash.sqldelight:primitive-adapters:2.1.0")
 
                 // Settings (kmp-settings)
                 api("com.russhwolf:multiplatform-settings:1.3.0")
 
                 // Lifecycle ViewModel (KMP)
-                implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.3")
-                implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.3")
+                implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
+                implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.9.1")
 
                 // Koin DI
-                api("io.insert-koin:koin-core:4.0.2")
-                api("io.insert-koin:koin-compose:4.0.2")
-                api("io.insert-koin:koin-compose-viewmodel-navigation:4.0.2")
+                api("io.insert-koin:koin-core:4.1.0")
+                api("io.insert-koin:koin-compose:4.1.0")
+                api("io.insert-koin:koin-compose-viewmodel-navigation:4.1.0")
             }
         }
 
@@ -90,10 +90,9 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("androidx.activity:activity-compose:1.10.1")
-                implementation("app.cash.sqldelight:android-driver:2.0.2")
-                implementation("io.insert-koin:koin-android:3.5.6")
-                implementation("io.insert-koin:koin-androidx-compose:3.5.6")
-                implementation("io.insert-koin:koin-compose:4.0.2")
+                implementation("app.cash.sqldelight:android-driver:2.1.0")
+                implementation("io.insert-koin:koin-android:4.1.0")
+                implementation("io.insert-koin:koin-androidx-compose:4.1.0")
             }
         }
 
@@ -108,7 +107,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
 
             dependencies {
-                implementation("app.cash.sqldelight:native-driver:2.0.2")
+                implementation("app.cash.sqldelight:native-driver:2.1.0")
             }
         }
     }
