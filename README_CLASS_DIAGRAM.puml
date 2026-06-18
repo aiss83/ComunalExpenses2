@@ -1,0 +1,70 @@
+@startuml
+title Communal Expenses Tracking Application Architecture
+
+package "Presentation (UI)" {
+    class MainScreen {
+        + mainView(data)
+        - ResourcesDataViewModel: Drives screen state
+    }
+    class HomeScreen {
+        + displayData(data)
+        - ResourcesDataViewModel: Fetches/Updates data
+    }
+    class SettingsScreen {
+        + settingsView()
+        - SettingsViewModel: Manages setting changes
+    }
+    class AddResourcesDataScreen {
+        + addNewRecord(data)
+        - ResourcesDataViewModel: Executes insertion
+    }
+
+    package "Domain" {
+        class MainViewModel {
+            + viewDidLoad()
+            - ResourcesDataRepository: Accesses persistence layer
+        }
+        class SettingsViewModel {
+            + loadSettings()
+            + updateSetting(key, value)
+        }
+    }
+
+    package "Data" {
+        interface ResourceDataRepository {
+            + getAllResourceData(): List<Record>
+            + insertResourceData(record: ResourceRecord)
+            + findResourceDataByDate(date): Optional<Record>
+        }
+
+        class ResourceDataDao {
+            + getAllResourceData(): List<Record> // Maps to ResourcesRecords.sq
+            + insert(record)
+            // ... other DAO operations
+        }
+
+        class ResourceDataRepositoryImpl implements ResourceDataRepository {
+            - dao: ResourceDataDao
+        }
+
+        class DatabaseFactory {
+            + initializeDatabase()
+        }
+    }
+}
+
+' --- Relationships ---
+MainScreen --> MainViewModel : views/drives data
+HomeScreen --> ResourcesDataViewModel : displays/updates usage
+SettingsScreen --> SettingsViewModel : manages application settings
+
+MainViewModel *-- ResourcesDataRepository : depends on
+ResourcesDataViewModel *-- ResourcesDataRepository : depends on
+
+ResourceDataRepositoryImpl --> ResourceDataDao : implements/uses
+DatabaseFactory --> ResourceDataDao : manages connection
+
+ResourceRecordEntity "1" -- "*" ResourceData.kt
+' Assumes the data entities are passed between layers
+
+@enduml
