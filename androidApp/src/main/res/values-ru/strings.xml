@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Коммунальные расходы</string>
+    <string name="widget_add_button">Добавить показания</string>
+    <string name="widget_add_hint">Нажмите для ввода показаний</string>
 </resources>

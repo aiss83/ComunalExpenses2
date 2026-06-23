@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS resources_records (
+    recordId TEXT NOT NULL PRIMARY KEY,
+    date INTEGER NOT NULL,
+    waterHot INTEGER NOT NULL DEFAULT 0,
+    waterCold INTEGER NOT NULL DEFAULT 0,
+    electricityDay INTEGER NOT NULL DEFAULT 0,
+    electricityNight INTEGER NOT NULL DEFAULT 0
+);

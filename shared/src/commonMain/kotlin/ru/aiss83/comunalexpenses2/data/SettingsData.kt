@@ -1,13 +1,23 @@
 package ru.aiss83.comunalexpenses2.data
 
 /**
- * Domain model for user settings (address information).
+ * Application theme mode.
+ */
+enum class ThemeMode {
+    LIGHT,
+    DARK,
+    SYSTEM
+}
+
+/**
+ * Domain model for user settings (address information and preferences).
  */
 data class SettingsData(
     val street: String = "",
     val house: Int = 0,
     val flat: Int = 0,
-    val shareTemplate: String = DEFAULT_SHARE_TEMPLATE
+    val shareTemplate: String = DEFAULT_SHARE_TEMPLATE,
+    val themeMode: ThemeMode = ThemeMode.SYSTEM
 ) {
     companion object {
         /**
@@ -21,13 +31,6 @@ data class SettingsData(
 
         /**
          * Applies keyword substitution to the template using actual record values.
-         *
-         * @param dayElectricity Day electricity reading
-         * @param nightElectricity Night electricity reading
-         * @param coldWater Cold water reading
-         * @param hotWater Hot water reading
-         * @param flatNumber User's flat number from settings
-         * @return Processed string with keywords replaced
          */
         fun applyShareTemplate(
             template: String,
@@ -46,14 +49,9 @@ data class SettingsData(
         }
     }
 
-    /**
-     * Returns true if at least one field is populated.
-     */
-    fun isNotEmpty(): Boolean = street.isNotBlank() || house > 0 || flat > 0 || shareTemplate != DEFAULT_SHARE_TEMPLATE
+    fun isNotEmpty(): Boolean =
+        street.isNotBlank() || house > 0 || flat > 0 || shareTemplate != DEFAULT_SHARE_TEMPLATE
 
-    /**
-     * Returns a formatted address string for display.
-     */
     fun formatAddress(): String {
         val parts = mutableListOf<String>()
         if (street.isNotBlank()) parts += street

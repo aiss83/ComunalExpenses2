@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.data.ResourceDataRepository
+import ru.aiss83.comunalexpenses2.data.exportToJson
+import ru.aiss83.comunalexpenses2.data.importFromJson
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -74,5 +76,47 @@ class ResourcesDataViewModel(
 
     fun clearError() {
         _errorMessage.value = null
+    }
+
+    /**
+     * Re-insert a record for undo deletion.
+     */
+    fun undoDeleteResourceData(data: ResourceData) {
+        viewModelScope.launch {
+            try {
+                repository.insertResourcesData(data)
+            } catch (e: Exception) {
+                _errorMessage.value = "Failed to undo delete: ${e.message}"
+            }
+        }
+    }
+
+    /**
+     * Export all records as a JSON string for sharing.
+     */
+    fun exportJson(): String {
+        return exportToJson(_allResourcesData.value)
+    }
+
+    /**
+     * Import records from a JSON string.
+     * @return the number of successfully imported records
+     */
+    fun importJson(jsonString: String): Int {
+        val imported = importFromJson(jsonString)
+        if (imported.isEmpty()) {
+            _errorMessage.value = "No valid records found in JSON"
+            return 0
+        }
+        viewModelScope.launch {
+            try {
+                for (record in imported) {
+                    repository.insertResourcesData(record)
+                }
+            } catch (e: Exception) {
+                _errorMessage.value = "Failed to import: ${e.message}"
+            }
+        }
+        return imported.size
     }
 }

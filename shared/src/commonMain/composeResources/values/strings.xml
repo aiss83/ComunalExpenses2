@@ -14,7 +14,18 @@
     <string name="home_share_content_desc">Share to...</string>
     <string name="home_delete_content_desc">Delete record</string>
     <string name="home_edit_content_desc">Edit record</string>
+    <string name="home_empty_title">No readings yet</string>
+    <string name="home_empty_hint">Tap + to add your first meter reading</string>
+    <string name="home_swipe_hint">Swipe left to delete</string>
+    <string name="home_delete_undone">Record deleted</string>
+    <string name="home_undo">Undo</string>
     <string name="home_share_title">Communal Expenses</string>
+    <string name="home_export_content_desc">Export to JSON</string>
+    <string name="home_export_title">Communal Expenses backup</string>
+    <string name="home_import_content_desc">Import from JSON</string>
+    <string name="home_import_title">Import data</string>
+    <string name="home_import_placeholder">Paste JSON here...</string>
+    <string name="home_import_button">Import</string>
 
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Add Readings</string>
@@ -40,6 +51,10 @@
     <string name="settings_house">House</string>
     <string name="settings_flat">Flat</string>
     <string name="settings_address_label">Address</string>
+    <string name="settings_theme_label">Theme</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_system">System default</string>
     <string name="settings_share_template">Share template</string>
     <string name="settings_template_hint">Use $day_e $night_e $cold_w $hot_w $flat</string>
     <string name="settings_template_preview">Template preview</string>

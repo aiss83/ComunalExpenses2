@@ -5,15 +5,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Done
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -26,11 +28,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import comunalexpenses2.shared.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.SettingsData
+import ru.aiss83.comunalexpenses2.data.ThemeMode
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 
 /**
@@ -56,7 +60,7 @@ fun SettingsScreen(
     var flatValue by remember { mutableStateOf(settings.flat.toString()) }
     var shareTemplateValue by remember { mutableStateOf(settings.shareTemplate) }
 
-    // Sync fields when settings change (e.g. after returning from another screen)
+    // Sync fields when settings change
     LaunchedEffect(settings) {
         streetValue = settings.street
         houseValue = settings.house.toString()
@@ -143,6 +147,21 @@ fun SettingsScreen(
                 )
             }
 
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+            // Theme section
+            Text(
+                text = stringResource(Res.string.settings_theme_label),
+                style = MaterialTheme.typography.titleMedium
+            )
+
+            ThemeSelector(
+                currentMode = settings.themeMode,
+                onModeSelected = { viewModel.setThemeMode(it) }
+            )
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
             // Share template section
             TextField(
                 value = shareTemplateValue,
@@ -171,6 +190,44 @@ fun SettingsScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 4.dp)
             )
+        }
+    }
+}
+
+@Composable
+private fun ThemeSelector(
+    currentMode: ThemeMode,
+    onModeSelected: (ThemeMode) -> Unit
+) {
+    val modes = listOf(
+        ThemeMode.LIGHT to stringResource(Res.string.settings_theme_light),
+        ThemeMode.DARK to stringResource(Res.string.settings_theme_dark),
+        ThemeMode.SYSTEM to stringResource(Res.string.settings_theme_system)
+    )
+
+    Column {
+        modes.forEach { (mode, label) ->
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .selectable(
+                        selected = currentMode == mode,
+                        onClick = { onModeSelected(mode) },
+                        role = Role.RadioButton
+                    )
+                    .padding(vertical = 4.dp),
+                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+            ) {
+                RadioButton(
+                    selected = currentMode == mode,
+                    onClick = null // handled by selectable on Row
+                )
+                Text(
+                    text = label,
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("org.jetbrains.compose")
     id("org.jetbrains.kotlin.plugin.compose")
@@ -24,7 +25,6 @@ kotlin {
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
-        // Apply linker opts at compilation level so they propagate through static framework
         iosTarget.compilations.all {
             compileTaskProvider.configure {
                 compilerOptions {
@@ -49,7 +49,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                // Compose Multiplatform
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material3)
@@ -57,24 +56,14 @@ kotlin {
                 api(compose.components.resources)
                 api(compose.components.uiToolingPreview)
 
-                // Coroutines
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-
-                // kotlinx-datetime
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
-
-                // SQLDelight
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
                 implementation("app.cash.sqldelight:coroutines-extensions:2.1.0")
                 implementation("app.cash.sqldelight:primitive-adapters:2.1.0")
-
-                // Settings (kmp-settings)
                 api("com.russhwolf:multiplatform-settings:1.3.0")
-
-                // Lifecycle ViewModel (KMP)
                 implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
                 implementation("org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.9.1")
-
-                // Koin DI
                 api("io.insert-koin:koin-core:4.1.0")
                 api("io.insert-koin:koin-compose:4.1.0")
                 api("io.insert-koin:koin-compose-viewmodel-navigation:4.1.0")
@@ -101,11 +90,6 @@ kotlin {
         val iosSimulatorArm64Main by getting
 
         val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-
             dependencies {
                 implementation("app.cash.sqldelight:native-driver:2.1.0")
             }

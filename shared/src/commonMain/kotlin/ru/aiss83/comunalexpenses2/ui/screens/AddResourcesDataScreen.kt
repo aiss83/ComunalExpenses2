@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Done
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -130,8 +131,8 @@ fun AddResourcesDataScreen(
                     }
                 },
                 actions = {
-                    TextButton(onClick = handleSave) {
-                        Text(stringResource(Res.string.add_readings_save))
+                    IconButton(onClick = handleSave) {
+                        Icon(Icons.Rounded.Done, stringResource(Res.string.add_readings_save))
                     }
                 }
             )
@@ -201,14 +202,6 @@ fun AddResourcesDataScreen(
             }
 
             Spacer(modifier = Modifier.weight(1f))
-
-            // Cancel button at bottom
-            TextButton(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = handleBack
-            ) {
-                Text(stringResource(Res.string.add_readings_cancel))
-            }
         }
     }
 }

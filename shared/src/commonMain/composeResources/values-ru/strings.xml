@@ -14,7 +14,18 @@
     <string name="home_share_content_desc">Поделиться...</string>
     <string name="home_delete_content_desc">Удалить запись</string>
     <string name="home_edit_content_desc">Изменить запись</string>
+    <string name="home_empty_title">Нет показаний</string>
+    <string name="home_empty_hint">Нажмите + чтобы добавить первое показание</string>
+    <string name="home_swipe_hint">Свайпните влево для удаления</string>
+    <string name="home_delete_undone">Запись удалена</string>
+    <string name="home_undo">Отмена</string>
     <string name="home_share_title">Коммунальные расходы</string>
+    <string name="home_export_content_desc">Экспорт в JSON</string>
+    <string name="home_export_title">Резервная копия Коммунальные расходы</string>
+    <string name="home_import_content_desc">Импорт из JSON</string>
+    <string name="home_import_title">Импорт данных</string>
+    <string name="home_import_placeholder">Вставьте JSON сюда...</string>
+    <string name="home_import_button">Импорт</string>
 
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Добавить показания</string>
@@ -40,6 +51,10 @@
     <string name="settings_house">Дом</string>
     <string name="settings_flat">Квартира</string>
     <string name="settings_address_label">Адрес</string>
+    <string name="settings_theme_label">Тема</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Темная</string>
+    <string name="settings_theme_system">Как в системе</string>
     <string name="settings_share_template">Шаблон сообщения</string>
     <string name="settings_template_hint">Исп. $day_e $night_e $cold_w $hot_w $flat</string>
     <string name="settings_template_preview">Предпросмотр шаблона</string>

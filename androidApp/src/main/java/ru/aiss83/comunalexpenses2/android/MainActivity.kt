@@ -14,6 +14,7 @@ import ru.aiss83.comunalexpenses2.data.AppContextHolder
 import ru.aiss83.comunalexpenses2.di.startKoinIfNeeded
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
+import ru.aiss83.comunalexpenses2.ui.AppRoute
 import ru.aiss83.comunalexpenses2.ui.screens.App
 
 class MainActivity : ComponentActivity(), KoinComponent {
@@ -30,6 +31,9 @@ class MainActivity : ComponentActivity(), KoinComponent {
             startKoinIfNeeded()
         }
 
+        // Check if launched from widget to open add screen directly
+        val openAddScreen = intent?.getBooleanExtra("open_add_screen", false) ?: false
+
         super.onCreate(savedInstanceState)
 
         setContent {
@@ -39,7 +43,8 @@ class MainActivity : ComponentActivity(), KoinComponent {
             ) {
                 App(
                     resourcesDataViewModel = resourcesDataViewModel,
-                    settingsViewModel = settingsViewModel
+                    settingsViewModel = settingsViewModel,
+                    startRoute = if (openAddScreen) AppRoute.EditResources() else AppRoute.Home
                 )
             }
         }

@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Communal Expenses</string>
+    <string name="widget_add_button">Add reading</string>
+    <string name="widget_add_hint">Tap to add meter readings</string>
 </resources>
