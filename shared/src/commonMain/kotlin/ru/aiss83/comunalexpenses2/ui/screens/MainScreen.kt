@@ -16,15 +16,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import kotlin.uuid.ExperimentalUuidApi
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 import ru.aiss83.comunalexpenses2.ui.AppRoute
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
 
-/**
- * Main screen composable that handles navigation between app screens.
- * Uses simple state-based navigation with animated transitions.
- */
+@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun App(
     resourcesDataViewModel: ResourcesDataViewModel,
@@ -37,14 +35,10 @@ fun App(
         Surface {
             var currentRoute: AppRoute by remember { mutableStateOf(startRoute) }
 
-            val navigateBack = {
-                currentRoute = AppRoute.Home
-            }
+            val navigateBack = { currentRoute = AppRoute.Home }
 
-            // Collect error state from ViewModel
             val errorMessage by resourcesDataViewModel.errorMessage.collectAsState()
 
-            // Error dialog
             if (errorMessage != null) {
                 AlertDialog(
                     onDismissRequest = { resourcesDataViewModel.clearError() },
@@ -62,8 +56,8 @@ fun App(
                 targetState = currentRoute,
                 transitionSpec = {
                     val direction = when (targetState) {
-                        is AppRoute.Home -> -1  // going home = slide left
-                        else -> 1                // going forward = slide right
+                        is AppRoute.Home -> -1
+                        else -> 1
                     }
                     (slideInHorizontally { width -> direction * width } + fadeIn()) togetherWith
                             (slideOutHorizontally { width -> -direction * width } + fadeOut())
@@ -78,14 +72,24 @@ fun App(
                             viewModel = resourcesDataViewModel,
                             onNavigateToAddExpenses = { currentRoute = AppRoute.EditResources() },
                             onNavigateToEditExpenses = { record -> currentRoute = AppRoute.EditResources(record) },
-                            onNavigateToSettings = { currentRoute = AppRoute.Settings }
+                            onNavigateToSettings = { currentRoute = AppRoute.Settings },
+                            onNavigateToStats = { currentRoute = AppRoute.Stats }
                         )
                     }
 
                     is AppRoute.EditResources -> {
+                        val allData by resourcesDataViewModel.allResourcesData.collectAsState()
+                        val sorted = allData.sortedBy { it.date }
+                        val previousRecord = if (route.existingRecord != null) {
+                            val idx = sorted.indexOfFirst { it.id == route.existingRecord.id }
+                            if (idx > 0) sorted[idx - 1] else null
+                        } else {
+                            sorted.lastOrNull()
+                        }
                         AddResourcesDataScreen(
                             viewModel = resourcesDataViewModel,
                             existingRecord = route.existingRecord,
+                            previousRecord = previousRecord,
                             onNavigateBack = { navigateBack() }
                         )
                     }
@@ -93,6 +97,14 @@ fun App(
                     is AppRoute.Settings -> {
                         SettingsScreen(
                             viewModel = settingsViewModel,
+                            onNavigateBack = { navigateBack() }
+                        )
+                    }
+
+                    is AppRoute.Stats -> {
+                        val allResourcesData by resourcesDataViewModel.allResourcesData.collectAsState()
+                        StatsScreen(
+                            allResourceData = allResourcesData,
                             onNavigateBack = { navigateBack() }
                         )
                     }

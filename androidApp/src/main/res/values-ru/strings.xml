@@ -2,5 +2,9 @@
 <resources>
     <string name="app_name">Коммунальные расходы</string>
     <string name="widget_add_button">Добавить показания</string>
-    <string name="widget_add_hint">Нажмите для ввода показаний</string>
+    <string name="widget_add_hint">Нажмите + для ввода показаний</string>
+    <string name="widget_cold">Хол</string>
+    <string name="widget_hot">Гор</string>
+    <string name="widget_day">День</string>
+    <string name="widget_night">Ночь</string>
 </resources>

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,8 +22,12 @@ import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.FileDownload
 import androidx.compose.material.icons.rounded.FileUpload
+import androidx.compose.material.icons.rounded.Lock
+import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Share
+import androidx.compose.material.icons.rounded.ShowChart
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -30,8 +35,8 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarDuration
@@ -75,11 +80,22 @@ fun HomeScreen(
     viewModel: ResourcesDataViewModel,
     onNavigateToAddExpenses: () -> Unit,
     onNavigateToEditExpenses: (ResourceData) -> Unit,
-    onNavigateToSettings: () -> Unit
+    onNavigateToSettings: () -> Unit,
+    onNavigateToStats: () -> Unit
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var showSwipeHint by rememberSaveable { mutableStateOf(true) }
+    var searchQuery by remember { mutableStateOf("") }
+    var searchActive by remember { mutableStateOf(false) }
+
+    val filteredData = if (searchQuery.isBlank()) allResourceData
+        else allResourceData.filter { it.formatDate().contains(searchQuery, ignoreCase = true) }
+
+    // Delete confirmation
+    var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
+    var boundToRemove by rememberSaveable { mutableStateOf("") }
+    var recordToRemove by remember { mutableStateOf<ResourceData?>(null) }
 
     // File picker for JSON import
     val pickJsonFile = rememberJsonFilePicker { content ->
@@ -92,19 +108,38 @@ fun HomeScreen(
     val exportTitle = stringResource(Res.string.home_export_title)
     val undoLabel = stringResource(Res.string.home_undo)
     val deleteUndoneMsg = stringResource(Res.string.home_delete_undone)
+    val searchHint = stringResource(Res.string.home_search_hint)
 
-    val handleDelete = { record: ResourceData ->
-        viewModel.deleteResourceData(record.id)
-        scope.launch {
-            val result = snackbarHostState.showSnackbar(
-                message = deleteUndoneMsg,
-                actionLabel = undoLabel,
-                duration = SnackbarDuration.Short
-            )
-            if (result == SnackbarResult.ActionPerformed) {
-                viewModel.undoDeleteResourceData(record)
+    val removeRecord = { record: ResourceData ->
+        recordToRemove = record
+        boundToRemove = record.id.toString()
+        openRemoveDialog = true
+    }
+
+    val dismissRemove = {
+        openRemoveDialog = false
+        boundToRemove = ""
+        recordToRemove = null
+    }
+
+    val confirmRemove = {
+        openRemoveDialog = false
+        val record = recordToRemove
+        if (record != null) {
+            viewModel.deleteResourceData(record.id)
+            scope.launch {
+                val result = snackbarHostState.showSnackbar(
+                    message = deleteUndoneMsg,
+                    actionLabel = undoLabel,
+                    duration = SnackbarDuration.Short
+                )
+                if (result == SnackbarResult.ActionPerformed) {
+                    viewModel.undoDeleteResourceData(record)
+                }
             }
         }
+        boundToRemove = ""
+        recordToRemove = null
     }
 
     val shareRecord = { id: Uuid ->
@@ -119,6 +154,7 @@ fun HomeScreen(
                 flatNumber = userSettings.flat
             )
             shareText(shareTextContent, shareTitle)
+            viewModel.markAsShared(record.id)
         }
     }
 
@@ -128,10 +164,41 @@ fun HomeScreen(
         exportAndShareJson(json, filename, exportTitle)
     }
 
+    if (openRemoveDialog) {
+        AlertDialog(
+            onDismissRequest = dismissRemove,
+            icon = { Icon(Icons.Rounded.Delete, contentDescription = null) },
+            title = { Text(stringResource(Res.string.delete_dialog_title)) },
+            text = { Text(stringResource(Res.string.delete_dialog_text)) },
+            confirmButton = {
+                TextButton(onClick = confirmRemove) {
+                    Text(stringResource(Res.string.delete_dialog_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = dismissRemove) {
+                    Text(stringResource(Res.string.delete_dialog_dismiss))
+                }
+            }
+        )
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(stringResource(Res.string.home_title)) },
+                title = {
+                    if (searchActive) {
+                        OutlinedTextField(
+                            value = searchQuery,
+                            onValueChange = { searchQuery = it },
+                            placeholder = { Text(searchHint) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true
+                        )
+                    } else {
+                        Text(stringResource(Res.string.home_title))
+                    }
+                },
                 actions = {
                     IconButton(onClick = exportAllToJson) {
                         Icon(Icons.Rounded.FileDownload, stringResource(Res.string.home_export_content_desc))
@@ -141,6 +208,12 @@ fun HomeScreen(
                     }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(Icons.Rounded.Settings, stringResource(Res.string.home_settings_content_desc))
+                    }
+                    IconButton(onClick = onNavigateToStats) {
+                        Icon(Icons.Rounded.ShowChart, stringResource(Res.string.home_stats_content_desc))
+                    }
+                    IconButton(onClick = { searchActive = !searchActive; searchQuery = "" }) {
+                        Icon(Icons.Rounded.Search, stringResource(Res.string.home_search_content_desc))
                     }
                 }
             )
@@ -178,15 +251,12 @@ fun HomeScreen(
         } else {
             PullToRefreshBox(
                 isRefreshing = false,
-                onRefresh = {
-                    // Refresh is automatic via Flow — just trigger a brief indicator
-                },
+                onRefresh = {},
                 modifier = Modifier.padding(innerPadding)
             ) {
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Swipe hint
                     if (showSwipeHint) {
                         item(key = "swipe_hint") {
                             AnimatedVisibility(
@@ -205,13 +275,15 @@ fun HomeScreen(
                         }
                     }
 
-                    items(allResourceData, key = { it.id }) { item ->
+                    items(filteredData, key = { it.id }) { item ->
                         SwipeableResourcesCard(
                             record = item,
-                            onEdit = { onNavigateToEditExpenses(item) },
+                            onEdit = {
+                                if (!item.shared) onNavigateToEditExpenses(item)
+                            },
                             onDataRemove = {
                                 showSwipeHint = false
-                                handleDelete(item)
+                                if (!item.shared) removeRecord(item)
                             },
                             onShare = shareRecord
                         )
@@ -230,9 +302,11 @@ private fun SwipeableResourcesCard(
     onDataRemove: () -> Unit,
     onShare: (id: Uuid) -> Unit
 ) {
+    val canSwipe = !record.shared
+
     val dismissState = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->
-            if (value == SwipeToDismissBoxValue.EndToStart) {
+            if (value == SwipeToDismissBoxValue.EndToStart && canSwipe) {
                 onDataRemove()
                 false
             } else {
@@ -245,21 +319,23 @@ private fun SwipeableResourcesCard(
         state = dismissState,
         modifier = Modifier.padding(8.dp),
         enableDismissFromStartToEnd = false,
-        enableDismissFromEndToStart = true,
+        enableDismissFromEndToStart = canSwipe,
         backgroundContent = {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CardDefaults.shape)
-                    .background(Color(0xFFE53935))
-                    .padding(horizontal = 20.dp),
-                contentAlignment = Alignment.CenterEnd
-            ) {
-                Icon(
-                    Icons.Rounded.Delete,
-                    contentDescription = stringResource(Res.string.home_delete_content_desc),
-                    tint = Color.White
-                )
+            if (canSwipe) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(CardDefaults.shape)
+                        .background(Color(0xFFE53935))
+                        .padding(horizontal = 20.dp),
+                    contentAlignment = Alignment.CenterEnd
+                ) {
+                    Icon(
+                        Icons.Rounded.Delete,
+                        contentDescription = stringResource(Res.string.home_delete_content_desc),
+                        tint = Color.White
+                    )
+                }
             }
         }
     ) {
@@ -296,21 +372,35 @@ fun ResourcesCard(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    modifier = Modifier.wrapContentWidth(Alignment.Start),
-                    text = record.formatDate(),
-                    style = MaterialTheme.typography.headlineSmall
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (record.shared) {
+                        Icon(
+                            Icons.Rounded.Lock,
+                            contentDescription = null,
+                            modifier = Modifier.size(16.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                    Text(
+                        modifier = Modifier.wrapContentWidth(Alignment.Start),
+                        text = record.formatDate(),
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                }
 
                 Row {
-                    IconButton(onClick = { onEdit() }) {
-                        Icon(Icons.Rounded.Edit, stringResource(Res.string.home_edit_content_desc))
+                    if (!record.shared) {
+                        IconButton(onClick = { onEdit() }) {
+                            Icon(Icons.Rounded.Edit, stringResource(Res.string.home_edit_content_desc))
+                        }
                     }
                     IconButton(onClick = { onShare(record.id) }) {
                         Icon(Icons.Rounded.Share, stringResource(Res.string.home_share_content_desc))
                     }
-                    IconButton(onClick = { onDataRemove() }) {
-                        Icon(Icons.Rounded.Delete, stringResource(Res.string.home_delete_content_desc))
+                    if (!record.shared) {
+                        IconButton(onClick = { onDataRemove() }) {
+                            Icon(Icons.Rounded.Delete, stringResource(Res.string.home_delete_content_desc))
+                        }
                     }
                 }
             }

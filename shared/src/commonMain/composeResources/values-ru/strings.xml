@@ -26,6 +26,9 @@
     <string name="home_import_title">Импорт данных</string>
     <string name="home_import_placeholder">Вставьте JSON сюда...</string>
     <string name="home_import_button">Импорт</string>
+    <string name="home_stats_content_desc">Статистика</string>
+    <string name="home_search_content_desc">Поиск</string>
+    <string name="home_search_hint">Поиск по дате…</string>
 
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Добавить показания</string>
@@ -42,6 +45,9 @@
     <string name="add_readings_discard_title">Отменить изменения?</string>
     <string name="add_readings_discard_text">У вас есть несохраненные показания. Вы уверены, что хотите вернуться?</string>
     <string name="add_readings_discard_confirm">Отменить</string>
+    <string name="add_readings_warning_lower">Значения меньше предыдущих показаний</string>
+    <string name="add_readings_validation_title">Нельзя сохранить</string>
+    <string name="add_readings_validation_text">Новые показания не могут быть меньше предыдущих. Проверьте значения.</string>
 
     <!-- Settings Screen -->
     <string name="settings_title">Настройки</string>
@@ -59,6 +65,18 @@
     <string name="settings_template_hint">Исп. $day_e $night_e $cold_w $hot_w $flat</string>
     <string name="settings_template_preview">Предпросмотр шаблона</string>
     <string name="settings_keywords_hint">Ключевые слова: $day_e, $night_e, $cold_w, $hot_w, $flat — будут заменены на реальные значения при отправке</string>
+
+    <!-- Stats Screen -->
+    <string name="stats_title">Статистика</string>
+    <string name="stats_no_data">Нет данных для отображения</string>
+    <string name="stats_cold_water">Хол. вода</string>
+    <string name="stats_hot_water">Гор. вода</string>
+    <string name="stats_day_electricity">кВт·ч День</string>
+    <string name="stats_night_electricity">кВт·ч Ночь</string>
+    <string name="stats_min">Мин</string>
+    <string name="stats_max">Макс</string>
+    <string name="stats_avg">Сред</string>
+    <string name="stats_total">Всего</string>
 
     <!-- Delete Confirmation Dialog -->
     <string name="delete_dialog_title">Подтверждение удаления</string>

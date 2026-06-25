@@ -36,6 +36,7 @@ import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
+import ru.aiss83.comunalexpenses2.utils.updateWidgetData
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -44,6 +45,7 @@ import kotlin.uuid.Uuid
 fun AddResourcesDataScreen(
     viewModel: ResourcesDataViewModel,
     existingRecord: ResourceData? = null,
+    previousRecord: ResourceData? = null,
     onNavigateBack: () -> Unit
 ) {
     val isEditing = existingRecord != null
@@ -54,6 +56,7 @@ fun AddResourcesDataScreen(
     var nightkWhValue by remember { mutableStateOf(existingRecord?.nightElectricity?.toString() ?: "") }
 
     var showDiscardDialog by remember { mutableStateOf(false) }
+    var showValidationError by remember { mutableStateOf(false) }
 
     // Get current date for display
     val currentDate = if (isEditing) {
@@ -77,7 +80,21 @@ fun AddResourcesDataScreen(
         }
     }
 
-    val handleSave = {
+    val handleSave = saveLambda@{
+        val coldVal = coldWaterValue.toLongOrNull() ?: 0
+        val hotVal = hotWaterValue.toLongOrNull() ?: 0
+        val dayVal = daykWhValue.toLongOrNull() ?: 0
+        val nightVal = nightkWhValue.toLongOrNull() ?: 0
+
+        // Block if values are lower than previous
+        if (previousRecord != null &&
+            (coldVal < previousRecord.coldWater || hotVal < previousRecord.hotWater ||
+             dayVal < previousRecord.dayElectricity || nightVal < previousRecord.nightElectricity)
+        ) {
+            showValidationError = true
+            return@saveLambda
+        }
+
         val data = ResourceData(
             id = existingRecord?.id ?: Uuid.random(),
             date = existingRecord?.date ?: Clock.System.now().toEpochMilliseconds(),
@@ -91,6 +108,7 @@ fun AddResourcesDataScreen(
         } else {
             viewModel.addResourcesData(data)
         }
+        updateWidgetData(coldVal, hotVal, dayVal, nightVal, formattedDate)
         onNavigateBack()
     }
 
@@ -111,6 +129,20 @@ fun AddResourcesDataScreen(
             dismissButton = {
                 TextButton(onClick = { showDiscardDialog = false }) {
                     Text(stringResource(Res.string.add_readings_cancel))
+                }
+            }
+        )
+    }
+
+    // Validation error dialog
+    if (showValidationError) {
+        AlertDialog(
+            onDismissRequest = { showValidationError = false },
+            title = { Text(stringResource(Res.string.add_readings_validation_title)) },
+            text = { Text(stringResource(Res.string.add_readings_validation_text)) },
+            confirmButton = {
+                TextButton(onClick = { showValidationError = false }) {
+                    Text("OK")
                 }
             }
         )
@@ -175,6 +207,16 @@ fun AddResourcesDataScreen(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
             }
+            // Validation warnings for water
+            val coldCurr = coldWaterValue.toLongOrNull() ?: 0
+            val hotCurr = hotWaterValue.toLongOrNull() ?: 0
+            if (previousRecord != null && (coldCurr < previousRecord.coldWater || hotCurr < previousRecord.hotWater)) {
+                Text(
+                    text = stringResource(Res.string.add_readings_warning_lower),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
 
             // Electricity readings
             Text(
@@ -198,6 +240,16 @@ fun AddResourcesDataScreen(
                     label = { Text(stringResource(Res.string.add_readings_kwh_night)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                )
+            }
+            // Validation warnings for electricity
+            val dayCurr = daykWhValue.toLongOrNull() ?: 0
+            val nightCurr = nightkWhValue.toLongOrNull() ?: 0
+            if (previousRecord != null && (dayCurr < previousRecord.dayElectricity || nightCurr < previousRecord.nightElectricity)) {
+                Text(
+                    text = stringResource(Res.string.add_readings_warning_lower),
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.error
                 )
             }
 

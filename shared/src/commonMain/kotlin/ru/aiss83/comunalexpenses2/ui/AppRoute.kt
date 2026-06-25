@@ -9,5 +9,6 @@ import ru.aiss83.comunalexpenses2.data.ResourceData
 sealed class AppRoute {
     data object Home : AppRoute()
     data object Settings : AppRoute()
+    data object Stats : AppRoute()
     data class EditResources(val existingRecord: ResourceData? = null) : AppRoute()
 }

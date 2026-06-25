@@ -8,8 +8,7 @@ import android.content.Intent
 import android.widget.RemoteViews
 
 /**
- * Home screen widget for quick access to adding meter readings.
- * Tapping the button opens the app's add-readings screen.
+ * Home screen widget showing last readings and quick-add button.
  */
 class QuickInputWidgetProvider : AppWidgetProvider() {
 
@@ -21,7 +20,27 @@ class QuickInputWidgetProvider : AppWidgetProvider() {
         for (widgetId in appWidgetIds) {
             val views = RemoteViews(context.packageName, R.layout.quick_input_widget)
 
-            // Tap on button opens the app in add-reading mode
+            // Read last readings from SharedPreferences
+            val prefs = context.getSharedPreferences("widget_data", Context.MODE_PRIVATE)
+            val cold = prefs.getLong("cold_water", 0)
+            val hot = prefs.getLong("hot_water", 0)
+            val day = prefs.getLong("day_electricity", 0)
+            val night = prefs.getLong("night_electricity", 0)
+            val lastDate = prefs.getString("last_date", null)
+
+            val coldLabel = context.getString(R.string.widget_cold)
+            val hotLabel = context.getString(R.string.widget_hot)
+            val dayLabel = context.getString(R.string.widget_day)
+            val nightLabel = context.getString(R.string.widget_night)
+
+            if (lastDate != null) {
+                views.setTextViewText(
+                    R.id.widget_last_reading,
+                    "$lastDate\n$coldLabel: $cold  $hotLabel: $hot\n$dayLabel: $day  $nightLabel: $night"
+                )
+            }
+
+            // Tap opens add-reading screen
             val intent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 putExtra("open_add_screen", true)
@@ -31,7 +50,6 @@ class QuickInputWidgetProvider : AppWidgetProvider() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
             views.setOnClickPendingIntent(R.id.widget_add_button, pendingIntent)
-            // Also allow tapping the whole widget
             views.setOnClickPendingIntent(R.id.widget_title, pendingIntent)
 
             appWidgetManager.updateAppWidget(widgetId, views)

@@ -26,6 +26,9 @@
     <string name="home_import_title">Import data</string>
     <string name="home_import_placeholder">Paste JSON here...</string>
     <string name="home_import_button">Import</string>
+    <string name="home_stats_content_desc">Statistics</string>
+    <string name="home_search_content_desc">Search</string>
+    <string name="home_search_hint">Search by date…</string>
 
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Add Readings</string>
@@ -42,6 +45,9 @@
     <string name="add_readings_discard_title">Discard changes?</string>
     <string name="add_readings_discard_text">You have unsaved readings. Are you sure you want to go back?</string>
     <string name="add_readings_discard_confirm">Discard</string>
+    <string name="add_readings_warning_lower">Values are lower than previous readings</string>
+    <string name="add_readings_validation_title">Cannot save</string>
+    <string name="add_readings_validation_text">New readings cannot be lower than previous readings. Please check the values.</string>
 
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
@@ -59,6 +65,18 @@
     <string name="settings_template_hint">Use $day_e $night_e $cold_w $hot_w $flat</string>
     <string name="settings_template_preview">Template preview</string>
     <string name="settings_keywords_hint">Keywords: $day_e, $night_e, $cold_w, $hot_w, $flat — will be replaced with actual values when sharing</string>
+
+    <!-- Stats Screen -->
+    <string name="stats_title">Statistics</string>
+    <string name="stats_no_data">No data to display</string>
+    <string name="stats_cold_water">Cold water</string>
+    <string name="stats_hot_water">Hot water</string>
+    <string name="stats_day_electricity">Day kWh</string>
+    <string name="stats_night_electricity">Night kWh</string>
+    <string name="stats_min">Min</string>
+    <string name="stats_max">Max</string>
+    <string name="stats_avg">Avg</string>
+    <string name="stats_total">Total</string>
 
     <!-- Delete Confirmation Dialog -->
     <string name="delete_dialog_title">Delete confirmation</string>
