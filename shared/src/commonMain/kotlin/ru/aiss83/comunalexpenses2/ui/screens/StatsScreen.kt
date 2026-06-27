@@ -1,8 +1,6 @@
 package ru.aiss83.comunalexpenses2.ui.screens
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -26,21 +23,25 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.text.TextMeasurer
-import androidx.compose.ui.text.drawText
-import androidx.compose.ui.text.rememberTextMeasurer
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.dp
 import comunalexpenses2.shared.generated.resources.*
+import io.github.koalaplot.core.ChartLayout
+import io.github.koalaplot.core.line.LinePlot
+import io.github.koalaplot.core.style.LineStyle
+import io.github.koalaplot.core.xygraph.CategoryAxisModel
+import io.github.koalaplot.core.xygraph.DefaultPoint
+import io.github.koalaplot.core.xygraph.FloatLinearAxisModel
+import io.github.koalaplot.core.xygraph.XYGraph
+import io.github.koalaplot.core.xygraph.AxisContent
+import io.github.koalaplot.core.xygraph.rememberAxisStyle
+import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
 
@@ -64,6 +65,7 @@ fun StatsScreen(
     onNavigateBack: () -> Unit
 ) {
     var selectedMetrics by remember { mutableStateOf(setOf(0)) }
+    var deltaMode by remember { mutableStateOf(false) }
 
     val metrics = listOf(
         MetricDef(stringResource(Res.string.stats_cold_water), { it.coldWater }, metricColors[0]),
@@ -73,7 +75,14 @@ fun StatsScreen(
     )
 
     val sortedData = allResourceData.sortedBy { it.date }
-    val dateLabels = sortedData.map { it.formatDate() }
+
+    // Compute values: cumulative or delta
+    fun metricValues(extractor: (ResourceData) -> Long): List<Long> {
+        val raw = sortedData.map(extractor)
+        return if (deltaMode) {
+            raw.mapIndexed { i, v -> if (i == 0) 0L else (v - raw[i - 1]).coerceAtLeast(0) }
+        } else raw
+    }
 
     Scaffold(
         topBar = {
@@ -93,7 +102,7 @@ fun StatsScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            // Multi-select metric chips
+            // Metric chips + delta toggle
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(6.dp)
@@ -122,7 +131,18 @@ fun StatsScreen(
                 }
             }
 
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(8.dp))
+
+            // Delta toggle
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+                FilterChip(
+                    selected = deltaMode,
+                    onClick = { deltaMode = !deltaMode },
+                    label = { Text(stringResource(Res.string.stats_delta_mode), style = MaterialTheme.typography.labelSmall) },
+                )
+            }
+
+            Spacer(Modifier.height(8.dp))
 
             if (sortedData.isEmpty()) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -133,12 +153,11 @@ fun StatsScreen(
                     )
                 }
             } else {
-                // Chart
-                MultiLineChart(
+                KoalaLineChart(
                     data = sortedData,
-                    dateLabels = dateLabels,
                     selectedMetrics = selectedMetrics,
                     metrics = metrics,
+                    valueFn = { m, r -> metricValues(m.extractor).let { vals -> vals[sortedData.indexOf(r)] } },
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
@@ -146,32 +165,9 @@ fun StatsScreen(
 
                 Spacer(Modifier.height(8.dp))
 
-                // Legend
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    selectedMetrics.forEachIndexed { i, idx ->
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                Modifier
-                                    .size(12.dp)
-                                    .background(metrics[idx].color, MaterialTheme.shapes.extraSmall)
-                            )
-                            Spacer(Modifier.width(4.dp))
-                            Text(metrics[idx].label, style = MaterialTheme.typography.labelSmall)
-                        }
-                        if (i < selectedMetrics.size - 1) {
-                            Spacer(Modifier.width(16.dp))
-                        }
-                    }
-                }
-
-                Spacer(Modifier.height(8.dp))
-
                 // Stats summary for primary metric
                 val primary = selectedMetrics.first()
-                val values = sortedData.map { metrics[primary].extractor(it) }
+                val values = metricValues(metrics[primary].extractor)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
@@ -194,112 +190,59 @@ private fun StatItem(label: String, value: String) {
     }
 }
 
+@OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
-private fun MultiLineChart(
+private fun KoalaLineChart(
     data: List<ResourceData>,
-    dateLabels: List<String>,
     selectedMetrics: Set<Int>,
     metrics: List<MetricDef>,
+    valueFn: (MetricDef, ResourceData) -> Long,
     modifier: Modifier = Modifier
 ) {
-    var scale by remember { mutableFloatStateOf(1f) }
-    var offsetX by remember { mutableFloatStateOf(0f) }
-    var offsetY by remember { mutableFloatStateOf(0f) }
-    val textMeasurer = rememberTextMeasurer()
-    val labelStyle = MaterialTheme.typography.labelSmall
+    val dateLabels = data.map { it.formatDate() }
+    val allValues = selectedMetrics.flatMap { idx -> data.map { valueFn(metrics[idx], it) } }
+    val minVal = (allValues.minOrNull() ?: 0L).toFloat()
+    val maxVal = (allValues.maxOrNull() ?: 1L).toFloat().coerceAtLeast(minVal + 1f)
 
-    Box(modifier = modifier) {
-        Canvas(
-            modifier = Modifier
-                .fillMaxSize()
-                .pointerInput(Unit) {
-                    detectTransformGestures { _, pan, zoom, _ ->
-                        scale = (scale * zoom).coerceIn(0.5f, 5f)
-                        offsetX += pan.x
-                        offsetY += pan.y
-                    }
-                }
+    ChartLayout(
+        modifier = modifier,
+    ) {
+        XYGraph(
+            xAxisModel = CategoryAxisModel(dateLabels),
+            yAxisModel = FloatLinearAxisModel(minVal..maxVal),
+            xAxisContent = AxisContent(
+                labels = { Text(it, style = MaterialTheme.typography.labelSmall) },
+                title = {},
+                style = rememberAxisStyle(),
+            ),
+            yAxisContent = AxisContent(
+                labels = { Text(formatAxisValue(it.toLong()), style = MaterialTheme.typography.labelSmall) },
+                title = {},
+                style = rememberAxisStyle(),
+            ),
         ) {
-            val axisLeft = 60f
-            val axisBottom = 30f
-            val chartW = size.width * scale - axisLeft
-            val chartH = size.height * scale - axisBottom
-
-            // Collect all values across selected metrics for Y-axis range
-            val allValues = selectedMetrics.flatMap { idx ->
-                data.map { metrics[idx].extractor(it) }
-            }
-            val minVal = allValues.minOrNull() ?: 0L
-            val maxVal = allValues.maxOrNull() ?: 1L
-            val range = (maxVal - minVal).coerceAtLeast(1)
-
-            // --- Axes ---
-            val axisColor = Color.Gray
-
-            // Y-axis line
-            drawLine(axisColor, Offset(offsetX + axisLeft, offsetY), Offset(offsetX + axisLeft, offsetY + chartH), 2f)
-            // X-axis line
-            drawLine(axisColor, Offset(offsetX + axisLeft, offsetY + chartH), Offset(offsetX + axisLeft + chartW, offsetY + chartH), 2f)
-
-            // Y-axis labels + grid lines
-            val yTicks = 5
-            for (i in 0..yTicks) {
-                val value = minVal + (range * i / yTicks)
-                val y = offsetY + chartH - (chartH * i / yTicks)
-
-                // Grid line
-                drawLine(
-                    Color.LightGray.copy(alpha = 0.3f),
-                    Offset(offsetX + axisLeft, y),
-                    Offset(offsetX + axisLeft + chartW, y),
-                    1f
-                )
-
-                // Y label
-                val label = if (value > 9999) "${value / 1000}k" else value.toString()
-                val result = textMeasurer.measure(label, style = labelStyle)
-                drawText(
-                    result,
-                    topLeft = Offset(offsetX + axisLeft - result.size.width - 6f, y - result.size.height / 2f)
-                )
-            }
-
-            // X-axis labels (first + last)
-            if (dateLabels.isNotEmpty()) {
-                val firstResult = textMeasurer.measure(dateLabels.first(), style = labelStyle)
-                drawText(firstResult, topLeft = Offset(offsetX + axisLeft, offsetY + chartH + 6f))
-
-                val lastResult = textMeasurer.measure(dateLabels.last(), style = labelStyle)
-                drawText(
-                    lastResult,
-                    topLeft = Offset(offsetX + axisLeft + chartW - lastResult.size.width, offsetY + chartH + 6f)
-                )
-            }
-
-            if (data.size < 2) return@Canvas
-
-            val stepX = chartW / (data.size - 1).coerceAtLeast(1)
-
-            // Draw lines for each selected metric
-            selectedMetrics.forEach { metricIdx ->
-                val color = metrics[metricIdx].color
-                val points = data.mapIndexed { i, record ->
-                    val value = metrics[metricIdx].extractor(record)
-                    val x = offsetX + axisLeft + stepX * i
-                    val y = offsetY + chartH - ((value - minVal).toFloat() / range * chartH)
-                    Offset(x, y)
+            selectedMetrics.forEach { idx ->
+                val points = data.map { record ->
+                    DefaultPoint(record.formatDate(), valueFn(metrics[idx], record).toFloat())
                 }
-
-                // Draw line segments
-                for (i in 0 until points.size - 1) {
-                    drawLine(color, points[i], points[i + 1], 3f)
-                }
-
-                // Draw data points
-                points.forEach { point ->
-                    drawCircle(color, 5f, point)
-                }
+                LinePlot(
+                    data = points,
+                    lineStyle = LineStyle(
+                        brush = SolidColor(metrics[idx].color),
+                        strokeWidth = 2.dp,
+                    ),
+                )
             }
         }
     }
+}
+
+/**
+ * Format a numeric value for display on Y-axis.
+ * Uses compact suffixes: K (thousands), M (millions).
+ */
+private fun formatAxisValue(value: Long): String = when {
+    value >= 1_000_000 -> "${value / 1_000_000}M"
+    value >= 10_000 -> "${value / 1_000}K"
+    else -> value.toString()
 }

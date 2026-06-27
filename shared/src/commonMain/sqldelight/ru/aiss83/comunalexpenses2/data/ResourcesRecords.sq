@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS resources_records (
     waterHot INTEGER NOT NULL DEFAULT 0,
     waterCold INTEGER NOT NULL DEFAULT 0,
     electricityDay INTEGER NOT NULL DEFAULT 0,
-    electricityNight INTEGER NOT NULL DEFAULT 0
+    electricityNight INTEGER NOT NULL DEFAULT 0,
+    shared INTEGER NOT NULL DEFAULT 0
 );
 
 getAllResourceData:
@@ -17,12 +18,12 @@ findResourceDataByDate:
 SELECT * FROM resources_records WHERE date = :dataDate;
 
 insertResourceData:
-INSERT INTO resources_records (recordId, date, waterHot, waterCold, electricityDay, electricityNight)
-VALUES (?, ?, ?, ?, ?, ?);
+INSERT INTO resources_records (recordId, date, waterHot, waterCold, electricityDay, electricityNight, shared)
+VALUES (?, ?, ?, ?, ?, ?, ?);
 
 updateResourceData:
 UPDATE resources_records
-SET date = :date, waterHot = :waterHot, waterCold = :waterCold, electricityDay = :electricityDay, electricityNight = :electricityNight
+SET date = :date, waterHot = :waterHot, waterCold = :waterCold, electricityDay = :electricityDay, electricityNight = :electricityNight, shared = :shared
 WHERE recordId = :recordId;
 
 deleteResourceData:
@@ -30,3 +31,6 @@ DELETE FROM resources_records WHERE recordId = :recordId;
 
 deleteAllResourceData:
 DELETE FROM resources_records;
+
+markAsShared:
+UPDATE resources_records SET shared = 1 WHERE recordId = :recordId;

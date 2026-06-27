@@ -21,7 +21,8 @@ private fun Resources_records.toResourceData(): ResourceData {
         hotWater = waterHot,
         coldWater = waterCold,
         dayElectricity = electricityDay,
-        nightElectricity = electricityNight
+        nightElectricity = electricityNight,
+        shared = shared != 0L
     )
 }
 
@@ -78,7 +79,8 @@ class ResourceDataDao(private val database: ResourcesDatabase) {
             waterHot = data.hotWater,
             waterCold = data.coldWater,
             electricityDay = data.dayElectricity,
-            electricityNight = data.nightElectricity
+            electricityNight = data.nightElectricity,
+            shared = if (data.shared) 1L else 0L
         )
     }
 
@@ -92,8 +94,16 @@ class ResourceDataDao(private val database: ResourcesDatabase) {
             waterCold = data.coldWater,
             electricityDay = data.dayElectricity,
             electricityNight = data.nightElectricity,
+            shared = if (data.shared) 1L else 0L,
             recordId = data.id.toString()
         )
+    }
+
+    /**
+     * Mark a record as shared.
+     */
+    fun markAsShared(id: Uuid) {
+        queries.markAsShared(id.toString())
     }
 
     /**

@@ -1,6 +1,7 @@
 package ru.aiss83.comunalexpenses2.data
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlin.uuid.ExperimentalUuidApi
@@ -17,7 +18,8 @@ data class ResourceDataJson(
     val hotWater: Long,
     val coldWater: Long,
     val dayElectricity: Long,
-    val nightElectricity: Long
+    val nightElectricity: Long,
+    val shared: Boolean = false
 )
 
 /**
@@ -33,6 +35,7 @@ data class ExportContainer(
 private val json = Json {
     prettyPrint = true
     ignoreUnknownKeys = true
+    encodeDefaults = true
 }
 
 /**
@@ -45,7 +48,8 @@ fun ResourceData.toJsonModel(): ResourceDataJson = ResourceDataJson(
     hotWater = hotWater,
     coldWater = coldWater,
     dayElectricity = dayElectricity,
-    nightElectricity = nightElectricity
+    nightElectricity = nightElectricity,
+    shared = shared
 )
 
 /**
@@ -55,7 +59,7 @@ fun ResourceData.toJsonModel(): ResourceDataJson = ResourceDataJson(
 fun ResourceDataJson.toDomainModel(): ResourceData? {
     val uuid = try {
         Uuid.parse(id)
-    } catch (_: Exception) {
+    } catch (_: IllegalArgumentException) {
         null
     }
     return uuid?.let {
@@ -65,7 +69,8 @@ fun ResourceDataJson.toDomainModel(): ResourceData? {
             hotWater = hotWater,
             coldWater = coldWater,
             dayElectricity = dayElectricity,
-            nightElectricity = nightElectricity
+            nightElectricity = nightElectricity,
+            shared = shared
         )
     }
 }
@@ -88,7 +93,9 @@ fun importFromJson(jsonString: String): List<ResourceData> {
     return try {
         val container = json.decodeFromString<ExportContainer>(jsonString)
         container.records.mapNotNull { it.toDomainModel() }
-    } catch (_: Exception) {
+    } catch (_: SerializationException) {
+        emptyList()
+    } catch (_: IllegalArgumentException) {
         emptyList()
     }
 }

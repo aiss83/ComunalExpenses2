@@ -10,6 +10,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.Done
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -18,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -35,6 +37,7 @@ import comunalexpenses2.shared.generated.resources.*
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.data.ThemeMode
+import ru.aiss83.comunalexpenses2.domain.SaveSettingsResult
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 
 /**
@@ -53,6 +56,7 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit
 ) {
     val settings by viewModel.settingsData.collectAsState()
+    val saveResult by viewModel.saveResult.collectAsState()
 
     // Initialize fields from settings
     var streetValue by remember { mutableStateOf(settings.street) }
@@ -60,7 +64,7 @@ fun SettingsScreen(
     var flatValue by remember { mutableStateOf(settings.flat.toString()) }
     var shareTemplateValue by remember { mutableStateOf(settings.shareTemplate) }
 
-    // Sync fields when settings change
+    // Sync fields when settings change (e.g. on first load)
     LaunchedEffect(settings) {
         streetValue = settings.street
         houseValue = settings.house.toString()
@@ -68,9 +72,35 @@ fun SettingsScreen(
         shareTemplateValue = settings.shareTemplate
     }
 
-    // Preview the template as-is so keywords are clearly visible
+    // Navigate back on successful save
+    LaunchedEffect(saveResult) {
+        if (saveResult is SaveSettingsResult.Success) {
+            viewModel.clearSaveResult()
+            onNavigateBack()
+        }
+    }
+
+    // Template preview: raw + filled example
     val templatePreview = remember(shareTemplateValue) {
         shareTemplateValue.ifBlank { SettingsData.DEFAULT_SHARE_TEMPLATE }
+    }
+    val templateExample = remember(shareTemplateValue) {
+        val tpl = shareTemplateValue.ifBlank { SettingsData.DEFAULT_SHARE_TEMPLATE }
+        SettingsData.applyShareTemplate(tpl, 150, 80, 200, 100, 42)
+    }
+
+    // Validation error dialog
+    if (saveResult is SaveSettingsResult.Error) {
+        AlertDialog(
+            onDismissRequest = { viewModel.clearSaveResult() },
+            title = { Text(stringResource(Res.string.add_readings_validation_title)) },
+            text = { Text((saveResult as SaveSettingsResult.Error).message) },
+            confirmButton = {
+                TextButton(onClick = { viewModel.clearSaveResult() }) {
+                    Text("OK")
+                }
+            }
+        )
     }
 
     Scaffold(
@@ -94,7 +124,6 @@ fun SettingsScreen(
                                 flat = parseSettingsInt(flatValue),
                                 shareTemplate = shareTemplateValue.ifBlank { SettingsData.DEFAULT_SHARE_TEMPLATE }
                             )
-                            onNavigateBack()
                         }
                     ) {
                         Icon(Icons.Rounded.Done, stringResource(Res.string.settings_save_content_desc))
@@ -138,11 +167,19 @@ fun SettingsScreen(
                 )
             }
 
-            // Display current formatted address as preview
-            if (settings.isNotEmpty()) {
+            // Live address preview from current input
+            val liveStreet = streetValue.trim()
+            val liveHouse = parseSettingsInt(houseValue)
+            val liveFlat = parseSettingsInt(flatValue)
+            if (liveStreet.isNotBlank() || liveHouse > 0 || liveFlat > 0) {
+                val parts = mutableListOf<String>()
+                if (liveStreet.isNotBlank()) parts += liveStreet
+                if (liveHouse > 0) parts += "д. $liveHouse"
+                if (liveFlat > 0) parts += "кв. $liveFlat"
                 Text(
-                    text = "${stringResource(Res.string.settings_address_label)}: ${settings.formatAddress()}",
+                    text = "${stringResource(Res.string.settings_address_label)}: ${parts.joinToString(", ")}",
                     style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(top = 8.dp)
                 )
             }
@@ -180,6 +217,19 @@ fun SettingsScreen(
             Text(
                 text = templatePreview,
                 style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp)
+            )
+            // Filled example
+            Text(
+                text = stringResource(Res.string.settings_template_example) + ":",
+                style = MaterialTheme.typography.labelMedium
+            )
+            Text(
+                text = templateExample,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 4.dp)

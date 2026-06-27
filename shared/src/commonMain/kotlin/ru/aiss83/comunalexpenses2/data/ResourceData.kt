@@ -1,12 +1,9 @@
 package ru.aiss83.comunalexpenses2.data
 
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
-import kotlin.time.ExperimentalTime
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+import ru.aiss83.comunalexpenses2.utils.formatEpochMillis
 
 /**
  * Domain model for utility meter readings.
@@ -19,17 +16,9 @@ data class ResourceData(
     val hotWater: Long = 0,
     val coldWater: Long = 0,
     val dayElectricity: Long = 0,
-    val nightElectricity: Long = 0
+    val nightElectricity: Long = 0,
+    val shared: Boolean = false
 ) {
-    /**
-     * Convert epoch milliseconds to a formatted date string.
-     */
-    fun formatDate(): String {
-        val instant = Instant.fromEpochMilliseconds(date)
-        val localDateTime = instant.toLocalDateTime(TimeZone.currentSystemDefault())
-        val day = localDateTime.dayOfMonth.toString().padStart(2, '0')
-        val month = localDateTime.monthNumber.toString().padStart(2, '0')
-        val year = localDateTime.year
-        return "$day.$month.$year"
-    }
+    /** Format date as "dd.MM.yyyy" using shared utility. */
+    fun formatDate(): String = date.formatEpochMillis()
 }

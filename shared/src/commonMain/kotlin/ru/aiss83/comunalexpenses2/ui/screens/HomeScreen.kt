@@ -26,7 +26,7 @@ import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Share
-import androidx.compose.material.icons.rounded.ShowChart
+import androidx.compose.material.icons.automirrored.rounded.ShowChart
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -46,9 +46,9 @@ import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -63,6 +63,7 @@ import androidx.compose.ui.unit.dp
 import comunalexpenses2.shared.generated.resources.*
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
@@ -90,7 +91,13 @@ fun HomeScreen(
     var searchActive by remember { mutableStateOf(false) }
 
     val filteredData = if (searchQuery.isBlank()) allResourceData
-        else allResourceData.filter { it.formatDate().contains(searchQuery, ignoreCase = true) }
+        else allResourceData.filter {
+            it.formatDate().contains(searchQuery, ignoreCase = true) ||
+            it.coldWater.toString().contains(searchQuery) ||
+            it.hotWater.toString().contains(searchQuery) ||
+            it.dayElectricity.toString().contains(searchQuery) ||
+            it.nightElectricity.toString().contains(searchQuery)
+        }
 
     // Delete confirmation
     var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
@@ -109,6 +116,62 @@ fun HomeScreen(
     val undoLabel = stringResource(Res.string.home_undo)
     val deleteUndoneMsg = stringResource(Res.string.home_delete_undone)
     val searchHint = stringResource(Res.string.home_search_hint)
+    val sharedOkMsg = stringResource(Res.string.home_shared_ok)
+    val importedMsg = stringResource(Res.string.home_imported_count)
+
+    // Observe import result
+    LaunchedEffect(Unit) {
+        viewModel.importedCount.collectLatest { count ->
+            if (count != null) {
+                snackbarHostState.showSnackbar(
+                    message = importedMsg.replace("%d", count.toString()),
+                    duration = SnackbarDuration.Short
+                )
+                viewModel.clearImportedCount()
+            }
+        }
+    }
+
+    // Share confirmation
+    var openShareDialog by remember { mutableStateOf(false) }
+    var recordToShare by remember { mutableStateOf<ResourceData?>(null) }
+
+    val shareRecord = { id: Uuid ->
+        val record = allResourceData.find { it.id == id }
+        if (record != null) {
+            recordToShare = record
+            openShareDialog = true
+        }
+    }
+
+    val confirmShare = {
+        val record = recordToShare
+        if (record != null) {
+            val shareTextContent = SettingsData.applyShareTemplate(
+                template = userSettings.shareTemplate,
+                dayElectricity = record.dayElectricity,
+                nightElectricity = record.nightElectricity,
+                coldWater = record.coldWater,
+                hotWater = record.hotWater,
+                flatNumber = userSettings.flat
+            )
+            shareText(shareTextContent, shareTitle)
+            viewModel.markAsShared(record.id)
+            scope.launch {
+                snackbarHostState.showSnackbar(
+                    message = sharedOkMsg,
+                    duration = SnackbarDuration.Short
+                )
+            }
+        }
+        openShareDialog = false
+        recordToShare = null
+    }
+
+    val dismissShare = {
+        openShareDialog = false
+        recordToShare = null
+    }
 
     val removeRecord = { record: ResourceData ->
         recordToRemove = record
@@ -142,22 +205,6 @@ fun HomeScreen(
         recordToRemove = null
     }
 
-    val shareRecord = { id: Uuid ->
-        val record = allResourceData.find { it.id == id }
-        if (record != null) {
-            val shareTextContent = SettingsData.applyShareTemplate(
-                template = userSettings.shareTemplate,
-                dayElectricity = record.dayElectricity,
-                nightElectricity = record.nightElectricity,
-                coldWater = record.coldWater,
-                hotWater = record.hotWater,
-                flatNumber = userSettings.flat
-            )
-            shareText(shareTextContent, shareTitle)
-            viewModel.markAsShared(record.id)
-        }
-    }
-
     val exportAllToJson = {
         val json = viewModel.exportJson()
         val filename = "communal_expenses_backup.json"
@@ -178,6 +225,25 @@ fun HomeScreen(
             dismissButton = {
                 TextButton(onClick = dismissRemove) {
                     Text(stringResource(Res.string.delete_dialog_dismiss))
+                }
+            }
+        )
+    }
+
+    if (openShareDialog) {
+        AlertDialog(
+            onDismissRequest = dismissShare,
+            icon = { Icon(Icons.Rounded.Share, contentDescription = null) },
+            title = { Text(stringResource(Res.string.share_dialog_title)) },
+            text = { Text(stringResource(Res.string.share_dialog_text)) },
+            confirmButton = {
+                TextButton(onClick = confirmShare) {
+                    Text(stringResource(Res.string.share_dialog_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = dismissShare) {
+                    Text(stringResource(Res.string.share_dialog_dismiss))
                 }
             }
         )
@@ -210,7 +276,7 @@ fun HomeScreen(
                         Icon(Icons.Rounded.Settings, stringResource(Res.string.home_settings_content_desc))
                     }
                     IconButton(onClick = onNavigateToStats) {
-                        Icon(Icons.Rounded.ShowChart, stringResource(Res.string.home_stats_content_desc))
+                        Icon(Icons.AutoMirrored.Rounded.ShowChart, stringResource(Res.string.home_stats_content_desc))
                     }
                     IconButton(onClick = { searchActive = !searchActive; searchQuery = "" }) {
                         Icon(Icons.Rounded.Search, stringResource(Res.string.home_search_content_desc))
@@ -249,15 +315,11 @@ fun HomeScreen(
                 }
             }
         } else {
-            PullToRefreshBox(
-                isRefreshing = false,
-                onRefresh = {},
-                modifier = Modifier.padding(innerPadding)
+            LazyColumn(
+                modifier = Modifier.padding(innerPadding),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                LazyColumn(
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    if (showSwipeHint) {
+                if (showSwipeHint) {
                         item(key = "swipe_hint") {
                             AnimatedVisibility(
                                 visible = showSwipeHint,
@@ -289,7 +351,6 @@ fun HomeScreen(
                         )
                     }
                 }
-            }
         }
     }
 }

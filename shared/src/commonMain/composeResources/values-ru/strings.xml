@@ -19,6 +19,8 @@
     <string name="home_swipe_hint">Свайпните влево для удаления</string>
     <string name="home_delete_undone">Запись удалена</string>
     <string name="home_undo">Отмена</string>
+    <string name="home_shared_ok">Отправлено ✓</string>
+    <string name="home_imported_count">Импортировано %d записей</string>
     <string name="home_share_title">Коммунальные расходы</string>
     <string name="home_export_content_desc">Экспорт в JSON</string>
     <string name="home_export_title">Резервная копия Коммунальные расходы</string>
@@ -84,4 +86,16 @@
     <string name="delete_dialog_confirm">Подтвердить</string>
     <string name="delete_dialog_dismiss">Отмена</string>
     <string name="delete_dialog_icon_desc">Удалить запись</string>
+
+    <!-- Share Confirmation Dialog -->
+    <string name="share_dialog_title">Отправить показания?</string>
+    <string name="share_dialog_text">Запись будет заблокирована для изменений после отправки.</string>
+    <string name="share_dialog_confirm">Отправить</string>
+    <string name="share_dialog_dismiss">Отмена</string>
+
+    <!-- Stats -->
+    <string name="stats_delta_mode">Расход</string>
+
+    <!-- Settings -->
+    <string name="settings_template_example">Пример</string>
 </resources>

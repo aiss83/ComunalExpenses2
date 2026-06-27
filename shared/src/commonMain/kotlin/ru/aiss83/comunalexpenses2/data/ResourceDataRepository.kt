@@ -41,6 +41,13 @@ class ResourceDataRepository(private val dao: ResourceDataDao) {
     }
 
     /**
+     * Mark a record as shared.
+     */
+    suspend fun markAsShared(id: Uuid) {
+        dao.markAsShared(id)
+    }
+
+    /**
      * Delete a resource data record by ID.
      */
     suspend fun deleteResourcesData(id: Uuid) {

@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "ru.aiss83.comunalexpenses2.android"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "ru.aiss83.comunalexpenses2"

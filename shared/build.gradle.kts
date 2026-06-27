@@ -57,7 +57,10 @@ kotlin {
                 api(compose.components.uiToolingPreview)
 
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.2")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime") {
+                    version { strictly("0.6.2") }
+                }
+                implementation("io.github.koalaplot:koalaplot-core:0.11.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
                 implementation("app.cash.sqldelight:coroutines-extensions:2.1.0")
                 implementation("app.cash.sqldelight:primitive-adapters:2.1.0")
@@ -99,7 +102,7 @@ kotlin {
 
 android {
     namespace = "ru.aiss83.comunalexpenses2.shared"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 26

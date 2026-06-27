@@ -28,6 +28,9 @@ class ResourcesDataViewModel(
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
 
+    private val _importedCount = MutableStateFlow<Int?>(null)
+    val importedCount: StateFlow<Int?> = _importedCount
+
     init {
         observeAllResourcesData()
     }
@@ -78,6 +81,10 @@ class ResourcesDataViewModel(
         _errorMessage.value = null
     }
 
+    fun clearImportedCount() {
+        _importedCount.value = null
+    }
+
     /**
      * Re-insert a record for undo deletion.
      */
@@ -92,6 +99,19 @@ class ResourcesDataViewModel(
     }
 
     /**
+     * Mark a record as shared (locks it from editing/deletion).
+     */
+    fun markAsShared(id: Uuid) {
+        viewModelScope.launch {
+            try {
+                repository.markAsShared(id)
+            } catch (e: Exception) {
+                _errorMessage.value = "Failed to mark as shared: ${e.message}"
+            }
+        }
+    }
+
+    /**
      * Export all records as a JSON string for sharing.
      */
     fun exportJson(): String {
@@ -100,23 +120,24 @@ class ResourcesDataViewModel(
 
     /**
      * Import records from a JSON string.
-     * @return the number of successfully imported records
+     * Parsing is synchronous, insertion is async.
+     * Observers should watch [importedCount] for the final inserted count.
      */
-    fun importJson(jsonString: String): Int {
-        val imported = importFromJson(jsonString)
-        if (imported.isEmpty()) {
+    fun importJson(jsonString: String) {
+        val parsed = importFromJson(jsonString)
+        if (parsed.isEmpty()) {
             _errorMessage.value = "No valid records found in JSON"
-            return 0
+            return
         }
         viewModelScope.launch {
             try {
-                for (record in imported) {
+                for (record in parsed) {
                     repository.insertResourcesData(record)
                 }
+                _importedCount.value = parsed.size
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to import: ${e.message}"
             }
         }
-        return imported.size
     }
 }

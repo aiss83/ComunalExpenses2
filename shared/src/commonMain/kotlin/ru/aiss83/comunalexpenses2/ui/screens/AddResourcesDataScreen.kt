@@ -31,11 +31,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import comunalexpenses2.shared.generated.resources.*
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
+import ru.aiss83.comunalexpenses2.utils.formatEpochMillis
 import ru.aiss83.comunalexpenses2.utils.updateWidgetData
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -59,15 +58,11 @@ fun AddResourcesDataScreen(
     var showValidationError by remember { mutableStateOf(false) }
 
     // Get current date for display
-    val currentDate = if (isEditing) {
-        kotlinx.datetime.Instant.fromEpochMilliseconds(existingRecord!!.date)
-            .toLocalDateTime(TimeZone.currentSystemDefault())
+    val formattedDate = if (isEditing) {
+        existingRecord.date.formatEpochMillis()
     } else {
-        Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+        Clock.System.now().toEpochMilliseconds().formatEpochMillis()
     }
-    val formattedDate = "${currentDate.dayOfMonth.toString().padStart(2, '0')}." +
-            "${currentDate.monthNumber.toString().padStart(2, '0')}." +
-            "${currentDate.year}"
 
     val hasInput = coldWaterValue.isNotEmpty() || hotWaterValue.isNotEmpty() ||
             daykWhValue.isNotEmpty() || nightkWhValue.isNotEmpty()
@@ -194,14 +189,20 @@ fun AddResourcesDataScreen(
             ) {
                 TextField(
                     value = coldWaterValue,
-                    onValueChange = { coldWaterValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
+                    onValueChange = {
+                coldWaterValue = it.filter { c -> c.isDigit() }
+                    .let { v -> if (v.length > 1) v.trimStart('0') else v }
+            },
                     label = { Text(stringResource(Res.string.add_readings_cold_water)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 TextField(
                     value = hotWaterValue,
-                    onValueChange = { hotWaterValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
+                    onValueChange = {
+                        hotWaterValue = it.filter { c -> c.isDigit() }
+                            .let { v -> if (v.length > 1) v.trimStart('0') else v }
+                    },
                     label = { Text(stringResource(Res.string.add_readings_hot_water)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
@@ -229,14 +230,20 @@ fun AddResourcesDataScreen(
             ) {
                 TextField(
                     value = daykWhValue,
-                    onValueChange = { daykWhValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
+                    onValueChange = {
+                        daykWhValue = it.filter { c -> c.isDigit() }
+                            .let { v -> if (v.length > 1) v.trimStart('0') else v }
+                    },
                     label = { Text(stringResource(Res.string.add_readings_kwh_day)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 TextField(
                     value = nightkWhValue,
-                    onValueChange = { nightkWhValue = it.filter { c -> c.isDigit() }.trimStart { it == '0' } },
+                    onValueChange = {
+                        nightkWhValue = it.filter { c -> c.isDigit() }
+                            .let { v -> if (v.length > 1) v.trimStart('0') else v }
+                    },
                     label = { Text(stringResource(Res.string.add_readings_kwh_night)) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)

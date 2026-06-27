@@ -1,0 +1,1 @@
+ALTER TABLE resources_records ADD COLUMN shared INTEGER NOT NULL DEFAULT 0;
