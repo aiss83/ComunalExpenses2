@@ -9,21 +9,24 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
+import androidx.compose.material.icons.rounded.ElectricBolt
 import androidx.compose.material.icons.rounded.FileDownload
 import androidx.compose.material.icons.rounded.FileUpload
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material.icons.rounded.WaterDrop
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.material.icons.automirrored.rounded.ShowChart
@@ -32,6 +35,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -423,9 +427,9 @@ fun ResourcesCard(
     onDataRemove: () -> Unit,
     onShare: (id: Uuid) -> Unit
 ) {
-    val rowsModifier = Modifier
-        .fillMaxWidth()
-        .padding(horizontal = 4.dp, vertical = 4.dp)
+    val labelStyle = MaterialTheme.typography.labelMedium
+    val valueStyle = MaterialTheme.typography.titleMedium
+    val iconTint = MaterialTheme.colorScheme.onSurfaceVariant
 
     Card(
         modifier = Modifier
@@ -433,9 +437,10 @@ fun ResourcesCard(
             .clickable { onEdit() },
         elevation = CardDefaults.cardElevation(5.dp)
     ) {
-        Column {
+        Column(modifier = Modifier.padding(12.dp)) {
+            // Date + actions row
             Row(
-                modifier = rowsModifier,
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -445,11 +450,11 @@ fun ResourcesCard(
                             Icons.Rounded.Lock,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = iconTint
                         )
+                        Spacer(Modifier.width(4.dp))
                     }
                     Text(
-                        modifier = Modifier.wrapContentWidth(Alignment.Start),
                         text = record.formatDate(),
                         style = MaterialTheme.typography.headlineSmall
                     )
@@ -471,26 +476,74 @@ fun ResourcesCard(
                     }
                 }
             }
-            // Cold water
-            Row(
-                modifier = rowsModifier,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(text = stringResource(Res.string.home_cold_water))
-                Text(text = record.coldWater.toString())
-                Text(text = stringResource(Res.string.home_hot_water))
-                Text(text = record.hotWater.toString())
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = iconTint.copy(alpha = 0.15f))
+
+            // Water section
+            Row(modifier = Modifier.fillMaxWidth()) {
+                MetricCell(
+                    icon = Icons.Rounded.WaterDrop,
+                    label = stringResource(Res.string.home_cold_water),
+                    value = record.coldWater.toString(),
+                    labelStyle = labelStyle,
+                    valueStyle = valueStyle,
+                    iconTint = Color(0xFF2196F3),
+                    modifier = Modifier.weight(1f)
+                )
+                MetricCell(
+                    icon = Icons.Rounded.WaterDrop,
+                    label = stringResource(Res.string.home_hot_water),
+                    value = record.hotWater.toString(),
+                    labelStyle = labelStyle,
+                    valueStyle = valueStyle,
+                    iconTint = Color(0xFFF44336),
+                    modifier = Modifier.weight(1f)
+                )
             }
-            // Electricity
-            Row(
-                modifier = rowsModifier,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(text = stringResource(Res.string.home_kwh_day))
-                Text(text = record.dayElectricity.toString())
-                Text(text = stringResource(Res.string.home_kwh_night))
-                Text(text = record.nightElectricity.toString())
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp), color = iconTint.copy(alpha = 0.15f))
+
+            // Electricity section
+            Row(modifier = Modifier.fillMaxWidth()) {
+                MetricCell(
+                    icon = Icons.Rounded.ElectricBolt,
+                    label = stringResource(Res.string.home_kwh_day),
+                    value = record.dayElectricity.toString(),
+                    labelStyle = labelStyle,
+                    valueStyle = valueStyle,
+                    iconTint = Color(0xFFFF9800),
+                    modifier = Modifier.weight(1f)
+                )
+                MetricCell(
+                    icon = Icons.Rounded.ElectricBolt,
+                    label = stringResource(Res.string.home_kwh_night),
+                    value = record.nightElectricity.toString(),
+                    labelStyle = labelStyle,
+                    valueStyle = valueStyle,
+                    iconTint = Color(0xFF9C27B0),
+                    modifier = Modifier.weight(1f)
+                )
             }
+        }
+    }
+}
+
+@Composable
+private fun MetricCell(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String,
+    value: String,
+    labelStyle: androidx.compose.ui.text.TextStyle,
+    valueStyle: androidx.compose.ui.text.TextStyle,
+    iconTint: Color,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
+        Icon(icon, contentDescription = label, modifier = Modifier.size(18.dp), tint = iconTint)
+        Spacer(Modifier.width(4.dp))
+        Column {
+            Text(label, style = labelStyle, color = iconTint)
+            Text(value, style = valueStyle)
         }
     }
 }
