@@ -86,6 +86,19 @@ class ResourcesDataViewModel(
     }
 
     /**
+     * Delete all records from the database.
+     */
+    fun deleteAllData() {
+        viewModelScope.launch {
+            try {
+                repository.deleteAllResourcesData()
+            } catch (e: Exception) {
+                _errorMessage.value = "Failed to delete all data: ${e.message}"
+            }
+        }
+    }
+
+    /**
      * Re-insert a record for undo deletion.
      */
     fun undoDeleteResourceData(data: ResourceData) {

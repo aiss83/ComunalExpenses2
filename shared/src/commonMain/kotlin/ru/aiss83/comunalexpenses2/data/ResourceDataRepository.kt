@@ -53,4 +53,11 @@ class ResourceDataRepository(private val dao: ResourceDataDao) {
     suspend fun deleteResourcesData(id: Uuid) {
         dao.deleteResourceData(id)
     }
+
+    /**
+     * Delete all resource data records.
+     */
+    suspend fun deleteAllResourcesData() {
+        dao.deleteAllResourceData()
+    }
 }

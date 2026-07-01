@@ -2,81 +2,95 @@ package ru.aiss83.comunalexpenses2.domain
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.data.SettingsManager
 
 /**
- * Unit tests for SettingsManager and SettingsData validation.
- * Tests the data layer directly without Android ViewModel lifecycle dependency.
+ * Unit tests for SettingsManager and settings validation.
+ * Tests the data layer directly — ViewModel can't be instantiated in commonTest.
  */
 class SettingsViewModelTest {
 
-    /**
-     * Fake SettingsManager that stores data in memory.
-     */
     private class FakeSettingsManager : SettingsManager {
         private val _flow = MutableStateFlow(SettingsData())
         override val settingsData = _flow.asStateFlow()
+        var lastSaved: SettingsData? = null
 
         override fun saveSettings(data: SettingsData) {
-            // Apply same validation as SettingsViewModel
-            require(data.street.isNotBlank()) { "Street cannot be blank" }
-            require(data.house >= 0) { "House must be non-negative, was ${data.house}" }
-            require(data.flat >= 0) { "Flat must be non-negative, was ${data.flat}" }
             _flow.value = data
+            lastSaved = data
         }
     }
 
-    @Test
-    fun `saveSettings with valid data persists values`() {
-        val manager = FakeSettingsManager()
-        manager.saveSettings(SettingsData(street = "Lenina", house = 10, flat = 5))
-        assertEquals("Lenina", manager.settingsData.value.street)
-        assertEquals(10, manager.settingsData.value.house)
-        assertEquals(5, manager.settingsData.value.flat)
+    // --- Validation logic (mirrors SettingsViewModel.saveSettings) ---
+
+    private fun validateAndSave(manager: FakeSettingsManager, street: String, house: Int, flat: Int): String? {
+        val trimmed = street.trim()
+        if (trimmed.isBlank()) return "Street cannot be blank"
+        if (house < 0) return "House must be non-negative, was $house"
+        if (flat < 0) return "Flat must be non-negative, was $flat"
+        manager.saveSettings(SettingsData(street = trimmed, house = house, flat = flat))
+        return null
     }
 
     @Test
-    fun `saveSettings trims street whitespace internally`() {
-        val manager = FakeSettingsManager()
-        // ViewModel trims before calling saveSettings — simulate trimmed input
-        val input = "  Lenina  ".trim()
-        manager.saveSettings(SettingsData(street = input, house = 1, flat = 1))
-        assertEquals("Lenina", manager.settingsData.value.street)
+    fun `valid save persists data`() {
+        val m = FakeSettingsManager()
+        assertEquals(null, validateAndSave(m, "Lenina", 10, 5))
+        assertEquals("Lenina", m.lastSaved?.street)
+        assertEquals(10, m.lastSaved?.house)
     }
 
     @Test
-    fun `saveSettings with blank street throws`() {
-        val manager = FakeSettingsManager()
-        assertFailsWith<IllegalArgumentException> {
-            manager.saveSettings(SettingsData(street = "  ", house = 1, flat = 1))
-        }
+    fun `trims street whitespace`() {
+        val m = FakeSettingsManager()
+        validateAndSave(m, "  Lenina  ", 1, 1)
+        assertEquals("Lenina", m.lastSaved?.street)
     }
 
     @Test
-    fun `saveSettings with negative house throws`() {
-        val manager = FakeSettingsManager()
-        assertFailsWith<IllegalArgumentException> {
-            manager.saveSettings(SettingsData(street = "Lenina", house = -1, flat = 1))
-        }
+    fun `blank street returns error`() {
+        val error = validateAndSave(FakeSettingsManager(), "   ", 1, 1)
+        assertTrue(error != null && error.contains("Street"))
     }
 
     @Test
-    fun `saveSettings with negative flat throws`() {
-        val manager = FakeSettingsManager()
-        assertFailsWith<IllegalArgumentException> {
-            manager.saveSettings(SettingsData(street = "Lenina", house = 1, flat = -1))
-        }
+    fun `empty street returns error`() {
+        assertTrue(validateAndSave(FakeSettingsManager(), "", 1, 1) != null)
     }
 
     @Test
-    fun `saveSettings with zero house and flat is valid`() {
-        val manager = FakeSettingsManager()
-        manager.saveSettings(SettingsData(street = "Lenina", house = 0, flat = 0))
-        assertEquals(0, manager.settingsData.value.house)
-        assertEquals(0, manager.settingsData.value.flat)
+    fun `negative house returns error`() {
+        val error = validateAndSave(FakeSettingsManager(), "Lenina", -1, 1)
+        assertTrue(error != null && error.contains("House"))
+    }
+
+    @Test
+    fun `negative flat returns error`() {
+        val error = validateAndSave(FakeSettingsManager(), "Lenina", 1, -5)
+        assertTrue(error != null && error.contains("Flat"))
+    }
+
+    @Test
+    fun `zero house and flat is valid`() {
+        assertEquals(null, validateAndSave(FakeSettingsManager(), "Lenina", 0, 0))
+    }
+
+    @Test
+    fun `settings flow emits updates`() {
+        val m = FakeSettingsManager()
+        m.saveSettings(SettingsData(street = "Lenina", house = 1, flat = 1))
+        assertEquals("Lenina", m.settingsData.value.street)
+    }
+
+    @Test
+    fun `settings isNotEmpty detects content`() {
+        assertFalse(SettingsData().isNotEmpty())
+        assertTrue(SettingsData(street = "x").isNotEmpty())
+        assertTrue(SettingsData(house = 1).isNotEmpty())
     }
 }

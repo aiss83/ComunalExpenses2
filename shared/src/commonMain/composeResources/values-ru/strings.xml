@@ -88,6 +88,11 @@
     <string name="delete_dialog_dismiss">Отмена</string>
     <string name="delete_dialog_icon_desc">Удалить запись</string>
 
+    <!-- Delete All Dialog -->
+    <string name="delete_all_dialog_title">Удалить все записи?</string>
+    <string name="delete_all_dialog_text">Все показания будут удалены без возможности восстановления.</string>
+    <string name="home_clear_all_content_desc">Удалить все записи</string>
+
     <!-- Share Confirmation Dialog -->
     <string name="share_dialog_title">Отправить показания?</string>
     <string name="share_dialog_text">Запись будет заблокирована для изменений после отправки.</string>
@@ -96,6 +101,9 @@
 
     <!-- Stats -->
     <string name="stats_delta_mode">Расход</string>
+    <string name="stats_period_3m">3 мес</string>
+    <string name="stats_period_6m">6 мес</string>
+    <string name="stats_period_year">Год</string>
 
     <!-- Settings -->
     <string name="settings_template_example">Пример</string>

@@ -88,6 +88,11 @@
     <string name="delete_dialog_dismiss">Dismiss</string>
     <string name="delete_dialog_icon_desc">Delete record</string>
 
+    <!-- Delete All Dialog -->
+    <string name="delete_all_dialog_title">Delete all records?</string>
+    <string name="delete_all_dialog_text">This will permanently delete all readings. This action cannot be undone.</string>
+    <string name="home_clear_all_content_desc">Delete all records</string>
+
     <!-- Share Confirmation Dialog -->
     <string name="share_dialog_title">Share readings?</string>
     <string name="share_dialog_text">The record will be locked for editing after sharing.</string>
@@ -96,6 +101,9 @@
 
     <!-- Stats -->
     <string name="stats_delta_mode">Consumption</string>
+    <string name="stats_period_3m">3 mo</string>
+    <string name="stats_period_6m">6 mo</string>
+    <string name="stats_period_year">Year</string>
 
     <!-- Settings -->
     <string name="settings_template_example">Example</string>

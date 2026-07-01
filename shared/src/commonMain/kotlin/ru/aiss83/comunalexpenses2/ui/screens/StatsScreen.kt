@@ -42,14 +42,15 @@ import io.github.koalaplot.core.xygraph.XYGraph
 import io.github.koalaplot.core.xygraph.AxisContent
 import io.github.koalaplot.core.xygraph.rememberAxisStyle
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
+import kotlinx.datetime.Clock
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
 
 private val metricColors = listOf(
-    Color(0xFF2196F3), // blue - cold water
-    Color(0xFFF44336), // red - hot water
-    Color(0xFFFF9800), // orange - day electricity
-    Color(0xFF9C27B0)  // purple - night electricity
+    Color(0xFF2196F3),
+    Color(0xFFF44336),
+    Color(0xFFFF9800),
+    Color(0xFF9C27B0)
 )
 
 private data class MetricDef(
@@ -57,6 +58,8 @@ private data class MetricDef(
     val extractor: (ResourceData) -> Long,
     val color: Color
 )
+
+private data class PeriodFilter(val label: String, val months: Int)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -66,6 +69,7 @@ fun StatsScreen(
 ) {
     var selectedMetrics by remember { mutableStateOf(setOf(0)) }
     var deltaMode by remember { mutableStateOf(false) }
+    var selectedPeriod by remember { mutableStateOf<PeriodFilter?>(null) }
 
     val metrics = listOf(
         MetricDef(stringResource(Res.string.stats_cold_water), { it.coldWater }, metricColors[0]),
@@ -74,11 +78,21 @@ fun StatsScreen(
         MetricDef(stringResource(Res.string.stats_night_electricity), { it.nightElectricity }, metricColors[3])
     )
 
-    val sortedData = allResourceData.sortedBy { it.date }
+    val now = Clock.System.now().toEpochMilliseconds()
+    val periods = listOf(
+        PeriodFilter(stringResource(Res.string.stats_period_3m), 3),
+        PeriodFilter(stringResource(Res.string.stats_period_6m), 6),
+        PeriodFilter(stringResource(Res.string.stats_period_year), 12),
+    )
 
-    // Compute values: cumulative or delta
+    val sortedData = allResourceData.sortedBy { it.date }
+    val filteredData = if (selectedPeriod != null) {
+        val cutoff = now - selectedPeriod!!.months * 30L * 24 * 3600 * 1000
+        sortedData.filter { it.date >= cutoff }
+    } else sortedData
+
     fun metricValues(extractor: (ResourceData) -> Long): List<Long> {
-        val raw = sortedData.map(extractor)
+        val raw = filteredData.map(extractor)
         return if (deltaMode) {
             raw.mapIndexed { i, v -> if (i == 0) 0L else (v - raw[i - 1]).coerceAtLeast(0) }
         } else raw
@@ -102,30 +116,19 @@ fun StatsScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            // Metric chips + delta toggle
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
+            // Metric chips
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 metrics.forEachIndexed { index, metric ->
                     FilterChip(
                         selected = index in selectedMetrics,
                         onClick = {
                             selectedMetrics = if (index in selectedMetrics) {
                                 if (selectedMetrics.size > 1) selectedMetrics - index else selectedMetrics
-                            } else {
-                                selectedMetrics + index
-                            }
+                            } else selectedMetrics + index
                         },
                         label = { Text(metric.label, style = MaterialTheme.typography.labelSmall) },
                         leadingIcon = if (index in selectedMetrics) {
-                            {
-                                Box(
-                                    Modifier
-                                        .size(10.dp)
-                                        .background(metric.color, MaterialTheme.shapes.extraSmall)
-                                )
-                            }
+                            { Box(Modifier.size(10.dp).background(metric.color, MaterialTheme.shapes.extraSmall)) }
                         } else null
                     )
                 }
@@ -133,18 +136,25 @@ fun StatsScreen(
 
             Spacer(Modifier.height(8.dp))
 
-            // Delta toggle
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Start) {
+            // Delta toggle + period filters
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 FilterChip(
                     selected = deltaMode,
                     onClick = { deltaMode = !deltaMode },
                     label = { Text(stringResource(Res.string.stats_delta_mode), style = MaterialTheme.typography.labelSmall) },
                 )
+                periods.forEach { period ->
+                    FilterChip(
+                        selected = selectedPeriod == period,
+                        onClick = { selectedPeriod = if (selectedPeriod == period) null else period },
+                        label = { Text(period.label, style = MaterialTheme.typography.labelSmall) },
+                    )
+                }
             }
 
             Spacer(Modifier.height(8.dp))
 
-            if (sortedData.isEmpty()) {
+            if (filteredData.isEmpty()) {
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
                         stringResource(Res.string.stats_no_data),
@@ -154,24 +164,18 @@ fun StatsScreen(
                 }
             } else {
                 KoalaLineChart(
-                    data = sortedData,
+                    data = filteredData,
                     selectedMetrics = selectedMetrics,
                     metrics = metrics,
-                    valueFn = { m, r -> metricValues(m.extractor).let { vals -> vals[sortedData.indexOf(r)] } },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
+                    valueFn = { m, r -> metricValues(m.extractor).let { vals -> vals[filteredData.indexOf(r)] } },
+                    modifier = Modifier.fillMaxWidth().weight(1f)
                 )
 
                 Spacer(Modifier.height(8.dp))
 
-                // Stats summary for primary metric
                 val primary = selectedMetrics.first()
                 val values = metricValues(metrics[primary].extractor)
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
                     StatItem(stringResource(Res.string.stats_min), (values.minOrNull() ?: 0).toString())
                     StatItem(stringResource(Res.string.stats_max), (values.maxOrNull() ?: 0).toString())
                     StatItem(stringResource(Res.string.stats_avg), values.average().toLong().toString())
@@ -204,9 +208,7 @@ private fun KoalaLineChart(
     val minVal = (allValues.minOrNull() ?: 0L).toFloat()
     val maxVal = (allValues.maxOrNull() ?: 1L).toFloat().coerceAtLeast(minVal + 1f)
 
-    ChartLayout(
-        modifier = modifier,
-    ) {
+    ChartLayout(modifier = modifier) {
         XYGraph(
             xAxisModel = CategoryAxisModel(dateLabels),
             yAxisModel = FloatLinearAxisModel(minVal..maxVal),
@@ -227,20 +229,13 @@ private fun KoalaLineChart(
                 }
                 LinePlot(
                     data = points,
-                    lineStyle = LineStyle(
-                        brush = SolidColor(metrics[idx].color),
-                        strokeWidth = 2.dp,
-                    ),
+                    lineStyle = LineStyle(brush = SolidColor(metrics[idx].color), strokeWidth = 2.dp),
                 )
             }
         }
     }
 }
 
-/**
- * Format a numeric value for display on Y-axis.
- * Uses compact suffixes: K (thousands), M (millions).
- */
 private fun formatAxisValue(value: Long): String = when {
     value >= 1_000_000 -> "${value / 1_000_000}M"
     value >= 10_000 -> "${value / 1_000}K"

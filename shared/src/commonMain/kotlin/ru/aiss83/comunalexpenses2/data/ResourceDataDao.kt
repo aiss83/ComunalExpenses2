@@ -112,4 +112,11 @@ class ResourceDataDao(private val database: ResourcesDatabase) {
     fun deleteResourceData(id: Uuid) {
         queries.deleteResourceData(id.toString())
     }
+
+    /**
+     * Delete all resource data records.
+     */
+    fun deleteAllResourceData() {
+        queries.deleteAllResourceData()
+    }
 }

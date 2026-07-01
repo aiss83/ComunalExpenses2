@@ -108,6 +108,9 @@ fun HomeScreen(
     var boundToRemove by rememberSaveable { mutableStateOf("") }
     var recordToRemove by remember { mutableStateOf<ResourceData?>(null) }
 
+    // Delete all confirmation
+    var openDeleteAllDialog by remember { mutableStateOf(false) }
+
     // File picker for JSON import
     val pickJsonFile = rememberJsonFilePicker { content ->
         if (content != null) {
@@ -259,6 +262,28 @@ fun HomeScreen(
         )
     }
 
+    if (openDeleteAllDialog) {
+        AlertDialog(
+            onDismissRequest = { openDeleteAllDialog = false },
+            icon = { Icon(Icons.Rounded.Delete, contentDescription = null) },
+            title = { Text(stringResource(Res.string.delete_all_dialog_title)) },
+            text = { Text(stringResource(Res.string.delete_all_dialog_text)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    openDeleteAllDialog = false
+                    viewModel.deleteAllData()
+                }) {
+                    Text(stringResource(Res.string.delete_dialog_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { openDeleteAllDialog = false }) {
+                    Text(stringResource(Res.string.delete_dialog_dismiss))
+                }
+            }
+        )
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -284,6 +309,11 @@ fun HomeScreen(
                     }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(Icons.Rounded.Settings, stringResource(Res.string.home_settings_content_desc))
+                    }
+                    if (allResourceData.isNotEmpty()) {
+                        IconButton(onClick = { openDeleteAllDialog = true }) {
+                            Icon(Icons.Rounded.Delete, stringResource(Res.string.home_clear_all_content_desc))
+                        }
                     }
                     IconButton(onClick = onNavigateToStats) {
                         Icon(Icons.AutoMirrored.Rounded.ShowChart, stringResource(Res.string.home_stats_content_desc))
