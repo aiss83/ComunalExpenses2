@@ -69,8 +69,8 @@ import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
-import ru.aiss83.comunalexpenses2.utils.exportAndShareJson
 import ru.aiss83.comunalexpenses2.utils.rememberJsonFilePicker
+import ru.aiss83.comunalexpenses2.utils.saveJsonToFile
 import ru.aiss83.comunalexpenses2.utils.shareText
 
 @OptIn(ExperimentalUuidApi::class, ExperimentalMaterial3Api::class)
@@ -112,7 +112,7 @@ fun HomeScreen(
     }
 
     val shareTitle = stringResource(Res.string.home_share_title)
-    val exportTitle = stringResource(Res.string.home_export_title)
+    val exportSavedMsg = stringResource(Res.string.home_export_saved)
     val undoLabel = stringResource(Res.string.home_undo)
     val deleteUndoneMsg = stringResource(Res.string.home_delete_undone)
     val searchHint = stringResource(Res.string.home_search_hint)
@@ -207,8 +207,14 @@ fun HomeScreen(
 
     val exportAllToJson = {
         val json = viewModel.exportJson()
-        val filename = "communal_expenses_backup.json"
-        exportAndShareJson(json, filename, exportTitle)
+        saveJsonToFile(json.encodeToByteArray(), "communal_expenses_backup.json")
+        scope.launch {
+            snackbarHostState.showSnackbar(
+                message = exportSavedMsg,
+                duration = SnackbarDuration.Short
+            )
+        }
+        Unit
     }
 
     if (openRemoveDialog) {

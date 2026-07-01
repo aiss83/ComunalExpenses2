@@ -24,6 +24,7 @@
     <string name="home_share_title">Коммунальные расходы</string>
     <string name="home_export_content_desc">Экспорт в JSON</string>
     <string name="home_export_title">Резервная копия Коммунальные расходы</string>
+    <string name="home_export_saved">Сохранено ✓</string>
     <string name="home_import_content_desc">Импорт из JSON</string>
     <string name="home_import_title">Импорт данных</string>
     <string name="home_import_placeholder">Вставьте JSON сюда...</string>
