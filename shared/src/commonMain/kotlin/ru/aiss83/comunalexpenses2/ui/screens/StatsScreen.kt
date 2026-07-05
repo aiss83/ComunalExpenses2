@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ShowChart
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
@@ -91,6 +92,8 @@ fun StatsScreen(
         sortedData.filter { it.date >= cutoff }
     } else sortedData
 
+    val hasData = allResourceData.isNotEmpty()
+
     fun metricValues(extractor: (ResourceData) -> Long): List<Long> {
         val raw = filteredData.map(extractor)
         return if (deltaMode) {
@@ -116,48 +119,72 @@ fun StatsScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            // Metric chips
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                metrics.forEachIndexed { index, metric ->
-                    FilterChip(
-                        selected = index in selectedMetrics,
-                        onClick = {
-                            selectedMetrics = if (index in selectedMetrics) {
-                                if (selectedMetrics.size > 1) selectedMetrics - index else selectedMetrics
-                            } else selectedMetrics + index
-                        },
-                        label = { Text(metric.label, style = MaterialTheme.typography.labelSmall) },
-                        leadingIcon = if (index in selectedMetrics) {
-                            { Box(Modifier.size(10.dp).background(metric.color, MaterialTheme.shapes.extraSmall)) }
-                        } else null
-                    )
+            // Filters — hidden when no data
+            if (hasData) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    metrics.forEachIndexed { index, metric ->
+                        FilterChip(
+                            selected = index in selectedMetrics,
+                            onClick = {
+                                selectedMetrics = if (index in selectedMetrics) {
+                                    if (selectedMetrics.size > 1) selectedMetrics - index else selectedMetrics
+                                } else selectedMetrics + index
+                            },
+                            label = { Text(metric.label, style = MaterialTheme.typography.labelSmall) },
+                            leadingIcon = if (index in selectedMetrics) {
+                                { Box(Modifier.size(10.dp).background(metric.color, MaterialTheme.shapes.extraSmall)) }
+                            } else null
+                        )
+                    }
                 }
+                Spacer(Modifier.height(8.dp))
+
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    FilterChip(
+                        selected = deltaMode,
+                        onClick = { deltaMode = !deltaMode },
+                        label = { Text(stringResource(Res.string.stats_delta_mode), style = MaterialTheme.typography.labelSmall) },
+                    )
+                    periods.forEach { period ->
+                        FilterChip(
+                            selected = selectedPeriod == period,
+                            onClick = { selectedPeriod = if (selectedPeriod == period) null else period },
+                            label = { Text(period.label, style = MaterialTheme.typography.labelSmall) },
+                        )
+                    }
+                }
+                Spacer(Modifier.height(8.dp))
             }
 
-            Spacer(Modifier.height(8.dp))
-
-            // Delta toggle + period filters
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                FilterChip(
-                    selected = deltaMode,
-                    onClick = { deltaMode = !deltaMode },
-                    label = { Text(stringResource(Res.string.stats_delta_mode), style = MaterialTheme.typography.labelSmall) },
-                )
-                periods.forEach { period ->
-                    FilterChip(
-                        selected = selectedPeriod == period,
-                        onClick = { selectedPeriod = if (selectedPeriod == period) null else period },
-                        label = { Text(period.label, style = MaterialTheme.typography.labelSmall) },
-                    )
+            if (!hasData) {
+                // Empty state: no records at all
+                Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Icon(
+                            Icons.AutoMirrored.Rounded.ShowChart,
+                            contentDescription = null,
+                            modifier = Modifier.size(64.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        Text(
+                            stringResource(Res.string.stats_no_data),
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Text(
+                            stringResource(Res.string.stats_no_data_hint),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                            modifier = Modifier.padding(top = 4.dp)
+                        )
+                    }
                 }
-            }
-
-            Spacer(Modifier.height(8.dp))
-
-            if (filteredData.isEmpty()) {
+            } else if (filteredData.size < 2) {
+                // Need at least 2 points for a chart
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
-                        stringResource(Res.string.stats_no_data),
+                        stringResource(Res.string.stats_need_more),
                         style = MaterialTheme.typography.bodyLarge,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -206,6 +233,7 @@ private fun KoalaLineChart(
     val dateLabels = data.map { it.formatDate() }
     val allValues = selectedMetrics.flatMap { idx -> data.map { valueFn(metrics[idx], it) } }
     val minVal = (allValues.minOrNull() ?: 0L).toFloat()
+    // Ensure range is at least 1 to avoid zero-range axis crash
     val maxVal = (allValues.maxOrNull() ?: 1L).toFloat().coerceAtLeast(minVal + 1f)
 
     ChartLayout(modifier = modifier) {

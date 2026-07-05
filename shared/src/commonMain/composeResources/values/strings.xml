@@ -72,6 +72,8 @@
     <!-- Stats Screen -->
     <string name="stats_title">Statistics</string>
     <string name="stats_no_data">No data to display</string>
+    <string name="stats_no_data_hint">Add readings on the home screen</string>
+    <string name="stats_need_more">Need at least 2 readings for a chart</string>
     <string name="stats_cold_water">Cold water</string>
     <string name="stats_hot_water">Hot water</string>
     <string name="stats_day_electricity">Day kWh</string>

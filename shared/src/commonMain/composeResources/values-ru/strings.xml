@@ -72,6 +72,8 @@
     <!-- Stats Screen -->
     <string name="stats_title">Статистика</string>
     <string name="stats_no_data">Нет данных для отображения</string>
+    <string name="stats_no_data_hint">Добавьте показания на главном экране</string>
+    <string name="stats_need_more">Нужно минимум 2 замера для графика</string>
     <string name="stats_cold_water">Хол. вода</string>
     <string name="stats_hot_water">Гор. вода</string>
     <string name="stats_day_electricity">кВт·ч День</string>
