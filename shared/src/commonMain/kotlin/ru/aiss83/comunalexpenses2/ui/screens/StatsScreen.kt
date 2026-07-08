@@ -255,6 +255,7 @@ private fun KoalaLineChart(
                 val points = data.map { record ->
                     DefaultPoint(record.formatDate(), valueFn(metrics[idx], record).toFloat())
                 }
+                @Suppress("DEPRECATION")
                 LinePlot(
                     data = points,
                     lineStyle = LineStyle(brush = SolidColor(metrics[idx].color), strokeWidth = 2.dp),

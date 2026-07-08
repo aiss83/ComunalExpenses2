@@ -1,10 +1,14 @@
 package ru.aiss83.comunalexpenses2.ui.screens
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +16,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -45,12 +50,9 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -63,10 +65,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import comunalexpenses2.shared.generated.resources.*
+import kotlin.math.roundToInt
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -107,6 +114,8 @@ fun HomeScreen(
     var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
     var boundToRemove by rememberSaveable { mutableStateOf("") }
     var recordToRemove by remember { mutableStateOf<ResourceData?>(null) }
+    var swipeResetKey by remember { mutableStateOf(0) }
+    var swipeConfirmKey by remember { mutableStateOf(0) }
 
     // Delete all confirmation
     var openDeleteAllDialog by remember { mutableStateOf(false) }
@@ -190,14 +199,21 @@ fun HomeScreen(
         openRemoveDialog = false
         boundToRemove = ""
         recordToRemove = null
+        swipeResetKey++
+        Unit
     }
 
     val confirmRemove = {
         openRemoveDialog = false
         val record = recordToRemove
+        swipeConfirmKey++
+        boundToRemove = ""
+        recordToRemove = null
         if (record != null) {
-            viewModel.deleteResourceData(record.id)
             scope.launch {
+                // Wait for swipe dismiss animation to finish before removing data
+                delay(300)
+                viewModel.deleteResourceData(record.id)
                 val result = snackbarHostState.showSnackbar(
                     message = deleteUndoneMsg,
                     actionLabel = undoLabel,
@@ -208,8 +224,6 @@ fun HomeScreen(
                 }
             }
         }
-        boundToRemove = ""
-        recordToRemove = null
     }
 
     val exportAllToJson = {
@@ -387,7 +401,9 @@ fun HomeScreen(
                                 showSwipeHint = false
                                 if (!item.shared) removeRecord(item)
                             },
-                            onShare = shareRecord
+                            onShare = shareRecord,
+                            swipeResetTrigger = swipeResetKey,
+                            swipeConfirmTrigger = swipeConfirmKey
                         )
                     }
                 }
@@ -401,51 +417,103 @@ private fun SwipeableResourcesCard(
     record: ResourceData,
     onEdit: () -> Unit,
     onDataRemove: () -> Unit,
-    onShare: (id: Uuid) -> Unit
+    onShare: (id: Uuid) -> Unit,
+    swipeResetTrigger: Int = 0,
+    swipeConfirmTrigger: Int = 0,
 ) {
     val canSwipe = !record.shared
+    val scope = rememberCoroutineScope()
+    val density = LocalDensity.current
+    val maxDragPx = with(density) { 100.dp.toPx() }
 
-    val dismissState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { value ->
-            if (value == SwipeToDismissBoxValue.EndToStart && canSwipe) {
-                onDataRemove()
-                false
-            } else {
-                false
+    val offsetX = remember { Animatable(0f) }
+    var swipeTriggered by remember { mutableStateOf(false) }
+    var collapsed by remember { mutableStateOf(false) }
+
+    // Animate back when dialog is cancelled
+    LaunchedEffect(swipeResetTrigger) {
+        if (swipeResetTrigger > 0 && swipeTriggered) {
+            swipeTriggered = false
+            collapsed = false
+            offsetX.animateTo(0f, animationSpec = tween(300))
+        }
+    }
+
+    // Two-phase dismiss: card slides off, then background collapses
+    LaunchedEffect(swipeConfirmTrigger) {
+        if (swipeConfirmTrigger > 0 && swipeTriggered) {
+            offsetX.animateTo(-maxDragPx * 3, animationSpec = tween(100))
+            delay(50)
+            collapsed = true
+        }
+    }
+
+    AnimatedVisibility(
+        visible = !collapsed,
+        exit = fadeOut(tween(100)) + shrinkVertically(tween(100))
+    ) {
+        Box(modifier = Modifier.padding(8.dp)) {
+        // Red delete background (behind the card)
+        if (canSwipe) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(CardDefaults.shape)
+                    .background(Color(0xFFE53935))
+                    .padding(horizontal = 20.dp),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                Icon(
+                    Icons.Rounded.Delete,
+                    contentDescription = stringResource(Res.string.home_delete_content_desc),
+                    tint = Color.White
+                )
             }
         }
-    )
 
-    SwipeToDismissBox(
-        state = dismissState,
-        modifier = Modifier.padding(8.dp),
-        enableDismissFromStartToEnd = false,
-        enableDismissFromEndToStart = canSwipe,
-        backgroundContent = {
-            if (canSwipe) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clip(CardDefaults.shape)
-                        .background(Color(0xFFE53935))
-                        .padding(horizontal = 20.dp),
-                    contentAlignment = Alignment.CenterEnd
-                ) {
-                    Icon(
-                        Icons.Rounded.Delete,
-                        contentDescription = stringResource(Res.string.home_delete_content_desc),
-                        tint = Color.White
+        // Card content with swipe offset (on top, determines the Box size)
+        Box(
+            modifier = Modifier
+                .offset { IntOffset(offsetX.value.roundToInt(), 0) }
+                .pointerInput(record.id) {
+                    if (!canSwipe || swipeTriggered) return@pointerInput
+                    detectHorizontalDragGestures(
+                        onDragEnd = {
+                            if (offsetX.value < -maxDragPx * 0.5f) {
+                                swipeTriggered = true
+                                scope.launch {
+                                    offsetX.animateTo(-maxDragPx, animationSpec = tween(200))
+                                }
+                                onDataRemove()
+                            } else {
+                                scope.launch {
+                                    offsetX.animateTo(0f, animationSpec = tween(200))
+                                }
+                            }
+                        },
+                        onDragCancel = {
+                            scope.launch {
+                                offsetX.animateTo(0f, animationSpec = tween(200))
+                            }
+                        },
+                        onHorizontalDrag = { _, dragAmount ->
+                            scope.launch {
+                                offsetX.snapTo(
+                                    (offsetX.value + dragAmount).coerceIn(-maxDragPx * 1.5f, 0f)
+                                )
+                            }
+                        }
                     )
                 }
-            }
+        ) {
+            ResourcesCard(
+                record = record,
+                onEdit = onEdit,
+                onDataRemove = onDataRemove,
+                onShare = onShare
+            )
         }
-    ) {
-        ResourcesCard(
-            record = record,
-            onEdit = onEdit,
-            onDataRemove = onDataRemove,
-            onShare = onShare
-        )
+    }
     }
 }
 
