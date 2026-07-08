@@ -141,7 +141,7 @@ fun AddResourcesDataScreen(
             text = { Text(stringResource(Res.string.add_readings_validation_text)) },
             confirmButton = {
                 TextButton(onClick = { showValidationError = false }) {
-                    Text("OK")
+                    Text(stringResource(Res.string.dialog_ok))
                 }
             }
         )

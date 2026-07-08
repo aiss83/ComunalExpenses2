@@ -162,7 +162,7 @@ fun StatsScreen(
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(
                             Icons.AutoMirrored.Rounded.ShowChart,
-                            contentDescription = null,
+                            stringResource(Res.string.stats_empty_icon_desc),
                             modifier = Modifier.size(64.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.3f)
                         )

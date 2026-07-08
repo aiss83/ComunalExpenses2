@@ -241,7 +241,7 @@ fun HomeScreen(
     if (openRemoveDialog) {
         AlertDialog(
             onDismissRequest = dismissRemove,
-            icon = { Icon(Icons.Rounded.Delete, contentDescription = null) },
+            icon = { Icon(Icons.Rounded.Delete, stringResource(Res.string.delete_dialog_icon_desc)) },
             title = { Text(stringResource(Res.string.delete_dialog_title)) },
             text = { Text(stringResource(Res.string.delete_dialog_text)) },
             confirmButton = {
@@ -260,7 +260,7 @@ fun HomeScreen(
     if (openShareDialog) {
         AlertDialog(
             onDismissRequest = dismissShare,
-            icon = { Icon(Icons.Rounded.Share, contentDescription = null) },
+            icon = { Icon(Icons.Rounded.Share, stringResource(Res.string.home_share_content_desc)) },
             title = { Text(stringResource(Res.string.share_dialog_title)) },
             text = { Text(stringResource(Res.string.share_dialog_text)) },
             confirmButton = {
@@ -279,7 +279,7 @@ fun HomeScreen(
     if (openDeleteAllDialog) {
         AlertDialog(
             onDismissRequest = { openDeleteAllDialog = false },
-            icon = { Icon(Icons.Rounded.Delete, contentDescription = null) },
+            icon = { Icon(Icons.Rounded.Delete, stringResource(Res.string.delete_dialog_icon_desc)) },
             title = { Text(stringResource(Res.string.delete_all_dialog_title)) },
             text = { Text(stringResource(Res.string.delete_all_dialog_text)) },
             confirmButton = {
@@ -546,7 +546,7 @@ fun ResourcesCard(
                     if (record.shared) {
                         Icon(
                             Icons.Rounded.Lock,
-                            contentDescription = null,
+                            stringResource(Res.string.shared_record_locked),
                             modifier = Modifier.size(16.dp),
                             tint = iconTint
                         )

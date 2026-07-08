@@ -16,7 +16,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import comunalexpenses2.shared.generated.resources.*
 import kotlin.uuid.ExperimentalUuidApi
+import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 import ru.aiss83.comunalexpenses2.ui.AppRoute
@@ -42,11 +44,11 @@ fun App(
             if (errorMessage != null) {
                 AlertDialog(
                     onDismissRequest = { resourcesDataViewModel.clearError() },
-                    title = { Text("Error") },
+                    title = { Text(stringResource(Res.string.error_title)) },
                     text = { Text(errorMessage!!) },
                     confirmButton = {
                         TextButton(onClick = { resourcesDataViewModel.clearError() }) {
-                            Text("OK")
+                            Text(stringResource(Res.string.dialog_ok))
                         }
                     }
                 )

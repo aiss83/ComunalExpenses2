@@ -109,4 +109,10 @@
 
     <!-- Settings -->
     <string name="settings_template_example">Example</string>
+
+    <!-- Common -->
+    <string name="dialog_ok">OK</string>
+    <string name="error_title">Error</string>
+    <string name="stats_empty_icon_desc">No data</string>
+    <string name="shared_record_locked">Record locked</string>
 </resources>

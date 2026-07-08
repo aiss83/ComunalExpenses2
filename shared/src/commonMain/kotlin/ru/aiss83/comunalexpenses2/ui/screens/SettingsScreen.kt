@@ -97,7 +97,7 @@ fun SettingsScreen(
             text = { Text((saveResult as SaveSettingsResult.Error).message) },
             confirmButton = {
                 TextButton(onClick = { viewModel.clearSaveResult() }) {
-                    Text("OK")
+                    Text(stringResource(Res.string.dialog_ok))
                 }
             }
         )
