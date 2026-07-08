@@ -7,6 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -72,7 +73,7 @@ class ResourceDataDao(private val database: ResourcesDatabase) {
     /**
      * Insert a new resource data record.
      */
-    fun addResourceData(data: ResourceData) {
+    suspend fun addResourceData(data: ResourceData) = withContext(Dispatchers.IO) {
         queries.insertResourceData(
             recordId = data.id.toString(),
             date = data.date,
@@ -87,7 +88,7 @@ class ResourceDataDao(private val database: ResourcesDatabase) {
     /**
      * Update an existing resource data record.
      */
-    fun updateResourceData(data: ResourceData) {
+    suspend fun updateResourceData(data: ResourceData) = withContext(Dispatchers.IO) {
         queries.updateResourceData(
             date = data.date,
             waterHot = data.hotWater,
@@ -102,21 +103,40 @@ class ResourceDataDao(private val database: ResourcesDatabase) {
     /**
      * Mark a record as shared.
      */
-    fun markAsShared(id: Uuid) {
+    suspend fun markAsShared(id: Uuid) = withContext(Dispatchers.IO) {
         queries.markAsShared(id.toString())
     }
 
     /**
      * Delete a resource data record by ID.
      */
-    fun deleteResourceData(id: Uuid) {
+    suspend fun deleteResourceData(id: Uuid) = withContext(Dispatchers.IO) {
         queries.deleteResourceData(id.toString())
     }
 
     /**
      * Delete all resource data records.
      */
-    fun deleteAllResourceData() {
+    suspend fun deleteAllResourceData() = withContext(Dispatchers.IO) {
         queries.deleteAllResourceData()
+    }
+
+    /**
+     * Bulk-import records in a single transaction for atomicity.
+     */
+    suspend fun importRecords(records: List<ResourceData>) = withContext(Dispatchers.IO) {
+        database.transaction {
+            for (data in records) {
+                queries.insertResourceData(
+                    recordId = data.id.toString(),
+                    date = data.date,
+                    waterHot = data.hotWater,
+                    waterCold = data.coldWater,
+                    electricityDay = data.dayElectricity,
+                    electricityNight = data.nightElectricity,
+                    shared = if (data.shared) 1L else 0L
+                )
+            }
+        }
     }
 }

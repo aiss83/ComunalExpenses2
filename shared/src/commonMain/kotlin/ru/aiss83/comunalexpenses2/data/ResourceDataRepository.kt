@@ -60,4 +60,11 @@ class ResourceDataRepository(private val dao: ResourceDataDao) {
     suspend fun deleteAllResourcesData() {
         dao.deleteAllResourceData()
     }
+
+    /**
+     * Bulk-import records in a single transaction.
+     */
+    suspend fun importRecords(records: List<ResourceData>) {
+        dao.importRecords(records)
+    }
 }

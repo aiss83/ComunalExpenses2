@@ -144,9 +144,7 @@ class ResourcesDataViewModel(
         }
         viewModelScope.launch {
             try {
-                for (record in parsed) {
-                    repository.insertResourcesData(record)
-                }
+                repository.importRecords(parsed)
                 _importedCount.value = parsed.size
             } catch (e: Exception) {
                 _errorMessage.value = "Failed to import: ${e.message}"
