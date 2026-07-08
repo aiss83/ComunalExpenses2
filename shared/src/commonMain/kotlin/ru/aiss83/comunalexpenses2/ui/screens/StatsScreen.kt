@@ -46,12 +46,16 @@ import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 import kotlinx.datetime.Clock
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceBlue
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceOrange
+import ru.aiss83.comunalexpenses2.ui.theme.ResourcePurple
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceRed
 
 private val metricColors = listOf(
-    Color(0xFF2196F3),
-    Color(0xFFF44336),
-    Color(0xFFFF9800),
-    Color(0xFF9C27B0)
+    ResourceBlue,
+    ResourceRed,
+    ResourceOrange,
+    ResourcePurple
 )
 
 private data class MetricDef(
@@ -190,11 +194,12 @@ fun StatsScreen(
                     )
                 }
             } else {
+                val dataIndex = filteredData.withIndex().associate { (i, r) -> r to i }
                 KoalaLineChart(
                     data = filteredData,
                     selectedMetrics = selectedMetrics,
                     metrics = metrics,
-                    valueFn = { m, r -> metricValues(m.extractor).let { vals -> vals[filteredData.indexOf(r)] } },
+                    valueFn = { m, r -> metricValues(m.extractor)[dataIndex[r]!!] },
                     modifier = Modifier.fillMaxWidth().weight(1f)
                 )
 

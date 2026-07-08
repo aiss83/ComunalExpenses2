@@ -37,6 +37,10 @@ import comunalexpenses2.shared.generated.resources.*
 import kotlinx.datetime.Clock
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceBlue
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceOrange
+import ru.aiss83.comunalexpenses2.ui.theme.ResourcePurple
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceRed
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.utils.formatEpochMillis
 import ru.aiss83.comunalexpenses2.utils.updateWidgetData
@@ -184,7 +188,7 @@ fun AddResourcesDataScreen(
 
             // Water readings
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Rounded.WaterDrop, null, Modifier.size(20.dp), tint = Color(0xFF2196F3))
+                Icon(Icons.Rounded.WaterDrop, null, Modifier.size(20.dp), tint = ResourceBlue)
                 Spacer(Modifier.size(6.dp))
                 Text(
                     text = stringResource(Res.string.add_readings_water_section),
@@ -198,22 +202,20 @@ fun AddResourcesDataScreen(
                 TextField(
                     value = coldWaterValue,
                     onValueChange = {
-                coldWaterValue = it.filter { c -> c.isDigit() }
-                    .let { v -> if (v.length > 1) v.trimStart('0') else v }
+                 coldWaterValue = it.toDigitsNoLeadingZero()
             },
                     label = { Text(stringResource(Res.string.add_readings_cold_water)) },
-                    leadingIcon = { Icon(Icons.Rounded.WaterDrop, null, tint = Color(0xFF2196F3)) },
+                    leadingIcon = { Icon(Icons.Rounded.WaterDrop, null, tint = ResourceBlue) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 TextField(
                     value = hotWaterValue,
                     onValueChange = {
-                        hotWaterValue = it.filter { c -> c.isDigit() }
-                            .let { v -> if (v.length > 1) v.trimStart('0') else v }
+                        hotWaterValue = it.toDigitsNoLeadingZero()
                     },
                     label = { Text(stringResource(Res.string.add_readings_hot_water)) },
-                    leadingIcon = { Icon(Icons.Rounded.WaterDrop, null, tint = Color(0xFFF44336)) },
+                    leadingIcon = { Icon(Icons.Rounded.WaterDrop, null, tint = ResourceRed) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
@@ -231,7 +233,7 @@ fun AddResourcesDataScreen(
 
             // Electricity readings
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Icons.Rounded.ElectricBolt, null, Modifier.size(20.dp), tint = Color(0xFFFF9800))
+                Icon(Icons.Rounded.ElectricBolt, null, Modifier.size(20.dp), tint = ResourceOrange)
                 Spacer(Modifier.size(6.dp))
                 Text(
                     text = stringResource(Res.string.add_readings_electricity_section),
@@ -245,22 +247,20 @@ fun AddResourcesDataScreen(
                 TextField(
                     value = daykWhValue,
                     onValueChange = {
-                        daykWhValue = it.filter { c -> c.isDigit() }
-                            .let { v -> if (v.length > 1) v.trimStart('0') else v }
+                        daykWhValue = it.toDigitsNoLeadingZero()
                     },
                     label = { Text(stringResource(Res.string.add_readings_kwh_day)) },
-                    leadingIcon = { Icon(Icons.Rounded.ElectricBolt, null, tint = Color(0xFFFF9800)) },
+                    leadingIcon = { Icon(Icons.Rounded.ElectricBolt, null, tint = ResourceOrange) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
                 TextField(
                     value = nightkWhValue,
                     onValueChange = {
-                        nightkWhValue = it.filter { c -> c.isDigit() }
-                            .let { v -> if (v.length > 1) v.trimStart('0') else v }
+                        nightkWhValue = it.toDigitsNoLeadingZero()
                     },
                     label = { Text(stringResource(Res.string.add_readings_kwh_night)) },
-                    leadingIcon = { Icon(Icons.Rounded.ElectricBolt, null, tint = Color(0xFF9C27B0)) },
+                    leadingIcon = { Icon(Icons.Rounded.ElectricBolt, null, tint = ResourcePurple) },
                     modifier = Modifier.weight(1f),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
@@ -279,4 +279,10 @@ fun AddResourcesDataScreen(
             Spacer(modifier = Modifier.weight(1f))
         }
     }
+}
+
+/** Keep only digits and strip leading zeros (except single "0"). */
+private fun String.toDigitsNoLeadingZero(): String {
+    val digits = filter { it.isDigit() }
+    return if (digits.length > 1) digits.trimStart('0') else digits
 }

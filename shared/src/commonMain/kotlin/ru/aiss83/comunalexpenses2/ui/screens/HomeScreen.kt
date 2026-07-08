@@ -79,6 +79,10 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.data.SettingsData
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceBlue
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceOrange
+import ru.aiss83.comunalexpenses2.ui.theme.ResourcePurple
+import ru.aiss83.comunalexpenses2.ui.theme.ResourceRed
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.utils.rememberJsonFilePicker
 import ru.aiss83.comunalexpenses2.utils.saveJsonToFile
@@ -585,7 +589,7 @@ fun ResourcesCard(
                     value = record.coldWater.toString(),
                     labelStyle = labelStyle,
                     valueStyle = valueStyle,
-                    iconTint = Color(0xFF2196F3),
+                    iconTint = ResourceBlue,
                     modifier = Modifier.weight(1f)
                 )
                 MetricCell(
@@ -594,7 +598,7 @@ fun ResourcesCard(
                     value = record.hotWater.toString(),
                     labelStyle = labelStyle,
                     valueStyle = valueStyle,
-                    iconTint = Color(0xFFF44336),
+                    iconTint = ResourceRed,
                     modifier = Modifier.weight(1f)
                 )
             }
@@ -609,7 +613,7 @@ fun ResourcesCard(
                     value = record.dayElectricity.toString(),
                     labelStyle = labelStyle,
                     valueStyle = valueStyle,
-                    iconTint = Color(0xFFFF9800),
+                    iconTint = ResourceOrange,
                     modifier = Modifier.weight(1f)
                 )
                 MetricCell(
@@ -618,7 +622,7 @@ fun ResourcesCard(
                     value = record.nightElectricity.toString(),
                     labelStyle = labelStyle,
                     valueStyle = valueStyle,
-                    iconTint = Color(0xFF9C27B0),
+                    iconTint = ResourcePurple,
                     modifier = Modifier.weight(1f)
                 )
             }

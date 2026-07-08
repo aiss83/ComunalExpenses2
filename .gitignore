@@ -33,3 +33,8 @@ local.properties
 # Gradle daemon
 **/.gradle/
 
+# Local build workarounds
+.gradle-home/
+.kotlin/
+package-lock.json
+
