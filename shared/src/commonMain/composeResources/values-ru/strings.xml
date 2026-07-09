@@ -122,6 +122,10 @@
     <string name="settings_import_button">Импорт из JSON</string>
     <string name="settings_delete_all_button">Удалить все записи</string>
 
+    <!-- About -->
+    <string name="settings_about_title">О программе</string>
+    <string name="settings_about_version">Версия</string>
+
     <!-- Common -->
     <string name="dialog_ok">OK</string>
     <string name="error_title">Ошибка</string>

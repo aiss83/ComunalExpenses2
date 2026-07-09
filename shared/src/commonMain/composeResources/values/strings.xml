@@ -122,6 +122,10 @@
     <string name="settings_import_button">Import from JSON</string>
     <string name="settings_delete_all_button">Delete all records</string>
 
+    <!-- About -->
+    <string name="settings_about_title">About</string>
+    <string name="settings_about_version">Version</string>
+
     <!-- Common -->
     <string name="dialog_ok">OK</string>
     <string name="error_title">Error</string>
