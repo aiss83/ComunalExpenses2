@@ -24,13 +24,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Delete
 import androidx.compose.material.icons.rounded.Edit
 import androidx.compose.material.icons.rounded.ElectricBolt
-import androidx.compose.material.icons.rounded.FileDownload
-import androidx.compose.material.icons.rounded.FileUpload
 import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.WaterDrop
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Share
@@ -38,21 +36,24 @@ import androidx.compose.material.icons.automirrored.rounded.ShowChart
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -74,7 +75,6 @@ import kotlin.math.roundToInt
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
@@ -82,11 +82,12 @@ import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.ui.theme.ResourceBlue
 import ru.aiss83.comunalexpenses2.ui.theme.ResourceOrange
 import ru.aiss83.comunalexpenses2.ui.theme.ResourcePurple
+import ru.aiss83.comunalexpenses2.ui.theme.DeleteRed
 import ru.aiss83.comunalexpenses2.ui.theme.ResourceRed
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
-import ru.aiss83.comunalexpenses2.utils.rememberJsonFilePicker
-import ru.aiss83.comunalexpenses2.utils.saveJsonToFile
+import ru.aiss83.comunalexpenses2.utils.formatEpochMillis
 import ru.aiss83.comunalexpenses2.utils.shareText
+import kotlin.time.Duration.Companion.milliseconds
 
 @OptIn(ExperimentalUuidApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -102,17 +103,24 @@ fun HomeScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     var showSwipeHint by rememberSaveable { mutableStateOf(true) }
-    var searchQuery by remember { mutableStateOf("") }
-    var searchActive by remember { mutableStateOf(false) }
 
-    val filteredData = if (searchQuery.isBlank()) allResourceData
-        else allResourceData.filter {
-            it.formatDate().contains(searchQuery, ignoreCase = true) ||
-            it.coldWater.toString().contains(searchQuery) ||
-            it.hotWater.toString().contains(searchQuery) ||
-            it.dayElectricity.toString().contains(searchQuery) ||
-            it.nightElectricity.toString().contains(searchQuery)
+    // Date range filter state
+    var dateFromMillis by rememberSaveable { mutableStateOf<Long?>(null) }
+    var dateToMillis by rememberSaveable { mutableStateOf<Long?>(null) }
+    var showFromPicker by remember { mutableStateOf(false) }
+    var showToPicker by remember { mutableStateOf(false) }
+
+    val from = dateFromMillis
+    val to = dateToMillis
+    val filteredData = if (from == null && to == null) {
+        allResourceData
+    } else {
+        allResourceData.filter { record ->
+            val passesFrom = from == null || record.date >= from
+            val passesTo = to == null || record.date < to + 86_400_000L
+            passesFrom && passesTo
         }
+    }
 
     // Delete confirmation
     var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
@@ -121,36 +129,14 @@ fun HomeScreen(
     var swipeResetKey by remember { mutableStateOf(0) }
     var swipeConfirmKey by remember { mutableStateOf(0) }
 
-    // Delete all confirmation
-    var openDeleteAllDialog by remember { mutableStateOf(false) }
-
-    // File picker for JSON import
-    val pickJsonFile = rememberJsonFilePicker { content ->
-        if (content != null) {
-            viewModel.importJson(content)
-        }
-    }
-
     val shareTitle = stringResource(Res.string.home_share_title)
-    val exportSavedMsg = stringResource(Res.string.home_export_saved)
     val undoLabel = stringResource(Res.string.home_undo)
     val deleteUndoneMsg = stringResource(Res.string.home_delete_undone)
-    val searchHint = stringResource(Res.string.home_search_hint)
     val sharedOkMsg = stringResource(Res.string.home_shared_ok)
-    val importedMsg = stringResource(Res.string.home_imported_count)
-
-    // Observe import result
-    LaunchedEffect(Unit) {
-        viewModel.importedCount.collectLatest { count ->
-            if (count != null) {
-                snackbarHostState.showSnackbar(
-                    message = importedMsg.replace("%d", count.toString()),
-                    duration = SnackbarDuration.Short
-                )
-                viewModel.clearImportedCount()
-            }
-        }
-    }
+    val dateFromLabel = stringResource(Res.string.home_date_filter_from)
+    val dateToLabel = stringResource(Res.string.home_date_filter_to)
+    val datePickerTitle = stringResource(Res.string.home_date_filter_picker_title)
+    val clearFilterDesc = stringResource(Res.string.home_date_filter_clear)
 
     // Share confirmation
     var openShareDialog by remember { mutableStateOf(false) }
@@ -216,7 +202,7 @@ fun HomeScreen(
         if (record != null) {
             scope.launch {
                 // Wait for swipe dismiss animation to finish before removing data
-                delay(300)
+                delay(300.milliseconds)
                 viewModel.deleteResourceData(record.id)
                 val result = snackbarHostState.showSnackbar(
                     message = deleteUndoneMsg,
@@ -228,18 +214,6 @@ fun HomeScreen(
                 }
             }
         }
-    }
-
-    val exportAllToJson = {
-        val json = viewModel.exportJson()
-        saveJsonToFile(json.encodeToByteArray(), "communal_expenses_backup.json")
-        scope.launch {
-            snackbarHostState.showSnackbar(
-                message = exportSavedMsg,
-                duration = SnackbarDuration.Short
-            )
-        }
-        Unit
     }
 
     if (openRemoveDialog) {
@@ -280,67 +254,118 @@ fun HomeScreen(
         )
     }
 
-    if (openDeleteAllDialog) {
-        AlertDialog(
-            onDismissRequest = { openDeleteAllDialog = false },
-            icon = { Icon(Icons.Rounded.Delete, stringResource(Res.string.delete_dialog_icon_desc)) },
-            title = { Text(stringResource(Res.string.delete_all_dialog_title)) },
-            text = { Text(stringResource(Res.string.delete_all_dialog_text)) },
+    // Date picker dialogs
+    if (showFromPicker) {
+        val fromPickerState = rememberDatePickerState(initialSelectedDateMillis = dateFromMillis)
+        DatePickerDialog(
+            onDismissRequest = { showFromPicker = false },
             confirmButton = {
                 TextButton(onClick = {
-                    openDeleteAllDialog = false
-                    viewModel.deleteAllData()
+                    dateFromMillis = fromPickerState.selectedDateMillis
+                    showFromPicker = false
                 }) {
-                    Text(stringResource(Res.string.delete_dialog_confirm))
+                    Text(stringResource(Res.string.dialog_ok))
                 }
             },
             dismissButton = {
-                TextButton(onClick = { openDeleteAllDialog = false }) {
+                TextButton(onClick = { showFromPicker = false }) {
                     Text(stringResource(Res.string.delete_dialog_dismiss))
                 }
             }
-        )
+        ) {
+            DatePicker(state = fromPickerState, title = {
+                Text(
+                    datePickerTitle,
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                )
+            })
+        }
+    }
+
+    if (showToPicker) {
+        val toPickerState = rememberDatePickerState(initialSelectedDateMillis = dateToMillis)
+        DatePickerDialog(
+            onDismissRequest = { showToPicker = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    dateToMillis = toPickerState.selectedDateMillis
+                    showToPicker = false
+                }) {
+                    Text(stringResource(Res.string.dialog_ok))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showToPicker = false }) {
+                    Text(stringResource(Res.string.delete_dialog_dismiss))
+                }
+            }
+        ) {
+            DatePicker(state = toPickerState, title = {
+                Text(
+                    datePickerTitle,
+                    style = MaterialTheme.typography.headlineSmall,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
+                )
+            })
+        }
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    if (searchActive) {
-                        OutlinedTextField(
-                            value = searchQuery,
-                            onValueChange = { searchQuery = it },
-                            placeholder = { Text(searchHint) },
-                            modifier = Modifier.fillMaxWidth(),
-                            singleLine = true
-                        )
-                    } else {
-                        Text(stringResource(Res.string.home_title))
-                    }
-                },
+                title = { Text(stringResource(Res.string.home_title)) },
                 actions = {
-                    IconButton(onClick = exportAllToJson) {
-                        Icon(Icons.Rounded.FileDownload, stringResource(Res.string.home_export_content_desc))
-                    }
-                    IconButton(onClick = pickJsonFile) {
-                        Icon(Icons.Rounded.FileUpload, stringResource(Res.string.home_import_content_desc))
+                    IconButton(onClick = onNavigateToStats) {
+                        Icon(Icons.AutoMirrored.Rounded.ShowChart, stringResource(Res.string.home_stats_content_desc))
                     }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(Icons.Rounded.Settings, stringResource(Res.string.home_settings_content_desc))
                     }
-                    if (allResourceData.isNotEmpty()) {
-                        IconButton(onClick = { openDeleteAllDialog = true }) {
-                            Icon(Icons.Rounded.Delete, stringResource(Res.string.home_clear_all_content_desc))
-                        }
-                    }
-                    IconButton(onClick = onNavigateToStats) {
-                        Icon(Icons.AutoMirrored.Rounded.ShowChart, stringResource(Res.string.home_stats_content_desc))
-                    }
-                    IconButton(onClick = { searchActive = !searchActive; searchQuery = "" }) {
-                        Icon(Icons.Rounded.Search, stringResource(Res.string.home_search_content_desc))
-                    }
                 }
             )
+        },
+        bottomBar = {
+            if (allResourceData.isNotEmpty()) {
+                Surface(
+                    tonalElevation = 3.dp,
+                    shadowElevation = 8.dp
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 12.dp, vertical = 8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        TextButton(onClick = { showFromPicker = true }) {
+                            Text(
+                                text = if (dateFromMillis != null)
+                                    "$dateFromLabel: ${dateFromMillis!!.formatEpochMillis()}"
+                                else dateFromLabel,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                        TextButton(onClick = { showToPicker = true }) {
+                            Text(
+                                text = if (dateToMillis != null)
+                                    "$dateToLabel: ${dateToMillis!!.formatEpochMillis()}"
+                                else dateToLabel,
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                        }
+                        Spacer(Modifier.weight(1f))
+                        if (dateFromMillis != null || dateToMillis != null) {
+                            IconButton(onClick = {
+                                dateFromMillis = null
+                                dateToMillis = null
+                            }) {
+                                Icon(Icons.Rounded.Close, clearFilterDesc)
+                            }
+                        }
+                    }
+                }
+            }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = onNavigateToAddExpenses) {
@@ -378,39 +403,39 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 if (showSwipeHint) {
-                        item(key = "swipe_hint") {
-                            AnimatedVisibility(
-                                visible = showSwipeHint,
-                                exit = fadeOut()
-                            ) {
-                                Text(
-                                    text = stringResource(Res.string.home_swipe_hint),
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(horizontal = 16.dp, vertical = 4.dp)
-                                )
-                            }
+                    item(key = "swipe_hint") {
+                        AnimatedVisibility(
+                            visible = showSwipeHint,
+                            exit = fadeOut()
+                        ) {
+                            Text(
+                                text = stringResource(Res.string.home_swipe_hint),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                            )
                         }
                     }
-
-                    items(filteredData, key = { it.id }) { item ->
-                        SwipeableResourcesCard(
-                            record = item,
-                            onEdit = {
-                                if (!item.shared) onNavigateToEditExpenses(item)
-                            },
-                            onDataRemove = {
-                                showSwipeHint = false
-                                if (!item.shared) removeRecord(item)
-                            },
-                            onShare = shareRecord,
-                            swipeResetTrigger = swipeResetKey,
-                            swipeConfirmTrigger = swipeConfirmKey
-                        )
-                    }
                 }
+
+                items(filteredData, key = { it.id }) { item ->
+                    SwipeableResourcesCard(
+                        record = item,
+                        onEdit = {
+                            if (!item.shared) onNavigateToEditExpenses(item)
+                        },
+                        onDataRemove = {
+                            showSwipeHint = false
+                            if (!item.shared) removeRecord(item)
+                        },
+                        onShare = shareRecord,
+                        swipeResetTrigger = swipeResetKey,
+                        swipeConfirmTrigger = swipeConfirmKey
+                    )
+                }
+            }
         }
     }
 }
@@ -447,7 +472,7 @@ private fun SwipeableResourcesCard(
     LaunchedEffect(swipeConfirmTrigger) {
         if (swipeConfirmTrigger > 0 && swipeTriggered) {
             offsetX.animateTo(-maxDragPx * 3, animationSpec = tween(100))
-            delay(50)
+            delay(50.milliseconds)
             collapsed = true
         }
     }
@@ -463,7 +488,7 @@ private fun SwipeableResourcesCard(
                 modifier = Modifier
                     .matchParentSize()
                     .clip(CardDefaults.shape)
-                    .background(Color(0xFFE53935))
+                    .background(DeleteRed)
                     .padding(horizontal = 20.dp),
                 contentAlignment = Alignment.CenterEnd
             ) {

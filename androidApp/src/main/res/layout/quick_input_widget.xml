@@ -23,7 +23,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/widget_add_hint"
         android:textSize="11sp"
-        android:textColor="#CCFFFFFF" />
+        android:textColor="@color/widget_text_secondary" />
 
     <ImageButton
         android:id="@+id/widget_add_button"

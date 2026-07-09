@@ -1,0 +1,5406 @@
+{
+  "appName": "CommunalExpenses",
+  "version": 1,
+  "records": [
+    {
+      "id": "c6a7602b-9ed4-42c7-a2c2-0fcc64fdfe4d",
+      "date": 1704049200000,
+      "hotWater": 504,
+      "coldWater": 1007,
+      "dayElectricity": 2010,
+      "nightElectricity": 1017,
+      "shared": true
+    },
+    {
+      "id": "2eefcb96-8ceb-41df-b927-5a2a37677fd3",
+      "date": 1704222000000,
+      "hotWater": 509,
+      "coldWater": 1010,
+      "dayElectricity": 2031,
+      "nightElectricity": 1035,
+      "shared": false
+    },
+    {
+      "id": "8c3f4887-c0ee-4009-bccb-994f2a74caeb",
+      "date": 1704394800000,
+      "hotWater": 512,
+      "coldWater": 1017,
+      "dayElectricity": 2045,
+      "nightElectricity": 1040,
+      "shared": false
+    },
+    {
+      "id": "6a6a21ac-c522-47e7-b7c2-4fffd61f0340",
+      "date": 1704567600000,
+      "hotWater": 516,
+      "coldWater": 1020,
+      "dayElectricity": 2062,
+      "nightElectricity": 1054,
+      "shared": false
+    },
+    {
+      "id": "03e51f47-4af8-4495-bb3d-c334f2f23168",
+      "date": 1704740400000,
+      "hotWater": 519,
+      "coldWater": 1025,
+      "dayElectricity": 2087,
+      "nightElectricity": 1062,
+      "shared": false
+    },
+    {
+      "id": "a1415a21-7789-49f1-a71e-85e98c561015",
+      "date": 1704913200000,
+      "hotWater": 524,
+      "coldWater": 1029,
+      "dayElectricity": 2110,
+      "nightElectricity": 1077,
+      "shared": false
+    },
+    {
+      "id": "1714908b-04b9-4caf-9ee7-36530fef7a3b",
+      "date": 1705086000000,
+      "hotWater": 529,
+      "coldWater": 1037,
+      "dayElectricity": 2132,
+      "nightElectricity": 1088,
+      "shared": false
+    },
+    {
+      "id": "f79fde41-a4d4-4657-9d79-d1d6d9950a6e",
+      "date": 1705258800000,
+      "hotWater": 534,
+      "coldWater": 1045,
+      "dayElectricity": 2150,
+      "nightElectricity": 1098,
+      "shared": false
+    },
+    {
+      "id": "64fc9191-a09d-4e05-9d4e-e79439e3ea7f",
+      "date": 1705431600000,
+      "hotWater": 536,
+      "coldWater": 1049,
+      "dayElectricity": 2161,
+      "nightElectricity": 1105,
+      "shared": false
+    },
+    {
+      "id": "8d9b956e-0246-4f92-ba7a-5b6b4c178f73",
+      "date": 1705604400000,
+      "hotWater": 539,
+      "coldWater": 1057,
+      "dayElectricity": 2171,
+      "nightElectricity": 1116,
+      "shared": false
+    },
+    {
+      "id": "c7b1daf3-09cf-43bf-9222-82ecdff13c06",
+      "date": 1705777200000,
+      "hotWater": 543,
+      "coldWater": 1064,
+      "dayElectricity": 2187,
+      "nightElectricity": 1134,
+      "shared": false
+    },
+    {
+      "id": "61b2cd71-990c-46ea-b63c-dba0775b5e14",
+      "date": 1705950000000,
+      "hotWater": 547,
+      "coldWater": 1070,
+      "dayElectricity": 2202,
+      "nightElectricity": 1143,
+      "shared": false
+    },
+    {
+      "id": "8228289c-0f56-4863-846c-4973c5567d69",
+      "date": 1706122800000,
+      "hotWater": 549,
+      "coldWater": 1076,
+      "dayElectricity": 2214,
+      "nightElectricity": 1149,
+      "shared": false
+    },
+    {
+      "id": "fa52a666-2eab-4c29-b43f-78b150badc28",
+      "date": 1706295600000,
+      "hotWater": 551,
+      "coldWater": 1079,
+      "dayElectricity": 2237,
+      "nightElectricity": 1160,
+      "shared": false
+    },
+    {
+      "id": "238cc6e9-5270-4d4f-9d62-2719e1f6b605",
+      "date": 1706468400000,
+      "hotWater": 554,
+      "coldWater": 1082,
+      "dayElectricity": 2258,
+      "nightElectricity": 1172,
+      "shared": false
+    },
+    {
+      "id": "4c19b78c-94be-4a8a-89ec-fc442db40e4f",
+      "date": 1706641200000,
+      "hotWater": 558,
+      "coldWater": 1087,
+      "dayElectricity": 2277,
+      "nightElectricity": 1183,
+      "shared": false
+    },
+    {
+      "id": "d9053b7f-6fd8-4cea-ada1-3703d5987ab3",
+      "date": 1706814000000,
+      "hotWater": 562,
+      "coldWater": 1091,
+      "dayElectricity": 2298,
+      "nightElectricity": 1190,
+      "shared": false
+    },
+    {
+      "id": "94c0ef63-3c97-40f0-951c-8356944ef2db",
+      "date": 1706986800000,
+      "hotWater": 567,
+      "coldWater": 1099,
+      "dayElectricity": 2314,
+      "nightElectricity": 1202,
+      "shared": false
+    },
+    {
+      "id": "e1c8d65e-83de-4781-8bb8-0f883b9aca30",
+      "date": 1707159600000,
+      "hotWater": 571,
+      "coldWater": 1102,
+      "dayElectricity": 2325,
+      "nightElectricity": 1209,
+      "shared": false
+    },
+    {
+      "id": "b12bcfdc-5e24-4e0c-a81d-7d9a3fa0b880",
+      "date": 1707332400000,
+      "hotWater": 576,
+      "coldWater": 1109,
+      "dayElectricity": 2343,
+      "nightElectricity": 1214,
+      "shared": false
+    },
+    {
+      "id": "cb01bf0a-3c92-4c7d-ad1a-9d3647c80c4d",
+      "date": 1707505200000,
+      "hotWater": 579,
+      "coldWater": 1114,
+      "dayElectricity": 2366,
+      "nightElectricity": 1224,
+      "shared": true
+    },
+    {
+      "id": "6c2cd25e-2648-4845-a5ba-6a34eaf8bbd5",
+      "date": 1707678000000,
+      "hotWater": 583,
+      "coldWater": 1120,
+      "dayElectricity": 2387,
+      "nightElectricity": 1238,
+      "shared": false
+    },
+    {
+      "id": "96965b95-f308-4d84-a0c8-5d7cc04713b5",
+      "date": 1707850800000,
+      "hotWater": 586,
+      "coldWater": 1128,
+      "dayElectricity": 2410,
+      "nightElectricity": 1255,
+      "shared": false
+    },
+    {
+      "id": "ebb8f7dd-63c6-4edc-8f53-4f85040b979e",
+      "date": 1708023600000,
+      "hotWater": 588,
+      "coldWater": 1136,
+      "dayElectricity": 2434,
+      "nightElectricity": 1267,
+      "shared": false
+    },
+    {
+      "id": "c2fb6136-26a9-4e55-8d6e-4ef604396d77",
+      "date": 1708196400000,
+      "hotWater": 592,
+      "coldWater": 1140,
+      "dayElectricity": 2459,
+      "nightElectricity": 1272,
+      "shared": false
+    },
+    {
+      "id": "c94a4ca2-1522-4969-b070-0886c16e5805",
+      "date": 1708369200000,
+      "hotWater": 595,
+      "coldWater": 1145,
+      "dayElectricity": 2474,
+      "nightElectricity": 1281,
+      "shared": false
+    },
+    {
+      "id": "41485420-84f1-44de-a5fe-69992ea7666a",
+      "date": 1708542000000,
+      "hotWater": 599,
+      "coldWater": 1149,
+      "dayElectricity": 2499,
+      "nightElectricity": 1286,
+      "shared": false
+    },
+    {
+      "id": "73b84b0f-1162-4fb0-b13f-78be7bda8425",
+      "date": 1708714800000,
+      "hotWater": 603,
+      "coldWater": 1153,
+      "dayElectricity": 2520,
+      "nightElectricity": 1294,
+      "shared": false
+    },
+    {
+      "id": "01bc7e58-fd50-49b6-b1a1-e039af2c4570",
+      "date": 1708887600000,
+      "hotWater": 606,
+      "coldWater": 1160,
+      "dayElectricity": 2533,
+      "nightElectricity": 1303,
+      "shared": false
+    },
+    {
+      "id": "6373fef0-12f9-49e7-8ec4-63cfb30e5ae5",
+      "date": 1709060400000,
+      "hotWater": 608,
+      "coldWater": 1164,
+      "dayElectricity": 2554,
+      "nightElectricity": 1319,
+      "shared": false
+    },
+    {
+      "id": "0975d98e-c80f-4778-a60f-20335e32ebde",
+      "date": 1709233200000,
+      "hotWater": 610,
+      "coldWater": 1171,
+      "dayElectricity": 2568,
+      "nightElectricity": 1329,
+      "shared": false
+    },
+    {
+      "id": "cbd32303-2ca8-4317-bb94-a3298e670d1c",
+      "date": 1709406000000,
+      "hotWater": 612,
+      "coldWater": 1175,
+      "dayElectricity": 2588,
+      "nightElectricity": 1339,
+      "shared": false
+    },
+    {
+      "id": "8ef18bd0-53b6-4d00-a637-f0fe53aa5722",
+      "date": 1709578800000,
+      "hotWater": 614,
+      "coldWater": 1178,
+      "dayElectricity": 2612,
+      "nightElectricity": 1350,
+      "shared": false
+    },
+    {
+      "id": "b5248265-d9fd-45e9-8cc0-e48dff2002c2",
+      "date": 1709751600000,
+      "hotWater": 618,
+      "coldWater": 1184,
+      "dayElectricity": 2622,
+      "nightElectricity": 1364,
+      "shared": false
+    },
+    {
+      "id": "f5273fd9-6037-4c02-a474-b1314a32af04",
+      "date": 1709924400000,
+      "hotWater": 621,
+      "coldWater": 1189,
+      "dayElectricity": 2633,
+      "nightElectricity": 1372,
+      "shared": false
+    },
+    {
+      "id": "d96693e8-1dab-49f8-b3c1-35bb4ec2f163",
+      "date": 1710097200000,
+      "hotWater": 626,
+      "coldWater": 1194,
+      "dayElectricity": 2647,
+      "nightElectricity": 1383,
+      "shared": false
+    },
+    {
+      "id": "1e9fa48e-69d7-4b76-a175-dcf5f604c842",
+      "date": 1710270000000,
+      "hotWater": 631,
+      "coldWater": 1199,
+      "dayElectricity": 2669,
+      "nightElectricity": 1391,
+      "shared": false
+    },
+    {
+      "id": "ade620e5-625f-4b2f-969c-2184cc94b2ad",
+      "date": 1710442800000,
+      "hotWater": 636,
+      "coldWater": 1205,
+      "dayElectricity": 2694,
+      "nightElectricity": 1396,
+      "shared": false
+    },
+    {
+      "id": "a809fd9a-e92d-4605-a6d4-08359add4c0e",
+      "date": 1710615600000,
+      "hotWater": 638,
+      "coldWater": 1212,
+      "dayElectricity": 2714,
+      "nightElectricity": 1408,
+      "shared": false
+    },
+    {
+      "id": "e32a7331-f4aa-45d1-888d-e02b85d63be6",
+      "date": 1710788400000,
+      "hotWater": 642,
+      "coldWater": 1216,
+      "dayElectricity": 2728,
+      "nightElectricity": 1421,
+      "shared": false
+    },
+    {
+      "id": "95cdcd7d-2243-4b5f-9f86-c02fc4568dcd",
+      "date": 1710961200000,
+      "hotWater": 645,
+      "coldWater": 1220,
+      "dayElectricity": 2741,
+      "nightElectricity": 1435,
+      "shared": true
+    },
+    {
+      "id": "9e2ad608-9ae7-4b5b-a8da-cfdf15d13629",
+      "date": 1711134000000,
+      "hotWater": 650,
+      "coldWater": 1226,
+      "dayElectricity": 2759,
+      "nightElectricity": 1450,
+      "shared": false
+    },
+    {
+      "id": "07772789-457e-4b67-97a9-21f65588f1a8",
+      "date": 1711306800000,
+      "hotWater": 652,
+      "coldWater": 1229,
+      "dayElectricity": 2780,
+      "nightElectricity": 1462,
+      "shared": false
+    },
+    {
+      "id": "4b6752a4-ab05-4eeb-801a-7eedc94f8441",
+      "date": 1711479600000,
+      "hotWater": 656,
+      "coldWater": 1236,
+      "dayElectricity": 2794,
+      "nightElectricity": 1480,
+      "shared": false
+    },
+    {
+      "id": "cb800d05-e5ed-4921-817b-56fb223d4bc9",
+      "date": 1711652400000,
+      "hotWater": 659,
+      "coldWater": 1243,
+      "dayElectricity": 2804,
+      "nightElectricity": 1493,
+      "shared": false
+    },
+    {
+      "id": "b2f99da0-97c9-4250-8619-eb222738298d",
+      "date": 1711825200000,
+      "hotWater": 661,
+      "coldWater": 1249,
+      "dayElectricity": 2828,
+      "nightElectricity": 1504,
+      "shared": false
+    },
+    {
+      "id": "a8ea9223-d1a7-46ff-8857-359c0132aed2",
+      "date": 1711998000000,
+      "hotWater": 663,
+      "coldWater": 1257,
+      "dayElectricity": 2849,
+      "nightElectricity": 1522,
+      "shared": false
+    },
+    {
+      "id": "8db1b860-b541-4925-acb9-43ac5f2a0afa",
+      "date": 1712170800000,
+      "hotWater": 666,
+      "coldWater": 1260,
+      "dayElectricity": 2861,
+      "nightElectricity": 1538,
+      "shared": false
+    },
+    {
+      "id": "8c009308-7e45-4763-bc54-b17f69f4acd3",
+      "date": 1712343600000,
+      "hotWater": 671,
+      "coldWater": 1268,
+      "dayElectricity": 2871,
+      "nightElectricity": 1545,
+      "shared": false
+    },
+    {
+      "id": "3a09f53c-3008-4b17-bc90-01c100e54edd",
+      "date": 1712516400000,
+      "hotWater": 673,
+      "coldWater": 1272,
+      "dayElectricity": 2885,
+      "nightElectricity": 1558,
+      "shared": false
+    },
+    {
+      "id": "867759ff-1e7a-40d5-aae6-6711a27dc0ff",
+      "date": 1712689200000,
+      "hotWater": 676,
+      "coldWater": 1276,
+      "dayElectricity": 2896,
+      "nightElectricity": 1568,
+      "shared": false
+    },
+    {
+      "id": "00fc37cc-2f87-4e0e-9e6e-d9ec7493d9bf",
+      "date": 1712862000000,
+      "hotWater": 680,
+      "coldWater": 1281,
+      "dayElectricity": 2912,
+      "nightElectricity": 1586,
+      "shared": false
+    },
+    {
+      "id": "320d0ed6-2ebf-4928-b2dd-274aa40ca433",
+      "date": 1713034800000,
+      "hotWater": 682,
+      "coldWater": 1289,
+      "dayElectricity": 2929,
+      "nightElectricity": 1602,
+      "shared": false
+    },
+    {
+      "id": "16256422-c492-421e-b48e-26ca211116d3",
+      "date": 1713207600000,
+      "hotWater": 686,
+      "coldWater": 1292,
+      "dayElectricity": 2939,
+      "nightElectricity": 1610,
+      "shared": false
+    },
+    {
+      "id": "c1cf9f8e-168d-41fb-9964-49a263b4f680",
+      "date": 1713380400000,
+      "hotWater": 690,
+      "coldWater": 1296,
+      "dayElectricity": 2956,
+      "nightElectricity": 1624,
+      "shared": false
+    },
+    {
+      "id": "5356313d-12a2-428e-9219-7ee532db4f15",
+      "date": 1713553200000,
+      "hotWater": 692,
+      "coldWater": 1301,
+      "dayElectricity": 2981,
+      "nightElectricity": 1640,
+      "shared": false
+    },
+    {
+      "id": "8fdd9440-ea54-462b-9521-5c2a2462b811",
+      "date": 1713726000000,
+      "hotWater": 696,
+      "coldWater": 1307,
+      "dayElectricity": 2996,
+      "nightElectricity": 1656,
+      "shared": false
+    },
+    {
+      "id": "6d450646-5588-433d-8a19-f6e3508f0159",
+      "date": 1713898800000,
+      "hotWater": 698,
+      "coldWater": 1313,
+      "dayElectricity": 3016,
+      "nightElectricity": 1662,
+      "shared": false
+    },
+    {
+      "id": "54c83771-40b9-41db-82d1-5f6dd43cd78c",
+      "date": 1714071600000,
+      "hotWater": 702,
+      "coldWater": 1318,
+      "dayElectricity": 3034,
+      "nightElectricity": 1667,
+      "shared": false
+    },
+    {
+      "id": "313548b7-94ab-4f59-ba05-d0a556f1f3f5",
+      "date": 1714244400000,
+      "hotWater": 707,
+      "coldWater": 1321,
+      "dayElectricity": 3055,
+      "nightElectricity": 1681,
+      "shared": false
+    },
+    {
+      "id": "22bacbe9-87da-4edc-9364-8a0d98406b22",
+      "date": 1714417200000,
+      "hotWater": 712,
+      "coldWater": 1328,
+      "dayElectricity": 3066,
+      "nightElectricity": 1693,
+      "shared": true
+    },
+    {
+      "id": "0bbc6893-54a2-4587-a368-a864d45bd7ff",
+      "date": 1714590000000,
+      "hotWater": 716,
+      "coldWater": 1333,
+      "dayElectricity": 3082,
+      "nightElectricity": 1708,
+      "shared": false
+    },
+    {
+      "id": "dab6f60f-590d-4cdd-92c7-49dd4d8fb6e8",
+      "date": 1714762800000,
+      "hotWater": 718,
+      "coldWater": 1336,
+      "dayElectricity": 3106,
+      "nightElectricity": 1715,
+      "shared": false
+    },
+    {
+      "id": "9ae7815c-34dd-4335-8b57-6204e360d81d",
+      "date": 1714935600000,
+      "hotWater": 721,
+      "coldWater": 1340,
+      "dayElectricity": 3124,
+      "nightElectricity": 1721,
+      "shared": false
+    },
+    {
+      "id": "543e176a-0047-40f7-81a6-2846c491afaf",
+      "date": 1715108400000,
+      "hotWater": 724,
+      "coldWater": 1348,
+      "dayElectricity": 3137,
+      "nightElectricity": 1730,
+      "shared": false
+    },
+    {
+      "id": "40ee18d4-e9f8-4696-aa5c-a83500c6379c",
+      "date": 1715281200000,
+      "hotWater": 726,
+      "coldWater": 1353,
+      "dayElectricity": 3148,
+      "nightElectricity": 1746,
+      "shared": false
+    },
+    {
+      "id": "91721048-be41-49f3-a744-05aa8ce3d900",
+      "date": 1715454000000,
+      "hotWater": 728,
+      "coldWater": 1361,
+      "dayElectricity": 3173,
+      "nightElectricity": 1752,
+      "shared": false
+    },
+    {
+      "id": "30f3ac50-efce-49d4-b093-4e14fd6b5ebb",
+      "date": 1715626800000,
+      "hotWater": 733,
+      "coldWater": 1365,
+      "dayElectricity": 3194,
+      "nightElectricity": 1759,
+      "shared": false
+    },
+    {
+      "id": "1033dae1-f81b-4bfe-befa-3920cdab2ac9",
+      "date": 1715799600000,
+      "hotWater": 738,
+      "coldWater": 1372,
+      "dayElectricity": 3219,
+      "nightElectricity": 1764,
+      "shared": false
+    },
+    {
+      "id": "ac7bf5ba-4b4d-4e9d-bb81-381b241a3404",
+      "date": 1715972400000,
+      "hotWater": 742,
+      "coldWater": 1379,
+      "dayElectricity": 3241,
+      "nightElectricity": 1778,
+      "shared": false
+    },
+    {
+      "id": "33941263-48d6-45b2-9453-14be68fe67a5",
+      "date": 1716145200000,
+      "hotWater": 744,
+      "coldWater": 1382,
+      "dayElectricity": 3266,
+      "nightElectricity": 1792,
+      "shared": false
+    },
+    {
+      "id": "53b1d4f0-0372-422c-9cec-4ed6354d5294",
+      "date": 1716318000000,
+      "hotWater": 749,
+      "coldWater": 1389,
+      "dayElectricity": 3291,
+      "nightElectricity": 1808,
+      "shared": false
+    },
+    {
+      "id": "c1d0471f-0dae-4d7a-a6b8-ce939d9aa801",
+      "date": 1716490800000,
+      "hotWater": 753,
+      "coldWater": 1394,
+      "dayElectricity": 3311,
+      "nightElectricity": 1814,
+      "shared": false
+    },
+    {
+      "id": "581568f1-2e99-4230-927f-4b55f6ab3bde",
+      "date": 1716663600000,
+      "hotWater": 758,
+      "coldWater": 1401,
+      "dayElectricity": 3328,
+      "nightElectricity": 1828,
+      "shared": false
+    },
+    {
+      "id": "73fd2764-4fb8-44b4-a6c3-46f860e983a2",
+      "date": 1716836400000,
+      "hotWater": 762,
+      "coldWater": 1405,
+      "dayElectricity": 3341,
+      "nightElectricity": 1842,
+      "shared": false
+    },
+    {
+      "id": "56f559b2-7cce-40d8-9673-2a566a7b2982",
+      "date": 1717009200000,
+      "hotWater": 766,
+      "coldWater": 1408,
+      "dayElectricity": 3362,
+      "nightElectricity": 1860,
+      "shared": false
+    },
+    {
+      "id": "a38cde68-71a2-4d96-94e2-26c357e1dde2",
+      "date": 1717182000000,
+      "hotWater": 769,
+      "coldWater": 1413,
+      "dayElectricity": 3384,
+      "nightElectricity": 1868,
+      "shared": false
+    },
+    {
+      "id": "82a134d9-9cf7-4503-9f3b-784b937d7759",
+      "date": 1717354800000,
+      "hotWater": 774,
+      "coldWater": 1416,
+      "dayElectricity": 3395,
+      "nightElectricity": 1875,
+      "shared": false
+    },
+    {
+      "id": "52d85df2-fb58-45ea-b8b6-e908c69eef22",
+      "date": 1717527600000,
+      "hotWater": 776,
+      "coldWater": 1420,
+      "dayElectricity": 3412,
+      "nightElectricity": 1891,
+      "shared": false
+    },
+    {
+      "id": "d929c9ee-337b-4d32-8322-7fdfdae1e367",
+      "date": 1717700400000,
+      "hotWater": 778,
+      "coldWater": 1427,
+      "dayElectricity": 3430,
+      "nightElectricity": 1905,
+      "shared": false
+    },
+    {
+      "id": "84dd0a2d-1444-4016-8e86-cde62797dccb",
+      "date": 1717873200000,
+      "hotWater": 781,
+      "coldWater": 1434,
+      "dayElectricity": 3445,
+      "nightElectricity": 1915,
+      "shared": true
+    },
+    {
+      "id": "58e3cd6f-c543-4fad-996a-34f54a2acaee",
+      "date": 1718046000000,
+      "hotWater": 786,
+      "coldWater": 1438,
+      "dayElectricity": 3460,
+      "nightElectricity": 1925,
+      "shared": false
+    },
+    {
+      "id": "55cec562-44c0-4735-80b7-5af50f5cb6f9",
+      "date": 1718218800000,
+      "hotWater": 791,
+      "coldWater": 1445,
+      "dayElectricity": 3472,
+      "nightElectricity": 1930,
+      "shared": false
+    },
+    {
+      "id": "6e3388ca-ee92-4e35-b1bf-bf6d5c12791e",
+      "date": 1718391600000,
+      "hotWater": 794,
+      "coldWater": 1451,
+      "dayElectricity": 3492,
+      "nightElectricity": 1937,
+      "shared": false
+    },
+    {
+      "id": "e626bc27-f745-40b9-929b-88b5c597dc7c",
+      "date": 1718564400000,
+      "hotWater": 798,
+      "coldWater": 1458,
+      "dayElectricity": 3510,
+      "nightElectricity": 1949,
+      "shared": false
+    },
+    {
+      "id": "9a05eb70-5e05-4dab-96c3-171e8cc835d0",
+      "date": 1718737200000,
+      "hotWater": 800,
+      "coldWater": 1462,
+      "dayElectricity": 3530,
+      "nightElectricity": 1961,
+      "shared": false
+    },
+    {
+      "id": "40260afd-8be3-4528-8695-0674aed73929",
+      "date": 1718910000000,
+      "hotWater": 802,
+      "coldWater": 1468,
+      "dayElectricity": 3554,
+      "nightElectricity": 1979,
+      "shared": false
+    },
+    {
+      "id": "94f91812-8b06-4de2-bd39-1a5c5b6ce65d",
+      "date": 1719082800000,
+      "hotWater": 804,
+      "coldWater": 1472,
+      "dayElectricity": 3570,
+      "nightElectricity": 1996,
+      "shared": false
+    },
+    {
+      "id": "d0507149-4760-4aa8-8696-7eaf6530909a",
+      "date": 1719255600000,
+      "hotWater": 807,
+      "coldWater": 1477,
+      "dayElectricity": 3594,
+      "nightElectricity": 2008,
+      "shared": false
+    },
+    {
+      "id": "48715b85-6354-4697-a07b-2f93e275b941",
+      "date": 1719428400000,
+      "hotWater": 809,
+      "coldWater": 1485,
+      "dayElectricity": 3605,
+      "nightElectricity": 2018,
+      "shared": false
+    },
+    {
+      "id": "46a5b870-37d0-44a8-9779-efb8632d5b8b",
+      "date": 1719601200000,
+      "hotWater": 813,
+      "coldWater": 1492,
+      "dayElectricity": 3630,
+      "nightElectricity": 2031,
+      "shared": false
+    },
+    {
+      "id": "eb34ac10-6722-48a3-9c50-5e4116c63aa9",
+      "date": 1719774000000,
+      "hotWater": 816,
+      "coldWater": 1500,
+      "dayElectricity": 3646,
+      "nightElectricity": 2046,
+      "shared": false
+    },
+    {
+      "id": "da62514b-cd97-486e-a2cc-9e350da7360c",
+      "date": 1719946800000,
+      "hotWater": 821,
+      "coldWater": 1503,
+      "dayElectricity": 3663,
+      "nightElectricity": 2053,
+      "shared": false
+    },
+    {
+      "id": "3dc5dc5f-fcdb-4494-8107-553bcadeaaae",
+      "date": 1720119600000,
+      "hotWater": 824,
+      "coldWater": 1510,
+      "dayElectricity": 3688,
+      "nightElectricity": 2066,
+      "shared": false
+    },
+    {
+      "id": "55af1834-8558-41fa-a027-9b589c6a1865",
+      "date": 1720292400000,
+      "hotWater": 826,
+      "coldWater": 1513,
+      "dayElectricity": 3699,
+      "nightElectricity": 2074,
+      "shared": false
+    },
+    {
+      "id": "9cdfb1aa-dd52-4a9a-b0ae-ee1d575f498b",
+      "date": 1720465200000,
+      "hotWater": 828,
+      "coldWater": 1519,
+      "dayElectricity": 3719,
+      "nightElectricity": 2081,
+      "shared": false
+    },
+    {
+      "id": "abd984d0-1ab9-4589-94b7-1a17321c751e",
+      "date": 1720638000000,
+      "hotWater": 833,
+      "coldWater": 1525,
+      "dayElectricity": 3737,
+      "nightElectricity": 2088,
+      "shared": false
+    },
+    {
+      "id": "89adf282-b72c-4560-8ca3-c07abc958f06",
+      "date": 1720810800000,
+      "hotWater": 838,
+      "coldWater": 1530,
+      "dayElectricity": 3756,
+      "nightElectricity": 2097,
+      "shared": false
+    },
+    {
+      "id": "a9c88812-a38f-4808-89cb-267ed6ca76ac",
+      "date": 1720983600000,
+      "hotWater": 841,
+      "coldWater": 1534,
+      "dayElectricity": 3768,
+      "nightElectricity": 2114,
+      "shared": false
+    },
+    {
+      "id": "0ac47504-09fa-4d60-a2ff-4ab291e45a88",
+      "date": 1721156400000,
+      "hotWater": 843,
+      "coldWater": 1542,
+      "dayElectricity": 3781,
+      "nightElectricity": 2119,
+      "shared": false
+    },
+    {
+      "id": "ebc093bf-89e5-4550-b66d-577ac9a5f6dc",
+      "date": 1721329200000,
+      "hotWater": 846,
+      "coldWater": 1550,
+      "dayElectricity": 3798,
+      "nightElectricity": 2130,
+      "shared": true
+    },
+    {
+      "id": "ce680104-b481-43aa-b515-d2f80fb10234",
+      "date": 1721502000000,
+      "hotWater": 849,
+      "coldWater": 1558,
+      "dayElectricity": 3822,
+      "nightElectricity": 2144,
+      "shared": false
+    },
+    {
+      "id": "ea3ad4e0-f776-43c3-bad1-d3776c6db764",
+      "date": 1721674800000,
+      "hotWater": 851,
+      "coldWater": 1566,
+      "dayElectricity": 3837,
+      "nightElectricity": 2155,
+      "shared": false
+    },
+    {
+      "id": "5cf9eb00-d6fa-40aa-8105-3d34feee300c",
+      "date": 1721847600000,
+      "hotWater": 855,
+      "coldWater": 1569,
+      "dayElectricity": 3858,
+      "nightElectricity": 2163,
+      "shared": false
+    },
+    {
+      "id": "63ad7f98-2a3c-4fd3-a382-e366f7dc4a05",
+      "date": 1722020400000,
+      "hotWater": 858,
+      "coldWater": 1574,
+      "dayElectricity": 3871,
+      "nightElectricity": 2174,
+      "shared": false
+    },
+    {
+      "id": "d04ccd26-6379-4676-a624-d174c564ca21",
+      "date": 1722193200000,
+      "hotWater": 863,
+      "coldWater": 1581,
+      "dayElectricity": 3891,
+      "nightElectricity": 2186,
+      "shared": false
+    },
+    {
+      "id": "81cf3c49-207c-4a87-8b69-cc6b9b7e443d",
+      "date": 1722366000000,
+      "hotWater": 867,
+      "coldWater": 1585,
+      "dayElectricity": 3909,
+      "nightElectricity": 2203,
+      "shared": false
+    },
+    {
+      "id": "ee6e76d2-d3d5-4186-9eb2-72bc4f3efa95",
+      "date": 1722538800000,
+      "hotWater": 871,
+      "coldWater": 1592,
+      "dayElectricity": 3920,
+      "nightElectricity": 2214,
+      "shared": false
+    },
+    {
+      "id": "9d2d9e48-cd1e-4142-bf88-6cc99d13a3cf",
+      "date": 1722711600000,
+      "hotWater": 873,
+      "coldWater": 1599,
+      "dayElectricity": 3940,
+      "nightElectricity": 2231,
+      "shared": false
+    },
+    {
+      "id": "3d5f666e-ff96-4880-9350-4ac111da05f8",
+      "date": 1722884400000,
+      "hotWater": 877,
+      "coldWater": 1602,
+      "dayElectricity": 3961,
+      "nightElectricity": 2248,
+      "shared": false
+    },
+    {
+      "id": "378f3b2e-f8de-43e3-92ee-6e803306c303",
+      "date": 1723057200000,
+      "hotWater": 879,
+      "coldWater": 1605,
+      "dayElectricity": 3979,
+      "nightElectricity": 2262,
+      "shared": false
+    },
+    {
+      "id": "0f1267aa-4c9b-4120-96da-10c66a758af9",
+      "date": 1723230000000,
+      "hotWater": 881,
+      "coldWater": 1610,
+      "dayElectricity": 3993,
+      "nightElectricity": 2280,
+      "shared": false
+    },
+    {
+      "id": "4077abc5-ecff-4534-bce5-4da98d406e8c",
+      "date": 1723402800000,
+      "hotWater": 884,
+      "coldWater": 1613,
+      "dayElectricity": 4018,
+      "nightElectricity": 2294,
+      "shared": false
+    },
+    {
+      "id": "1c476365-e24a-4249-be36-fe0c2460f9b3",
+      "date": 1723575600000,
+      "hotWater": 887,
+      "coldWater": 1619,
+      "dayElectricity": 4028,
+      "nightElectricity": 2307,
+      "shared": false
+    },
+    {
+      "id": "bd12e88f-0ddd-4310-a6ce-b84f1db6ad8d",
+      "date": 1723748400000,
+      "hotWater": 890,
+      "coldWater": 1624,
+      "dayElectricity": 4039,
+      "nightElectricity": 2317,
+      "shared": false
+    },
+    {
+      "id": "64537b10-dfc8-4179-baed-6f53add842b9",
+      "date": 1723921200000,
+      "hotWater": 894,
+      "coldWater": 1630,
+      "dayElectricity": 4059,
+      "nightElectricity": 2324,
+      "shared": false
+    },
+    {
+      "id": "6a264e3b-3783-4944-8e0c-24d72d8e7d83",
+      "date": 1724094000000,
+      "hotWater": 898,
+      "coldWater": 1636,
+      "dayElectricity": 4076,
+      "nightElectricity": 2330,
+      "shared": false
+    },
+    {
+      "id": "50adb78d-6be4-475e-8fb9-6e683b212d8a",
+      "date": 1724266800000,
+      "hotWater": 902,
+      "coldWater": 1640,
+      "dayElectricity": 4092,
+      "nightElectricity": 2345,
+      "shared": false
+    },
+    {
+      "id": "7984af5a-b35a-4a3f-b55a-e6e13e45187f",
+      "date": 1724439600000,
+      "hotWater": 907,
+      "coldWater": 1647,
+      "dayElectricity": 4117,
+      "nightElectricity": 2354,
+      "shared": false
+    },
+    {
+      "id": "b3558980-7438-48fb-bb52-40e568e588d4",
+      "date": 1724612400000,
+      "hotWater": 910,
+      "coldWater": 1651,
+      "dayElectricity": 4135,
+      "nightElectricity": 2366,
+      "shared": false
+    },
+    {
+      "id": "cf239072-000f-478c-bc0c-ae4dc7da5fcf",
+      "date": 1724785200000,
+      "hotWater": 915,
+      "coldWater": 1655,
+      "dayElectricity": 4158,
+      "nightElectricity": 2375,
+      "shared": true
+    },
+    {
+      "id": "3ffc3ad7-2d86-4a69-b388-e811371d84f6",
+      "date": 1724958000000,
+      "hotWater": 919,
+      "coldWater": 1662,
+      "dayElectricity": 4171,
+      "nightElectricity": 2380,
+      "shared": false
+    },
+    {
+      "id": "6aef5541-a402-42ec-a346-c9761af8c002",
+      "date": 1725130800000,
+      "hotWater": 924,
+      "coldWater": 1667,
+      "dayElectricity": 4191,
+      "nightElectricity": 2386,
+      "shared": false
+    },
+    {
+      "id": "16246ada-7349-491d-afb9-d45a09542f22",
+      "date": 1725303600000,
+      "hotWater": 927,
+      "coldWater": 1673,
+      "dayElectricity": 4211,
+      "nightElectricity": 2402,
+      "shared": false
+    },
+    {
+      "id": "28430475-73ee-42b0-8b24-0a3323b07e0e",
+      "date": 1725476400000,
+      "hotWater": 931,
+      "coldWater": 1681,
+      "dayElectricity": 4226,
+      "nightElectricity": 2418,
+      "shared": false
+    },
+    {
+      "id": "f6fa12bf-1553-47cc-a85a-76e38227c6e2",
+      "date": 1725649200000,
+      "hotWater": 933,
+      "coldWater": 1684,
+      "dayElectricity": 4243,
+      "nightElectricity": 2427,
+      "shared": false
+    },
+    {
+      "id": "3ea4fd7c-464c-48ef-883f-d14a2ea7d3ee",
+      "date": 1725822000000,
+      "hotWater": 936,
+      "coldWater": 1688,
+      "dayElectricity": 4260,
+      "nightElectricity": 2443,
+      "shared": false
+    },
+    {
+      "id": "29366ff2-ee1e-4bbe-a9c5-7ed55e701685",
+      "date": 1725994800000,
+      "hotWater": 940,
+      "coldWater": 1696,
+      "dayElectricity": 4275,
+      "nightElectricity": 2460,
+      "shared": false
+    },
+    {
+      "id": "b9487c76-a214-47de-8f79-092b02a929c7",
+      "date": 1726167600000,
+      "hotWater": 945,
+      "coldWater": 1704,
+      "dayElectricity": 4293,
+      "nightElectricity": 2473,
+      "shared": false
+    },
+    {
+      "id": "39d357d1-51e0-41f3-818b-2fd21143287c",
+      "date": 1726340400000,
+      "hotWater": 950,
+      "coldWater": 1709,
+      "dayElectricity": 4317,
+      "nightElectricity": 2491,
+      "shared": false
+    },
+    {
+      "id": "fc936031-77a6-479f-a78b-40774a5b91d7",
+      "date": 1726513200000,
+      "hotWater": 954,
+      "coldWater": 1713,
+      "dayElectricity": 4342,
+      "nightElectricity": 2498,
+      "shared": false
+    },
+    {
+      "id": "1d702de1-4304-4fc8-b153-77d7eaf28e41",
+      "date": 1726686000000,
+      "hotWater": 957,
+      "coldWater": 1716,
+      "dayElectricity": 4356,
+      "nightElectricity": 2509,
+      "shared": false
+    },
+    {
+      "id": "1aea5a92-4829-4ee6-9a5a-97112249ff33",
+      "date": 1726858800000,
+      "hotWater": 962,
+      "coldWater": 1720,
+      "dayElectricity": 4366,
+      "nightElectricity": 2522,
+      "shared": false
+    },
+    {
+      "id": "3eb4f01a-4351-4f7e-9fa1-a2e2bd657911",
+      "date": 1727031600000,
+      "hotWater": 966,
+      "coldWater": 1725,
+      "dayElectricity": 4390,
+      "nightElectricity": 2531,
+      "shared": false
+    },
+    {
+      "id": "ce2aff16-3bdd-4242-b881-7619ce130fdf",
+      "date": 1727204400000,
+      "hotWater": 971,
+      "coldWater": 1733,
+      "dayElectricity": 4400,
+      "nightElectricity": 2544,
+      "shared": false
+    },
+    {
+      "id": "2382eeec-603d-403b-b849-e8b853c7c77a",
+      "date": 1727377200000,
+      "hotWater": 975,
+      "coldWater": 1736,
+      "dayElectricity": 4418,
+      "nightElectricity": 2560,
+      "shared": false
+    },
+    {
+      "id": "01e91c42-1185-4fb0-8b37-6f1867ca4be9",
+      "date": 1727550000000,
+      "hotWater": 977,
+      "coldWater": 1743,
+      "dayElectricity": 4428,
+      "nightElectricity": 2575,
+      "shared": false
+    },
+    {
+      "id": "a4ca967c-eb93-4c72-9d3b-94bfd30d328e",
+      "date": 1727722800000,
+      "hotWater": 981,
+      "coldWater": 1751,
+      "dayElectricity": 4447,
+      "nightElectricity": 2582,
+      "shared": false
+    },
+    {
+      "id": "18c6c2c6-e388-40c8-aaf7-7b56e26e8be0",
+      "date": 1727895600000,
+      "hotWater": 986,
+      "coldWater": 1758,
+      "dayElectricity": 4469,
+      "nightElectricity": 2587,
+      "shared": false
+    },
+    {
+      "id": "3824212b-361f-4a1e-adbe-1a0206755fd8",
+      "date": 1728068400000,
+      "hotWater": 989,
+      "coldWater": 1764,
+      "dayElectricity": 4484,
+      "nightElectricity": 2600,
+      "shared": false
+    },
+    {
+      "id": "448a8407-781d-4da3-8372-9fb7770d2d32",
+      "date": 1728241200000,
+      "hotWater": 992,
+      "coldWater": 1772,
+      "dayElectricity": 4494,
+      "nightElectricity": 2616,
+      "shared": true
+    },
+    {
+      "id": "77a5d77f-13e3-4563-a3a5-1a3e63d3d0c9",
+      "date": 1728414000000,
+      "hotWater": 996,
+      "coldWater": 1775,
+      "dayElectricity": 4518,
+      "nightElectricity": 2632,
+      "shared": false
+    },
+    {
+      "id": "fbeab663-f30b-4216-aaf4-936d7320ffdc",
+      "date": 1728586800000,
+      "hotWater": 998,
+      "coldWater": 1779,
+      "dayElectricity": 4541,
+      "nightElectricity": 2647,
+      "shared": false
+    },
+    {
+      "id": "7ad4c33f-3df4-418a-a498-91903cdfc8d3",
+      "date": 1728759600000,
+      "hotWater": 1000,
+      "coldWater": 1785,
+      "dayElectricity": 4560,
+      "nightElectricity": 2653,
+      "shared": false
+    },
+    {
+      "id": "9df8c405-0bee-4510-9c25-1a9f166e9c8e",
+      "date": 1728932400000,
+      "hotWater": 1003,
+      "coldWater": 1789,
+      "dayElectricity": 4579,
+      "nightElectricity": 2666,
+      "shared": false
+    },
+    {
+      "id": "d716ff78-73ca-4676-ab20-79c9c67b134e",
+      "date": 1729105200000,
+      "hotWater": 1005,
+      "coldWater": 1794,
+      "dayElectricity": 4591,
+      "nightElectricity": 2673,
+      "shared": false
+    },
+    {
+      "id": "0262bc34-aaa0-4004-bc1f-a0b994feac9f",
+      "date": 1729278000000,
+      "hotWater": 1010,
+      "coldWater": 1799,
+      "dayElectricity": 4612,
+      "nightElectricity": 2684,
+      "shared": false
+    },
+    {
+      "id": "35cbb982-829e-4ac6-a768-ae09a30723a3",
+      "date": 1729450800000,
+      "hotWater": 1015,
+      "coldWater": 1805,
+      "dayElectricity": 4635,
+      "nightElectricity": 2689,
+      "shared": false
+    },
+    {
+      "id": "cf7e0de6-f016-4324-9e40-10c27d6abd57",
+      "date": 1729623600000,
+      "hotWater": 1019,
+      "coldWater": 1809,
+      "dayElectricity": 4650,
+      "nightElectricity": 2704,
+      "shared": false
+    },
+    {
+      "id": "dd2cd972-23c7-4a55-ac1d-23067c2fe57d",
+      "date": 1729796400000,
+      "hotWater": 1024,
+      "coldWater": 1816,
+      "dayElectricity": 4661,
+      "nightElectricity": 2717,
+      "shared": false
+    },
+    {
+      "id": "53150cc6-d385-436b-8d15-ab154c090c11",
+      "date": 1729969200000,
+      "hotWater": 1028,
+      "coldWater": 1820,
+      "dayElectricity": 4684,
+      "nightElectricity": 2733,
+      "shared": false
+    },
+    {
+      "id": "82562dd0-9e3f-420d-ad2b-cd5b59752763",
+      "date": 1730142000000,
+      "hotWater": 1030,
+      "coldWater": 1827,
+      "dayElectricity": 4697,
+      "nightElectricity": 2749,
+      "shared": false
+    },
+    {
+      "id": "7e85a005-f888-43d0-8c99-74c613a80080",
+      "date": 1730314800000,
+      "hotWater": 1033,
+      "coldWater": 1830,
+      "dayElectricity": 4715,
+      "nightElectricity": 2758,
+      "shared": false
+    },
+    {
+      "id": "1feb6408-4bc5-4223-b99c-d050bd3b0f79",
+      "date": 1730487600000,
+      "hotWater": 1035,
+      "coldWater": 1836,
+      "dayElectricity": 4738,
+      "nightElectricity": 2765,
+      "shared": false
+    },
+    {
+      "id": "b7eb2c18-7332-4a0d-b6dc-a405a5a38eb0",
+      "date": 1730660400000,
+      "hotWater": 1039,
+      "coldWater": 1844,
+      "dayElectricity": 4759,
+      "nightElectricity": 2781,
+      "shared": false
+    },
+    {
+      "id": "00b168cb-3a30-4da3-861d-b7b4496c4ee3",
+      "date": 1730833200000,
+      "hotWater": 1044,
+      "coldWater": 1847,
+      "dayElectricity": 4783,
+      "nightElectricity": 2786,
+      "shared": false
+    },
+    {
+      "id": "1fa7b96f-0a5f-436c-9c98-9ae736a34486",
+      "date": 1731006000000,
+      "hotWater": 1046,
+      "coldWater": 1850,
+      "dayElectricity": 4795,
+      "nightElectricity": 2793,
+      "shared": false
+    },
+    {
+      "id": "0009cb2f-a189-40d3-bd0d-1b9c31355151",
+      "date": 1731178800000,
+      "hotWater": 1048,
+      "coldWater": 1858,
+      "dayElectricity": 4805,
+      "nightElectricity": 2805,
+      "shared": false
+    },
+    {
+      "id": "58f531cc-600f-48ae-9ca9-21542f63f9a6",
+      "date": 1731351600000,
+      "hotWater": 1053,
+      "coldWater": 1865,
+      "dayElectricity": 4818,
+      "nightElectricity": 2813,
+      "shared": false
+    },
+    {
+      "id": "8d338846-734d-4925-925a-b313e4250bf1",
+      "date": 1731524400000,
+      "hotWater": 1055,
+      "coldWater": 1871,
+      "dayElectricity": 4828,
+      "nightElectricity": 2818,
+      "shared": false
+    },
+    {
+      "id": "51eb3f82-f058-4341-b858-3b5a564f4908",
+      "date": 1731697200000,
+      "hotWater": 1057,
+      "coldWater": 1879,
+      "dayElectricity": 4844,
+      "nightElectricity": 2828,
+      "shared": true
+    },
+    {
+      "id": "d4df9ac6-8363-4062-864c-c006f6ba370e",
+      "date": 1731870000000,
+      "hotWater": 1060,
+      "coldWater": 1885,
+      "dayElectricity": 4854,
+      "nightElectricity": 2842,
+      "shared": false
+    },
+    {
+      "id": "7d07155f-1843-4980-9fa3-9e7babdced5d",
+      "date": 1732042800000,
+      "hotWater": 1064,
+      "coldWater": 1891,
+      "dayElectricity": 4866,
+      "nightElectricity": 2853,
+      "shared": false
+    },
+    {
+      "id": "46a8b098-2e15-4a51-addf-ce9cd870e2d0",
+      "date": 1732215600000,
+      "hotWater": 1069,
+      "coldWater": 1899,
+      "dayElectricity": 4881,
+      "nightElectricity": 2863,
+      "shared": false
+    },
+    {
+      "id": "c61f4c0d-a178-49c8-98f1-e0b64601145d",
+      "date": 1732388400000,
+      "hotWater": 1072,
+      "coldWater": 1904,
+      "dayElectricity": 4906,
+      "nightElectricity": 2878,
+      "shared": false
+    },
+    {
+      "id": "6ba4cbb2-e34a-4b1b-bc21-880f4a330b43",
+      "date": 1732561200000,
+      "hotWater": 1075,
+      "coldWater": 1909,
+      "dayElectricity": 4917,
+      "nightElectricity": 2886,
+      "shared": false
+    },
+    {
+      "id": "90544c87-6128-4cf4-9ea1-3e9f4487d249",
+      "date": 1732734000000,
+      "hotWater": 1080,
+      "coldWater": 1917,
+      "dayElectricity": 4940,
+      "nightElectricity": 2895,
+      "shared": false
+    },
+    {
+      "id": "a6413443-34a5-4af2-816b-cd3e7edfe305",
+      "date": 1732906800000,
+      "hotWater": 1082,
+      "coldWater": 1921,
+      "dayElectricity": 4962,
+      "nightElectricity": 2910,
+      "shared": false
+    },
+    {
+      "id": "bea11341-a306-4f2f-8160-fa83f248af60",
+      "date": 1733079600000,
+      "hotWater": 1085,
+      "coldWater": 1927,
+      "dayElectricity": 4974,
+      "nightElectricity": 2923,
+      "shared": false
+    },
+    {
+      "id": "f838eaa3-3c1b-47ae-815d-3eb0cce24dff",
+      "date": 1733252400000,
+      "hotWater": 1089,
+      "coldWater": 1931,
+      "dayElectricity": 4986,
+      "nightElectricity": 2938,
+      "shared": false
+    },
+    {
+      "id": "d4aef425-a3c1-48a4-a20d-dacb4e85d804",
+      "date": 1733425200000,
+      "hotWater": 1092,
+      "coldWater": 1935,
+      "dayElectricity": 4998,
+      "nightElectricity": 2948,
+      "shared": false
+    },
+    {
+      "id": "e92f5c59-1ab6-49c0-8b77-97352f97672d",
+      "date": 1733598000000,
+      "hotWater": 1095,
+      "coldWater": 1940,
+      "dayElectricity": 5010,
+      "nightElectricity": 2960,
+      "shared": false
+    },
+    {
+      "id": "256e2a37-c569-4a0a-b282-a603afca008a",
+      "date": 1733770800000,
+      "hotWater": 1099,
+      "coldWater": 1943,
+      "dayElectricity": 5034,
+      "nightElectricity": 2977,
+      "shared": false
+    },
+    {
+      "id": "d67a421a-308f-44cd-b3fd-34b72c16a406",
+      "date": 1733943600000,
+      "hotWater": 1103,
+      "coldWater": 1951,
+      "dayElectricity": 5055,
+      "nightElectricity": 2994,
+      "shared": false
+    },
+    {
+      "id": "78516840-fffd-482b-a27f-0cd3eac6af0a",
+      "date": 1734116400000,
+      "hotWater": 1107,
+      "coldWater": 1957,
+      "dayElectricity": 5070,
+      "nightElectricity": 3012,
+      "shared": false
+    },
+    {
+      "id": "c88e32dc-f94c-4f90-834e-840bcde20591",
+      "date": 1734289200000,
+      "hotWater": 1110,
+      "coldWater": 1960,
+      "dayElectricity": 5094,
+      "nightElectricity": 3029,
+      "shared": false
+    },
+    {
+      "id": "e55feace-a2e8-4cab-9cac-b446e1d845f0",
+      "date": 1734462000000,
+      "hotWater": 1114,
+      "coldWater": 1968,
+      "dayElectricity": 5105,
+      "nightElectricity": 3037,
+      "shared": false
+    },
+    {
+      "id": "b7e4643a-8c8d-4736-be20-c3a540bc3066",
+      "date": 1734634800000,
+      "hotWater": 1118,
+      "coldWater": 1971,
+      "dayElectricity": 5119,
+      "nightElectricity": 3053,
+      "shared": false
+    },
+    {
+      "id": "b9535203-7db0-4b0d-933b-94561cc37fad",
+      "date": 1734807600000,
+      "hotWater": 1120,
+      "coldWater": 1978,
+      "dayElectricity": 5135,
+      "nightElectricity": 3062,
+      "shared": false
+    },
+    {
+      "id": "9670f638-3b7c-468c-b0dd-e8c79dcf8f08",
+      "date": 1734980400000,
+      "hotWater": 1123,
+      "coldWater": 1985,
+      "dayElectricity": 5150,
+      "nightElectricity": 3070,
+      "shared": false
+    },
+    {
+      "id": "8b3d105c-393d-47bb-af4b-e11047b50143",
+      "date": 1735153200000,
+      "hotWater": 1126,
+      "coldWater": 1988,
+      "dayElectricity": 5171,
+      "nightElectricity": 3083,
+      "shared": true
+    },
+    {
+      "id": "f9f19414-1414-4355-ab40-3aff539af49c",
+      "date": 1735326000000,
+      "hotWater": 1129,
+      "coldWater": 1994,
+      "dayElectricity": 5185,
+      "nightElectricity": 3101,
+      "shared": false
+    },
+    {
+      "id": "47917f5d-4207-44b2-874c-fe12394abae6",
+      "date": 1735498800000,
+      "hotWater": 1133,
+      "coldWater": 1997,
+      "dayElectricity": 5210,
+      "nightElectricity": 3119,
+      "shared": false
+    },
+    {
+      "id": "1a038af3-a4d9-4de1-b6c1-f8551f405f71",
+      "date": 1735671600000,
+      "hotWater": 1135,
+      "coldWater": 2001,
+      "dayElectricity": 5223,
+      "nightElectricity": 3128,
+      "shared": false
+    },
+    {
+      "id": "bd45e7c0-8207-4de8-8780-f2d4f4d6e410",
+      "date": 1735844400000,
+      "hotWater": 1138,
+      "coldWater": 2009,
+      "dayElectricity": 5238,
+      "nightElectricity": 3134,
+      "shared": false
+    },
+    {
+      "id": "24b71770-a6f6-461e-8b26-df89054836b9",
+      "date": 1736017200000,
+      "hotWater": 1143,
+      "coldWater": 2016,
+      "dayElectricity": 5252,
+      "nightElectricity": 3147,
+      "shared": false
+    },
+    {
+      "id": "b4d5cf79-4a8f-4acd-b3b1-0b905a291156",
+      "date": 1736190000000,
+      "hotWater": 1148,
+      "coldWater": 2020,
+      "dayElectricity": 5269,
+      "nightElectricity": 3153,
+      "shared": false
+    },
+    {
+      "id": "e77ea85d-b0e7-46f8-8917-41048d0671ac",
+      "date": 1736362800000,
+      "hotWater": 1152,
+      "coldWater": 2025,
+      "dayElectricity": 5293,
+      "nightElectricity": 3165,
+      "shared": false
+    },
+    {
+      "id": "93b8ac22-dd48-4de3-b16a-a41f92d9ff8d",
+      "date": 1736535600000,
+      "hotWater": 1155,
+      "coldWater": 2031,
+      "dayElectricity": 5314,
+      "nightElectricity": 3176,
+      "shared": false
+    },
+    {
+      "id": "d1201509-b093-420f-b0c8-7aa86bf4fdfe",
+      "date": 1736708400000,
+      "hotWater": 1157,
+      "coldWater": 2037,
+      "dayElectricity": 5338,
+      "nightElectricity": 3186,
+      "shared": false
+    },
+    {
+      "id": "7b7a041f-93b4-4b89-a782-684249fac84e",
+      "date": 1736881200000,
+      "hotWater": 1162,
+      "coldWater": 2040,
+      "dayElectricity": 5352,
+      "nightElectricity": 3193,
+      "shared": false
+    },
+    {
+      "id": "c1f3311f-9961-4713-b00c-2871f4185926",
+      "date": 1737054000000,
+      "hotWater": 1167,
+      "coldWater": 2046,
+      "dayElectricity": 5372,
+      "nightElectricity": 3208,
+      "shared": false
+    },
+    {
+      "id": "3a41ff2b-daa1-4c5d-a11f-c5b4ed70cce7",
+      "date": 1737226800000,
+      "hotWater": 1172,
+      "coldWater": 2053,
+      "dayElectricity": 5384,
+      "nightElectricity": 3220,
+      "shared": false
+    },
+    {
+      "id": "dc1df73f-37e8-4673-89fa-10aef662babc",
+      "date": 1737399600000,
+      "hotWater": 1177,
+      "coldWater": 2060,
+      "dayElectricity": 5403,
+      "nightElectricity": 3237,
+      "shared": false
+    },
+    {
+      "id": "47cccf8d-4d3b-457e-9760-351708862e53",
+      "date": 1737572400000,
+      "hotWater": 1181,
+      "coldWater": 2065,
+      "dayElectricity": 5427,
+      "nightElectricity": 3246,
+      "shared": false
+    },
+    {
+      "id": "a5c80cfc-b5f0-491b-b10a-19caddb01b0e",
+      "date": 1737745200000,
+      "hotWater": 1183,
+      "coldWater": 2071,
+      "dayElectricity": 5438,
+      "nightElectricity": 3264,
+      "shared": false
+    },
+    {
+      "id": "e1447eaf-a8ed-4cb8-9f7a-d5707b1c05a7",
+      "date": 1737918000000,
+      "hotWater": 1187,
+      "coldWater": 2079,
+      "dayElectricity": 5449,
+      "nightElectricity": 3273,
+      "shared": false
+    },
+    {
+      "id": "019c427f-bbc2-4e86-af46-b7e3ddd9381a",
+      "date": 1738090800000,
+      "hotWater": 1192,
+      "coldWater": 2085,
+      "dayElectricity": 5461,
+      "nightElectricity": 3287,
+      "shared": false
+    },
+    {
+      "id": "4cb22a81-64f5-43df-b4d7-032a70f851b9",
+      "date": 1738263600000,
+      "hotWater": 1195,
+      "coldWater": 2092,
+      "dayElectricity": 5471,
+      "nightElectricity": 3296,
+      "shared": false
+    },
+    {
+      "id": "a5969805-2bbe-495a-832b-110014cf20d1",
+      "date": 1738436400000,
+      "hotWater": 1199,
+      "coldWater": 2097,
+      "dayElectricity": 5491,
+      "nightElectricity": 3305,
+      "shared": false
+    },
+    {
+      "id": "24e4d244-f5e6-4a83-a890-b1edf5e76dac",
+      "date": 1738609200000,
+      "hotWater": 1203,
+      "coldWater": 2102,
+      "dayElectricity": 5504,
+      "nightElectricity": 3312,
+      "shared": true
+    },
+    {
+      "id": "34a9a0ff-cbd8-43cb-88e4-5f81f88b7510",
+      "date": 1738782000000,
+      "hotWater": 1207,
+      "coldWater": 2110,
+      "dayElectricity": 5524,
+      "nightElectricity": 3319,
+      "shared": false
+    },
+    {
+      "id": "916c84a7-46d3-4e07-8707-ea4c724bfabf",
+      "date": 1738954800000,
+      "hotWater": 1212,
+      "coldWater": 2114,
+      "dayElectricity": 5546,
+      "nightElectricity": 3330,
+      "shared": false
+    },
+    {
+      "id": "bdb41b38-de06-4528-9160-c894c32e6c78",
+      "date": 1739127600000,
+      "hotWater": 1216,
+      "coldWater": 2119,
+      "dayElectricity": 5563,
+      "nightElectricity": 3335,
+      "shared": false
+    },
+    {
+      "id": "100ea46b-d436-45bf-82bb-0f9722626206",
+      "date": 1739300400000,
+      "hotWater": 1219,
+      "coldWater": 2126,
+      "dayElectricity": 5573,
+      "nightElectricity": 3349,
+      "shared": false
+    },
+    {
+      "id": "c032c5b3-c3d5-4f27-ad2d-66c49fb5fe8f",
+      "date": 1739473200000,
+      "hotWater": 1221,
+      "coldWater": 2129,
+      "dayElectricity": 5584,
+      "nightElectricity": 3365,
+      "shared": false
+    },
+    {
+      "id": "99d0bdb0-4b72-48d3-983c-24fc020f60b5",
+      "date": 1739646000000,
+      "hotWater": 1224,
+      "coldWater": 2135,
+      "dayElectricity": 5609,
+      "nightElectricity": 3373,
+      "shared": false
+    },
+    {
+      "id": "d84bccb0-0b93-4f0c-a098-5e2eedf473e6",
+      "date": 1739818800000,
+      "hotWater": 1227,
+      "coldWater": 2141,
+      "dayElectricity": 5629,
+      "nightElectricity": 3385,
+      "shared": false
+    },
+    {
+      "id": "00feb3b3-dbe3-4021-97d9-336b1df8ca23",
+      "date": 1739991600000,
+      "hotWater": 1232,
+      "coldWater": 2145,
+      "dayElectricity": 5644,
+      "nightElectricity": 3390,
+      "shared": false
+    },
+    {
+      "id": "77cd8c06-2bcb-43b2-a85c-dfbea5e38c61",
+      "date": 1740164400000,
+      "hotWater": 1235,
+      "coldWater": 2148,
+      "dayElectricity": 5657,
+      "nightElectricity": 3401,
+      "shared": false
+    },
+    {
+      "id": "ea109fb0-ee0d-4486-bd82-9d123167071e",
+      "date": 1740337200000,
+      "hotWater": 1239,
+      "coldWater": 2153,
+      "dayElectricity": 5679,
+      "nightElectricity": 3414,
+      "shared": false
+    },
+    {
+      "id": "5e9caed1-03b6-4c53-b0be-36d23b652ab5",
+      "date": 1740510000000,
+      "hotWater": 1243,
+      "coldWater": 2157,
+      "dayElectricity": 5691,
+      "nightElectricity": 3420,
+      "shared": false
+    },
+    {
+      "id": "47c10796-79fb-4546-b3a1-75482d0566e9",
+      "date": 1740682800000,
+      "hotWater": 1246,
+      "coldWater": 2161,
+      "dayElectricity": 5704,
+      "nightElectricity": 3433,
+      "shared": false
+    },
+    {
+      "id": "8b1fe627-0ee6-406d-87e4-3190ca7475f1",
+      "date": 1740855600000,
+      "hotWater": 1249,
+      "coldWater": 2165,
+      "dayElectricity": 5719,
+      "nightElectricity": 3448,
+      "shared": false
+    },
+    {
+      "id": "9f52db3b-90ec-4658-955b-33f367f5489a",
+      "date": 1741028400000,
+      "hotWater": 1252,
+      "coldWater": 2168,
+      "dayElectricity": 5729,
+      "nightElectricity": 3458,
+      "shared": false
+    },
+    {
+      "id": "cc69fb5a-f5b2-4e10-baf2-9b9d5adc24a7",
+      "date": 1741201200000,
+      "hotWater": 1254,
+      "coldWater": 2172,
+      "dayElectricity": 5750,
+      "nightElectricity": 3475,
+      "shared": false
+    },
+    {
+      "id": "e2a95332-347f-4308-b241-9026bd966b39",
+      "date": 1741374000000,
+      "hotWater": 1256,
+      "coldWater": 2176,
+      "dayElectricity": 5766,
+      "nightElectricity": 3490,
+      "shared": false
+    },
+    {
+      "id": "f132d047-e062-4cdb-a0aa-85690d9ece51",
+      "date": 1741546800000,
+      "hotWater": 1261,
+      "coldWater": 2181,
+      "dayElectricity": 5780,
+      "nightElectricity": 3501,
+      "shared": false
+    },
+    {
+      "id": "2a47d0c5-92a5-4e1e-b989-326ac9806906",
+      "date": 1741719600000,
+      "hotWater": 1264,
+      "coldWater": 2187,
+      "dayElectricity": 5802,
+      "nightElectricity": 3507,
+      "shared": false
+    },
+    {
+      "id": "9323612c-77fc-4c64-8e03-efc23fd8c36d",
+      "date": 1741892400000,
+      "hotWater": 1269,
+      "coldWater": 2191,
+      "dayElectricity": 5826,
+      "nightElectricity": 3524,
+      "shared": false
+    },
+    {
+      "id": "488e3939-e21e-4440-a476-57dac41dd4ec",
+      "date": 1742065200000,
+      "hotWater": 1272,
+      "coldWater": 2195,
+      "dayElectricity": 5848,
+      "nightElectricity": 3534,
+      "shared": true
+    },
+    {
+      "id": "722510a7-8c8b-4337-9e53-0910a39a2b6b",
+      "date": 1742238000000,
+      "hotWater": 1277,
+      "coldWater": 2198,
+      "dayElectricity": 5869,
+      "nightElectricity": 3539,
+      "shared": false
+    },
+    {
+      "id": "7b8733e3-2120-45ce-a51e-a2f651b03d43",
+      "date": 1742410800000,
+      "hotWater": 1281,
+      "coldWater": 2204,
+      "dayElectricity": 5880,
+      "nightElectricity": 3549,
+      "shared": false
+    },
+    {
+      "id": "a7bf9c05-c28f-4db4-96aa-742ea7d884f5",
+      "date": 1742583600000,
+      "hotWater": 1284,
+      "coldWater": 2208,
+      "dayElectricity": 5900,
+      "nightElectricity": 3562,
+      "shared": false
+    },
+    {
+      "id": "15fd9b5b-584e-44f7-97fd-ddfac183e44f",
+      "date": 1742756400000,
+      "hotWater": 1286,
+      "coldWater": 2213,
+      "dayElectricity": 5916,
+      "nightElectricity": 3575,
+      "shared": false
+    },
+    {
+      "id": "34789d3f-d076-4969-ab0c-a79835b7b559",
+      "date": 1742929200000,
+      "hotWater": 1289,
+      "coldWater": 2217,
+      "dayElectricity": 5928,
+      "nightElectricity": 3591,
+      "shared": false
+    },
+    {
+      "id": "4ff85322-86bf-4a23-85a3-67c3af1a0910",
+      "date": 1743102000000,
+      "hotWater": 1294,
+      "coldWater": 2225,
+      "dayElectricity": 5949,
+      "nightElectricity": 3602,
+      "shared": false
+    },
+    {
+      "id": "d4743622-965f-48fd-ad28-0662880d21f8",
+      "date": 1743274800000,
+      "hotWater": 1298,
+      "coldWater": 2230,
+      "dayElectricity": 5966,
+      "nightElectricity": 3608,
+      "shared": false
+    },
+    {
+      "id": "ab4aa504-d8fa-4dd7-a8ee-e607d011264f",
+      "date": 1743447600000,
+      "hotWater": 1301,
+      "coldWater": 2234,
+      "dayElectricity": 5978,
+      "nightElectricity": 3625,
+      "shared": false
+    },
+    {
+      "id": "601a0b32-925f-497b-9330-5382977f02f4",
+      "date": 1743620400000,
+      "hotWater": 1305,
+      "coldWater": 2238,
+      "dayElectricity": 5994,
+      "nightElectricity": 3643,
+      "shared": false
+    },
+    {
+      "id": "cb920a80-363b-481b-8241-fefd882a8aec",
+      "date": 1743793200000,
+      "hotWater": 1308,
+      "coldWater": 2246,
+      "dayElectricity": 6016,
+      "nightElectricity": 3648,
+      "shared": false
+    },
+    {
+      "id": "ec2228cb-d414-42c4-bec4-5e37e219971e",
+      "date": 1743966000000,
+      "hotWater": 1313,
+      "coldWater": 2252,
+      "dayElectricity": 6032,
+      "nightElectricity": 3661,
+      "shared": false
+    },
+    {
+      "id": "b60f4c37-64b7-4c89-bc57-7fec0bf9f2fb",
+      "date": 1744138800000,
+      "hotWater": 1315,
+      "coldWater": 2255,
+      "dayElectricity": 6054,
+      "nightElectricity": 3666,
+      "shared": false
+    },
+    {
+      "id": "09ea2afa-90a6-41fb-b722-a407ca3eca4c",
+      "date": 1744311600000,
+      "hotWater": 1317,
+      "coldWater": 2258,
+      "dayElectricity": 6078,
+      "nightElectricity": 3683,
+      "shared": false
+    },
+    {
+      "id": "eff4cf63-2f40-4b32-a608-8a8041318e91",
+      "date": 1744484400000,
+      "hotWater": 1322,
+      "coldWater": 2264,
+      "dayElectricity": 6088,
+      "nightElectricity": 3700,
+      "shared": false
+    },
+    {
+      "id": "51878be0-e372-41fd-9806-152dcd8fb79a",
+      "date": 1744657200000,
+      "hotWater": 1327,
+      "coldWater": 2270,
+      "dayElectricity": 6109,
+      "nightElectricity": 3715,
+      "shared": false
+    },
+    {
+      "id": "f1e7bd19-4ba7-47fb-91dc-15ec749e5cb3",
+      "date": 1744830000000,
+      "hotWater": 1330,
+      "coldWater": 2278,
+      "dayElectricity": 6126,
+      "nightElectricity": 3721,
+      "shared": false
+    },
+    {
+      "id": "5fadd68d-b55c-453d-873e-dae8c3220832",
+      "date": 1745002800000,
+      "hotWater": 1335,
+      "coldWater": 2286,
+      "dayElectricity": 6149,
+      "nightElectricity": 3738,
+      "shared": false
+    },
+    {
+      "id": "ca95cefa-9f5b-457e-886c-8ee03eeea266",
+      "date": 1745175600000,
+      "hotWater": 1337,
+      "coldWater": 2289,
+      "dayElectricity": 6161,
+      "nightElectricity": 3755,
+      "shared": false
+    },
+    {
+      "id": "7eea68d1-c403-46c2-961c-98ae11b6fff9",
+      "date": 1745348400000,
+      "hotWater": 1342,
+      "coldWater": 2295,
+      "dayElectricity": 6172,
+      "nightElectricity": 3771,
+      "shared": false
+    },
+    {
+      "id": "7f960f8f-4f62-4264-b4e7-d4e9926d6af1",
+      "date": 1745521200000,
+      "hotWater": 1345,
+      "coldWater": 2299,
+      "dayElectricity": 6183,
+      "nightElectricity": 3789,
+      "shared": true
+    },
+    {
+      "id": "cd90b8a0-4529-4841-b2c3-5d86b6211147",
+      "date": 1745694000000,
+      "hotWater": 1347,
+      "coldWater": 2307,
+      "dayElectricity": 6202,
+      "nightElectricity": 3800,
+      "shared": false
+    },
+    {
+      "id": "2648f903-b3f4-4a82-b152-4e3dc40c5b0b",
+      "date": 1745866800000,
+      "hotWater": 1351,
+      "coldWater": 2314,
+      "dayElectricity": 6215,
+      "nightElectricity": 3816,
+      "shared": false
+    },
+    {
+      "id": "981e6213-6a36-48a7-8c5c-e8fe8747f790",
+      "date": 1746039600000,
+      "hotWater": 1355,
+      "coldWater": 2319,
+      "dayElectricity": 6238,
+      "nightElectricity": 3831,
+      "shared": false
+    },
+    {
+      "id": "64d9c1cf-c093-423d-8fa7-047383981457",
+      "date": 1746212400000,
+      "hotWater": 1359,
+      "coldWater": 2322,
+      "dayElectricity": 6251,
+      "nightElectricity": 3839,
+      "shared": false
+    },
+    {
+      "id": "9e98d78b-7bfd-46bf-91c3-8ab58c289a9d",
+      "date": 1746385200000,
+      "hotWater": 1363,
+      "coldWater": 2329,
+      "dayElectricity": 6276,
+      "nightElectricity": 3853,
+      "shared": false
+    },
+    {
+      "id": "3e95d99a-e97d-4713-8212-278afe3f6818",
+      "date": 1746558000000,
+      "hotWater": 1367,
+      "coldWater": 2332,
+      "dayElectricity": 6291,
+      "nightElectricity": 3864,
+      "shared": false
+    },
+    {
+      "id": "694a4e52-0399-40eb-a5de-2bb2e2c6f287",
+      "date": 1746730800000,
+      "hotWater": 1371,
+      "coldWater": 2337,
+      "dayElectricity": 6309,
+      "nightElectricity": 3872,
+      "shared": false
+    },
+    {
+      "id": "7284443b-64fc-4df4-bd62-a5c4f29d82a0",
+      "date": 1746903600000,
+      "hotWater": 1375,
+      "coldWater": 2345,
+      "dayElectricity": 6319,
+      "nightElectricity": 3890,
+      "shared": false
+    },
+    {
+      "id": "cacae57d-fa2a-4a00-bff2-50da147be921",
+      "date": 1747076400000,
+      "hotWater": 1377,
+      "coldWater": 2349,
+      "dayElectricity": 6340,
+      "nightElectricity": 3904,
+      "shared": false
+    },
+    {
+      "id": "98b75d66-15f3-4bd5-b857-e71117ef3982",
+      "date": 1747249200000,
+      "hotWater": 1379,
+      "coldWater": 2352,
+      "dayElectricity": 6363,
+      "nightElectricity": 3918,
+      "shared": false
+    },
+    {
+      "id": "a8ff7632-852d-4346-86d3-16e18d853db3",
+      "date": 1747422000000,
+      "hotWater": 1381,
+      "coldWater": 2358,
+      "dayElectricity": 6388,
+      "nightElectricity": 3931,
+      "shared": false
+    },
+    {
+      "id": "fd3b6943-4608-4bb0-9615-4a416dfb8cf0",
+      "date": 1747594800000,
+      "hotWater": 1385,
+      "coldWater": 2361,
+      "dayElectricity": 6409,
+      "nightElectricity": 3936,
+      "shared": false
+    },
+    {
+      "id": "02d9efc1-1cb9-4502-9978-c10fe8c86e28",
+      "date": 1747767600000,
+      "hotWater": 1389,
+      "coldWater": 2367,
+      "dayElectricity": 6432,
+      "nightElectricity": 3944,
+      "shared": false
+    },
+    {
+      "id": "947bb82f-a586-488c-9d29-a596acb55009",
+      "date": 1747940400000,
+      "hotWater": 1393,
+      "coldWater": 2370,
+      "dayElectricity": 6449,
+      "nightElectricity": 3961,
+      "shared": false
+    },
+    {
+      "id": "dc16a9dd-faf6-4371-b7a9-d8a8037a0963",
+      "date": 1748113200000,
+      "hotWater": 1395,
+      "coldWater": 2376,
+      "dayElectricity": 6466,
+      "nightElectricity": 3974,
+      "shared": false
+    },
+    {
+      "id": "9ed780b7-2f41-47ba-abcd-d89b58fe8401",
+      "date": 1748286000000,
+      "hotWater": 1398,
+      "coldWater": 2384,
+      "dayElectricity": 6476,
+      "nightElectricity": 3987,
+      "shared": false
+    },
+    {
+      "id": "593db437-5aef-4398-b13c-2a955293efd6",
+      "date": 1748458800000,
+      "hotWater": 1400,
+      "coldWater": 2391,
+      "dayElectricity": 6488,
+      "nightElectricity": 3995,
+      "shared": false
+    },
+    {
+      "id": "f4ffbdf9-108e-42e7-82ae-06a279055ce4",
+      "date": 1748631600000,
+      "hotWater": 1402,
+      "coldWater": 2398,
+      "dayElectricity": 6504,
+      "nightElectricity": 4006,
+      "shared": false
+    },
+    {
+      "id": "9067ec6e-faac-4324-a2ef-15f0cdb0f93f",
+      "date": 1748804400000,
+      "hotWater": 1407,
+      "coldWater": 2403,
+      "dayElectricity": 6528,
+      "nightElectricity": 4022,
+      "shared": false
+    },
+    {
+      "id": "dfb36303-743b-4c5e-815b-68c576add75c",
+      "date": 1748977200000,
+      "hotWater": 1410,
+      "coldWater": 2406,
+      "dayElectricity": 6547,
+      "nightElectricity": 4029,
+      "shared": true
+    },
+    {
+      "id": "830eb550-99fc-4a05-8596-3c1e92f8f982",
+      "date": 1749150000000,
+      "hotWater": 1414,
+      "coldWater": 2410,
+      "dayElectricity": 6563,
+      "nightElectricity": 4042,
+      "shared": false
+    },
+    {
+      "id": "ac3dd706-4864-4a88-b43e-f45fb30ef7cd",
+      "date": 1749322800000,
+      "hotWater": 1416,
+      "coldWater": 2416,
+      "dayElectricity": 6575,
+      "nightElectricity": 4047,
+      "shared": false
+    },
+    {
+      "id": "862084fa-e348-43fa-8428-61f50c87021f",
+      "date": 1749495600000,
+      "hotWater": 1418,
+      "coldWater": 2421,
+      "dayElectricity": 6592,
+      "nightElectricity": 4057,
+      "shared": false
+    },
+    {
+      "id": "262e9a37-74b3-4bb9-a55c-a965f10a8b14",
+      "date": 1749668400000,
+      "hotWater": 1422,
+      "coldWater": 2424,
+      "dayElectricity": 6602,
+      "nightElectricity": 4073,
+      "shared": false
+    },
+    {
+      "id": "d0b113f8-8713-46a1-a321-d0db8d643d8b",
+      "date": 1749841200000,
+      "hotWater": 1426,
+      "coldWater": 2427,
+      "dayElectricity": 6622,
+      "nightElectricity": 4087,
+      "shared": false
+    },
+    {
+      "id": "e29f0810-3c77-4471-a332-85ba1aab6748",
+      "date": 1750014000000,
+      "hotWater": 1430,
+      "coldWater": 2433,
+      "dayElectricity": 6640,
+      "nightElectricity": 4097,
+      "shared": false
+    },
+    {
+      "id": "dc2eaabc-653c-4c43-9a74-28accd482c35",
+      "date": 1750186800000,
+      "hotWater": 1434,
+      "coldWater": 2438,
+      "dayElectricity": 6654,
+      "nightElectricity": 4115,
+      "shared": false
+    },
+    {
+      "id": "3101afac-844d-40db-b343-3437a74b84cd",
+      "date": 1750359600000,
+      "hotWater": 1437,
+      "coldWater": 2444,
+      "dayElectricity": 6678,
+      "nightElectricity": 4123,
+      "shared": false
+    },
+    {
+      "id": "a8e93264-0528-4a96-a8b4-d02a425d07b9",
+      "date": 1750532400000,
+      "hotWater": 1439,
+      "coldWater": 2451,
+      "dayElectricity": 6703,
+      "nightElectricity": 4141,
+      "shared": false
+    },
+    {
+      "id": "c49f1645-bc6e-4ae1-81a4-36aad4287b08",
+      "date": 1750705200000,
+      "hotWater": 1443,
+      "coldWater": 2455,
+      "dayElectricity": 6724,
+      "nightElectricity": 4146,
+      "shared": false
+    },
+    {
+      "id": "29570a80-2a95-40e7-a95f-3be5f97ee3aa",
+      "date": 1750878000000,
+      "hotWater": 1446,
+      "coldWater": 2459,
+      "dayElectricity": 6741,
+      "nightElectricity": 4162,
+      "shared": false
+    },
+    {
+      "id": "f064ff7b-ebc3-4df0-bed2-df99e4966700",
+      "date": 1751050800000,
+      "hotWater": 1449,
+      "coldWater": 2464,
+      "dayElectricity": 6766,
+      "nightElectricity": 4178,
+      "shared": false
+    },
+    {
+      "id": "245f7a91-d728-4c5d-9ee3-6f51277d5d17",
+      "date": 1751223600000,
+      "hotWater": 1453,
+      "coldWater": 2472,
+      "dayElectricity": 6791,
+      "nightElectricity": 4186,
+      "shared": false
+    },
+    {
+      "id": "5148bfc7-feb8-46db-8f72-6d0a932ae0e9",
+      "date": 1751396400000,
+      "hotWater": 1455,
+      "coldWater": 2476,
+      "dayElectricity": 6806,
+      "nightElectricity": 4203,
+      "shared": false
+    },
+    {
+      "id": "f811a8a6-6ac0-4443-849b-7f7f2532df56",
+      "date": 1751569200000,
+      "hotWater": 1457,
+      "coldWater": 2483,
+      "dayElectricity": 6816,
+      "nightElectricity": 4214,
+      "shared": false
+    },
+    {
+      "id": "de8823f2-7d7f-4ec6-b553-1457f270a6f4",
+      "date": 1751742000000,
+      "hotWater": 1461,
+      "coldWater": 2491,
+      "dayElectricity": 6833,
+      "nightElectricity": 4229,
+      "shared": false
+    },
+    {
+      "id": "25571fd4-30bf-492c-ae11-558b07051628",
+      "date": 1751914800000,
+      "hotWater": 1463,
+      "coldWater": 2497,
+      "dayElectricity": 6845,
+      "nightElectricity": 4246,
+      "shared": false
+    },
+    {
+      "id": "8d366d0a-f111-43ed-85cd-0c72006142f7",
+      "date": 1752087600000,
+      "hotWater": 1466,
+      "coldWater": 2503,
+      "dayElectricity": 6856,
+      "nightElectricity": 4252,
+      "shared": false
+    },
+    {
+      "id": "a598dc89-e420-4c15-8114-100227a9966b",
+      "date": 1752260400000,
+      "hotWater": 1469,
+      "coldWater": 2510,
+      "dayElectricity": 6877,
+      "nightElectricity": 4258,
+      "shared": false
+    },
+    {
+      "id": "f734098d-021e-4fd0-bc02-9a908a4e8310",
+      "date": 1752433200000,
+      "hotWater": 1474,
+      "coldWater": 2516,
+      "dayElectricity": 6888,
+      "nightElectricity": 4266,
+      "shared": true
+    },
+    {
+      "id": "07a3c401-cc41-46e8-847b-db468faf7d3c",
+      "date": 1752606000000,
+      "hotWater": 1479,
+      "coldWater": 2523,
+      "dayElectricity": 6903,
+      "nightElectricity": 4278,
+      "shared": false
+    },
+    {
+      "id": "8a43d02e-5c0b-4ec9-86c0-955b13d90879",
+      "date": 1752778800000,
+      "hotWater": 1481,
+      "coldWater": 2528,
+      "dayElectricity": 6915,
+      "nightElectricity": 4289,
+      "shared": false
+    },
+    {
+      "id": "7503c669-6d0e-445d-a086-c8817adfbacb",
+      "date": 1752951600000,
+      "hotWater": 1483,
+      "coldWater": 2533,
+      "dayElectricity": 6930,
+      "nightElectricity": 4298,
+      "shared": false
+    },
+    {
+      "id": "76db1635-3650-4508-ab7f-6ef80388967a",
+      "date": 1753124400000,
+      "hotWater": 1486,
+      "coldWater": 2537,
+      "dayElectricity": 6945,
+      "nightElectricity": 4307,
+      "shared": false
+    },
+    {
+      "id": "a07f29d5-bcaa-488d-9b71-eb5b271bb8b8",
+      "date": 1753297200000,
+      "hotWater": 1488,
+      "coldWater": 2540,
+      "dayElectricity": 6958,
+      "nightElectricity": 4325,
+      "shared": false
+    },
+    {
+      "id": "f93c8cd5-4b52-43f8-af41-d8b64f7c3969",
+      "date": 1753470000000,
+      "hotWater": 1491,
+      "coldWater": 2544,
+      "dayElectricity": 6979,
+      "nightElectricity": 4336,
+      "shared": false
+    },
+    {
+      "id": "187abeb6-74f6-45e8-a650-be9b1d61c841",
+      "date": 1753642800000,
+      "hotWater": 1495,
+      "coldWater": 2552,
+      "dayElectricity": 6990,
+      "nightElectricity": 4348,
+      "shared": false
+    },
+    {
+      "id": "876cae0c-0baa-4c85-b08c-6143bd21f826",
+      "date": 1753815600000,
+      "hotWater": 1499,
+      "coldWater": 2558,
+      "dayElectricity": 7010,
+      "nightElectricity": 4358,
+      "shared": false
+    },
+    {
+      "id": "172ee23c-3d0b-433d-9825-48ebaa160dc6",
+      "date": 1753988400000,
+      "hotWater": 1504,
+      "coldWater": 2561,
+      "dayElectricity": 7035,
+      "nightElectricity": 4364,
+      "shared": false
+    },
+    {
+      "id": "7b11982b-d683-4c76-b43b-69230f2ad216",
+      "date": 1754161200000,
+      "hotWater": 1509,
+      "coldWater": 2569,
+      "dayElectricity": 7054,
+      "nightElectricity": 4370,
+      "shared": false
+    },
+    {
+      "id": "f69b1ac1-80cf-4d8a-ae9c-467828efd645",
+      "date": 1754334000000,
+      "hotWater": 1514,
+      "coldWater": 2572,
+      "dayElectricity": 7077,
+      "nightElectricity": 4378,
+      "shared": false
+    },
+    {
+      "id": "4ee18c48-01e3-468b-a8e3-9668b690107d",
+      "date": 1754506800000,
+      "hotWater": 1519,
+      "coldWater": 2580,
+      "dayElectricity": 7097,
+      "nightElectricity": 4384,
+      "shared": false
+    },
+    {
+      "id": "1af474e2-9b7a-4665-831a-21af2702c3b6",
+      "date": 1754679600000,
+      "hotWater": 1522,
+      "coldWater": 2585,
+      "dayElectricity": 7111,
+      "nightElectricity": 4391,
+      "shared": false
+    },
+    {
+      "id": "1de6fa7a-9b84-4397-9ec1-71b13ddeb903",
+      "date": 1754852400000,
+      "hotWater": 1526,
+      "coldWater": 2589,
+      "dayElectricity": 7128,
+      "nightElectricity": 4404,
+      "shared": false
+    },
+    {
+      "id": "99a50b53-08b5-4820-aca3-9b4c2e3f0bd4",
+      "date": 1755025200000,
+      "hotWater": 1529,
+      "coldWater": 2595,
+      "dayElectricity": 7150,
+      "nightElectricity": 4411,
+      "shared": false
+    },
+    {
+      "id": "b478d504-1821-4260-934d-95ffb3825316",
+      "date": 1755198000000,
+      "hotWater": 1531,
+      "coldWater": 2602,
+      "dayElectricity": 7160,
+      "nightElectricity": 4425,
+      "shared": false
+    },
+    {
+      "id": "8df72629-c8d4-41cd-b985-e477b40f0160",
+      "date": 1755370800000,
+      "hotWater": 1535,
+      "coldWater": 2607,
+      "dayElectricity": 7174,
+      "nightElectricity": 4442,
+      "shared": false
+    },
+    {
+      "id": "da3e193c-c0fb-46eb-b9c1-0e21b46ec76f",
+      "date": 1755543600000,
+      "hotWater": 1540,
+      "coldWater": 2610,
+      "dayElectricity": 7185,
+      "nightElectricity": 4456,
+      "shared": false
+    },
+    {
+      "id": "f67f859b-93a6-459f-8b01-e9d78625723f",
+      "date": 1755716400000,
+      "hotWater": 1542,
+      "coldWater": 2616,
+      "dayElectricity": 7209,
+      "nightElectricity": 4469,
+      "shared": false
+    },
+    {
+      "id": "b317d96d-b7a3-4e91-809a-5e27ddba93ec",
+      "date": 1755889200000,
+      "hotWater": 1546,
+      "coldWater": 2624,
+      "dayElectricity": 7229,
+      "nightElectricity": 4486,
+      "shared": true
+    },
+    {
+      "id": "ed91938d-7aa4-4f3c-8e3e-0eb6419cacc9",
+      "date": 1756062000000,
+      "hotWater": 1551,
+      "coldWater": 2627,
+      "dayElectricity": 7248,
+      "nightElectricity": 4502,
+      "shared": false
+    },
+    {
+      "id": "546e5c10-fee6-4c47-9e88-e6e89e944291",
+      "date": 1756234800000,
+      "hotWater": 1556,
+      "coldWater": 2632,
+      "dayElectricity": 7262,
+      "nightElectricity": 4514,
+      "shared": false
+    },
+    {
+      "id": "d882215a-d033-430d-9175-94f3f8cb3c38",
+      "date": 1756407600000,
+      "hotWater": 1561,
+      "coldWater": 2640,
+      "dayElectricity": 7276,
+      "nightElectricity": 4523,
+      "shared": false
+    },
+    {
+      "id": "bdfa09e0-f505-44e0-ad05-e791a03361e5",
+      "date": 1756580400000,
+      "hotWater": 1565,
+      "coldWater": 2643,
+      "dayElectricity": 7298,
+      "nightElectricity": 4541,
+      "shared": false
+    },
+    {
+      "id": "ffbce544-1621-41ed-834e-23bfa2af4352",
+      "date": 1756753200000,
+      "hotWater": 1569,
+      "coldWater": 2650,
+      "dayElectricity": 7322,
+      "nightElectricity": 4559,
+      "shared": false
+    },
+    {
+      "id": "d8972bed-99db-438c-8dc4-46b45e084bd3",
+      "date": 1756926000000,
+      "hotWater": 1571,
+      "coldWater": 2658,
+      "dayElectricity": 7345,
+      "nightElectricity": 4573,
+      "shared": false
+    },
+    {
+      "id": "08c1e2d6-c56f-4fca-a2a3-cef250ab2316",
+      "date": 1757098800000,
+      "hotWater": 1573,
+      "coldWater": 2663,
+      "dayElectricity": 7357,
+      "nightElectricity": 4585,
+      "shared": false
+    },
+    {
+      "id": "1b11520a-8e05-4ef5-b1e5-724880295c98",
+      "date": 1757271600000,
+      "hotWater": 1576,
+      "coldWater": 2667,
+      "dayElectricity": 7368,
+      "nightElectricity": 4601,
+      "shared": false
+    },
+    {
+      "id": "86b5faaa-0664-4519-98dc-68dff9ad3228",
+      "date": 1757444400000,
+      "hotWater": 1581,
+      "coldWater": 2673,
+      "dayElectricity": 7382,
+      "nightElectricity": 4614,
+      "shared": false
+    },
+    {
+      "id": "c3cd508a-309c-41c6-a138-cae9850fc71d",
+      "date": 1757617200000,
+      "hotWater": 1585,
+      "coldWater": 2677,
+      "dayElectricity": 7398,
+      "nightElectricity": 4622,
+      "shared": false
+    },
+    {
+      "id": "d601ea80-8b0f-4685-bf6c-02b46d5bb88d",
+      "date": 1757790000000,
+      "hotWater": 1587,
+      "coldWater": 2684,
+      "dayElectricity": 7418,
+      "nightElectricity": 4633,
+      "shared": false
+    },
+    {
+      "id": "f74d279e-731f-4716-89e3-9d24f52cd4f8",
+      "date": 1757962800000,
+      "hotWater": 1590,
+      "coldWater": 2691,
+      "dayElectricity": 7441,
+      "nightElectricity": 4644,
+      "shared": false
+    },
+    {
+      "id": "93f9c656-547c-4509-8473-ebc5dbc23084",
+      "date": 1758135600000,
+      "hotWater": 1595,
+      "coldWater": 2699,
+      "dayElectricity": 7456,
+      "nightElectricity": 4653,
+      "shared": false
+    },
+    {
+      "id": "006832e5-f0f5-4768-a8d1-2415107ba66f",
+      "date": 1758308400000,
+      "hotWater": 1598,
+      "coldWater": 2706,
+      "dayElectricity": 7473,
+      "nightElectricity": 4665,
+      "shared": false
+    },
+    {
+      "id": "6f1232c0-5b84-4e52-a7c4-bf8422214821",
+      "date": 1758481200000,
+      "hotWater": 1603,
+      "coldWater": 2709,
+      "dayElectricity": 7484,
+      "nightElectricity": 4683,
+      "shared": false
+    },
+    {
+      "id": "d1bd7780-8544-47c4-8945-665efc6a2893",
+      "date": 1758654000000,
+      "hotWater": 1606,
+      "coldWater": 2712,
+      "dayElectricity": 7498,
+      "nightElectricity": 4693,
+      "shared": false
+    },
+    {
+      "id": "78e1a575-f8ea-4838-b437-c4518bf83c51",
+      "date": 1758826800000,
+      "hotWater": 1611,
+      "coldWater": 2718,
+      "dayElectricity": 7509,
+      "nightElectricity": 4707,
+      "shared": false
+    },
+    {
+      "id": "cb9c6e65-fe9b-460a-83d2-04808401598e",
+      "date": 1758999600000,
+      "hotWater": 1614,
+      "coldWater": 2721,
+      "dayElectricity": 7528,
+      "nightElectricity": 4712,
+      "shared": false
+    },
+    {
+      "id": "60f1d73f-eae9-49a0-9c67-1f1f8423382a",
+      "date": 1759172400000,
+      "hotWater": 1618,
+      "coldWater": 2728,
+      "dayElectricity": 7547,
+      "nightElectricity": 4728,
+      "shared": false
+    },
+    {
+      "id": "c1d486bc-74c1-47e9-bbcf-12fdf26c2108",
+      "date": 1759345200000,
+      "hotWater": 1621,
+      "coldWater": 2732,
+      "dayElectricity": 7559,
+      "nightElectricity": 4741,
+      "shared": true
+    },
+    {
+      "id": "a4e4a9eb-49c1-43f4-804a-c5095fef9eb3",
+      "date": 1759518000000,
+      "hotWater": 1623,
+      "coldWater": 2738,
+      "dayElectricity": 7579,
+      "nightElectricity": 4756,
+      "shared": false
+    },
+    {
+      "id": "56120ff4-2b2a-404d-80d0-12f1ee87f270",
+      "date": 1759690800000,
+      "hotWater": 1626,
+      "coldWater": 2745,
+      "dayElectricity": 7597,
+      "nightElectricity": 4774,
+      "shared": false
+    },
+    {
+      "id": "67d70431-cbcb-4d3e-876f-80a2c1af00ba",
+      "date": 1759863600000,
+      "hotWater": 1628,
+      "coldWater": 2752,
+      "dayElectricity": 7614,
+      "nightElectricity": 4788,
+      "shared": false
+    },
+    {
+      "id": "df09de4d-2208-4125-8b24-1ba5e41d9186",
+      "date": 1760036400000,
+      "hotWater": 1631,
+      "coldWater": 2758,
+      "dayElectricity": 7637,
+      "nightElectricity": 4802,
+      "shared": false
+    },
+    {
+      "id": "b1c49367-99c0-4c64-a77b-0ef298b21e65",
+      "date": 1760209200000,
+      "hotWater": 1634,
+      "coldWater": 2765,
+      "dayElectricity": 7656,
+      "nightElectricity": 4815,
+      "shared": false
+    },
+    {
+      "id": "214af707-309c-4559-80c2-9400bbc196a3",
+      "date": 1760382000000,
+      "hotWater": 1636,
+      "coldWater": 2770,
+      "dayElectricity": 7676,
+      "nightElectricity": 4831,
+      "shared": false
+    },
+    {
+      "id": "2c435ca1-f90d-415a-baec-93801602f6d5",
+      "date": 1760554800000,
+      "hotWater": 1638,
+      "coldWater": 2774,
+      "dayElectricity": 7698,
+      "nightElectricity": 4836,
+      "shared": false
+    },
+    {
+      "id": "6bba4a30-e849-4bd2-9644-f50f5769a5d9",
+      "date": 1760727600000,
+      "hotWater": 1643,
+      "coldWater": 2780,
+      "dayElectricity": 7719,
+      "nightElectricity": 4843,
+      "shared": false
+    },
+    {
+      "id": "cc67d9b0-8460-4e0d-b2f5-8839a92473a6",
+      "date": 1760900400000,
+      "hotWater": 1648,
+      "coldWater": 2785,
+      "dayElectricity": 7738,
+      "nightElectricity": 4852,
+      "shared": false
+    },
+    {
+      "id": "c1323d5b-f2ef-471b-a6bd-641672141a71",
+      "date": 1761073200000,
+      "hotWater": 1650,
+      "coldWater": 2793,
+      "dayElectricity": 7758,
+      "nightElectricity": 4859,
+      "shared": false
+    },
+    {
+      "id": "8115ef26-3e59-4250-a581-c115f95fb800",
+      "date": 1761246000000,
+      "hotWater": 1652,
+      "coldWater": 2797,
+      "dayElectricity": 7770,
+      "nightElectricity": 4867,
+      "shared": false
+    },
+    {
+      "id": "9ec8df60-22e9-416c-8885-6010ef4f9f98",
+      "date": 1761418800000,
+      "hotWater": 1655,
+      "coldWater": 2805,
+      "dayElectricity": 7781,
+      "nightElectricity": 4885,
+      "shared": false
+    },
+    {
+      "id": "490d2d12-458f-4e50-94d0-888eac71def2",
+      "date": 1761591600000,
+      "hotWater": 1657,
+      "coldWater": 2812,
+      "dayElectricity": 7803,
+      "nightElectricity": 4894,
+      "shared": false
+    },
+    {
+      "id": "6db81f30-26b0-4254-9cea-d05fe3f14f30",
+      "date": 1761764400000,
+      "hotWater": 1660,
+      "coldWater": 2820,
+      "dayElectricity": 7824,
+      "nightElectricity": 4903,
+      "shared": false
+    },
+    {
+      "id": "f477ecb4-cf64-48f4-9932-ab03b71f3007",
+      "date": 1761937200000,
+      "hotWater": 1662,
+      "coldWater": 2826,
+      "dayElectricity": 7835,
+      "nightElectricity": 4911,
+      "shared": false
+    },
+    {
+      "id": "e7710643-2c98-4abc-a6ee-ba5902783893",
+      "date": 1762110000000,
+      "hotWater": 1666,
+      "coldWater": 2834,
+      "dayElectricity": 7846,
+      "nightElectricity": 4919,
+      "shared": false
+    },
+    {
+      "id": "2737bd16-287c-49f2-ac62-9eaf94056840",
+      "date": 1762282800000,
+      "hotWater": 1669,
+      "coldWater": 2842,
+      "dayElectricity": 7857,
+      "nightElectricity": 4926,
+      "shared": false
+    },
+    {
+      "id": "88550ce0-cf47-4141-b5df-9701eeb05f06",
+      "date": 1762455600000,
+      "hotWater": 1672,
+      "coldWater": 2845,
+      "dayElectricity": 7876,
+      "nightElectricity": 4941,
+      "shared": false
+    },
+    {
+      "id": "6e7cb202-72e5-4ab9-b7be-411d9f61a7d3",
+      "date": 1762628400000,
+      "hotWater": 1675,
+      "coldWater": 2851,
+      "dayElectricity": 7893,
+      "nightElectricity": 4957,
+      "shared": false
+    },
+    {
+      "id": "d8748f28-009b-4bbe-8e60-aac72c1b3db7",
+      "date": 1762801200000,
+      "hotWater": 1679,
+      "coldWater": 2855,
+      "dayElectricity": 7908,
+      "nightElectricity": 4964,
+      "shared": true
+    },
+    {
+      "id": "70aa3d15-f8ea-445c-bdea-306865553636",
+      "date": 1762974000000,
+      "hotWater": 1682,
+      "coldWater": 2862,
+      "dayElectricity": 7922,
+      "nightElectricity": 4973,
+      "shared": false
+    },
+    {
+      "id": "380ef956-6b1b-40f7-9548-6780937e0d0e",
+      "date": 1763146800000,
+      "hotWater": 1685,
+      "coldWater": 2867,
+      "dayElectricity": 7944,
+      "nightElectricity": 4979,
+      "shared": false
+    },
+    {
+      "id": "e035edf0-244d-42fc-b78a-b552a41c1a26",
+      "date": 1763319600000,
+      "hotWater": 1689,
+      "coldWater": 2870,
+      "dayElectricity": 7967,
+      "nightElectricity": 4987,
+      "shared": false
+    },
+    {
+      "id": "097c7f90-8759-4bbe-869e-b2f2f272d826",
+      "date": 1763492400000,
+      "hotWater": 1694,
+      "coldWater": 2876,
+      "dayElectricity": 7988,
+      "nightElectricity": 4996,
+      "shared": false
+    },
+    {
+      "id": "6b2662eb-43c5-4ecf-8db9-d6f814b2be0c",
+      "date": 1763665200000,
+      "hotWater": 1698,
+      "coldWater": 2880,
+      "dayElectricity": 7999,
+      "nightElectricity": 5009,
+      "shared": false
+    },
+    {
+      "id": "6987e6c9-eaf2-46ed-8377-4a5e4e46d8c7",
+      "date": 1763838000000,
+      "hotWater": 1702,
+      "coldWater": 2885,
+      "dayElectricity": 8023,
+      "nightElectricity": 5027,
+      "shared": false
+    },
+    {
+      "id": "5768dd1b-a71b-4f71-b8f5-011325a7dae8",
+      "date": 1764010800000,
+      "hotWater": 1707,
+      "coldWater": 2888,
+      "dayElectricity": 8036,
+      "nightElectricity": 5041,
+      "shared": false
+    },
+    {
+      "id": "2425604f-09d4-436a-b25f-0c4232fde491",
+      "date": 1764183600000,
+      "hotWater": 1711,
+      "coldWater": 2891,
+      "dayElectricity": 8057,
+      "nightElectricity": 5054,
+      "shared": false
+    },
+    {
+      "id": "ad2c59d6-fb1f-4dbd-87dc-92148db531fb",
+      "date": 1764356400000,
+      "hotWater": 1716,
+      "coldWater": 2896,
+      "dayElectricity": 8072,
+      "nightElectricity": 5069,
+      "shared": false
+    },
+    {
+      "id": "a09c98a8-ce2b-4651-a642-ca0b25757f83",
+      "date": 1764529200000,
+      "hotWater": 1718,
+      "coldWater": 2900,
+      "dayElectricity": 8088,
+      "nightElectricity": 5086,
+      "shared": false
+    },
+    {
+      "id": "7b322649-24a2-43d8-ac8f-181438142a06",
+      "date": 1764702000000,
+      "hotWater": 1722,
+      "coldWater": 2908,
+      "dayElectricity": 8109,
+      "nightElectricity": 5100,
+      "shared": false
+    },
+    {
+      "id": "e89b4288-ca1c-405e-811d-e5b98439c5a9",
+      "date": 1764874800000,
+      "hotWater": 1727,
+      "coldWater": 2916,
+      "dayElectricity": 8126,
+      "nightElectricity": 5108,
+      "shared": false
+    },
+    {
+      "id": "bb5af7d8-a0a2-4bfc-a5db-74700784e816",
+      "date": 1765047600000,
+      "hotWater": 1729,
+      "coldWater": 2924,
+      "dayElectricity": 8140,
+      "nightElectricity": 5124,
+      "shared": false
+    },
+    {
+      "id": "93487ee9-b5da-4f2b-a6d2-1637e04a2d0e",
+      "date": 1765220400000,
+      "hotWater": 1731,
+      "coldWater": 2932,
+      "dayElectricity": 8154,
+      "nightElectricity": 5134,
+      "shared": false
+    },
+    {
+      "id": "12f9b1b1-7168-404f-b03e-8cc76d4dc142",
+      "date": 1765393200000,
+      "hotWater": 1733,
+      "coldWater": 2939,
+      "dayElectricity": 8179,
+      "nightElectricity": 5152,
+      "shared": false
+    },
+    {
+      "id": "46970607-4ffc-42d8-a0c8-34a02747fe3c",
+      "date": 1765566000000,
+      "hotWater": 1735,
+      "coldWater": 2947,
+      "dayElectricity": 8201,
+      "nightElectricity": 5167,
+      "shared": false
+    },
+    {
+      "id": "263ca2f8-78c8-4437-b5a0-0a32afb0cf82",
+      "date": 1765738800000,
+      "hotWater": 1737,
+      "coldWater": 2951,
+      "dayElectricity": 8226,
+      "nightElectricity": 5178,
+      "shared": false
+    },
+    {
+      "id": "9daef17f-bf00-4b93-a9df-2a6270407baf",
+      "date": 1765911600000,
+      "hotWater": 1740,
+      "coldWater": 2958,
+      "dayElectricity": 8237,
+      "nightElectricity": 5192,
+      "shared": false
+    },
+    {
+      "id": "cd6cd9e8-6978-4ae1-afa1-15f341f3bd53",
+      "date": 1766084400000,
+      "hotWater": 1742,
+      "coldWater": 2965,
+      "dayElectricity": 8261,
+      "nightElectricity": 5204,
+      "shared": false
+    },
+    {
+      "id": "da9beda8-7c51-4c3f-8e8c-e684cd844c5a",
+      "date": 1766257200000,
+      "hotWater": 1744,
+      "coldWater": 2970,
+      "dayElectricity": 8276,
+      "nightElectricity": 5214,
+      "shared": true
+    },
+    {
+      "id": "cb9641f2-bcf2-4b5c-9c6a-7913ab81d5c1",
+      "date": 1766430000000,
+      "hotWater": 1749,
+      "coldWater": 2974,
+      "dayElectricity": 8295,
+      "nightElectricity": 5220,
+      "shared": false
+    },
+    {
+      "id": "8e24bd01-ae18-4987-8b09-7ef9b1c72de6",
+      "date": 1766602800000,
+      "hotWater": 1751,
+      "coldWater": 2979,
+      "dayElectricity": 8310,
+      "nightElectricity": 5232,
+      "shared": false
+    },
+    {
+      "id": "cec94e0b-dee3-4d20-98ac-8ba196606ade",
+      "date": 1766775600000,
+      "hotWater": 1754,
+      "coldWater": 2982,
+      "dayElectricity": 8328,
+      "nightElectricity": 5238,
+      "shared": false
+    },
+    {
+      "id": "9bf106d8-3cc0-4996-b6a4-4baf842da12d",
+      "date": 1766948400000,
+      "hotWater": 1756,
+      "coldWater": 2990,
+      "dayElectricity": 8339,
+      "nightElectricity": 5251,
+      "shared": false
+    },
+    {
+      "id": "07dec709-cbb0-487b-9dbd-8ed101de4ac9",
+      "date": 1767121200000,
+      "hotWater": 1760,
+      "coldWater": 2998,
+      "dayElectricity": 8353,
+      "nightElectricity": 5265,
+      "shared": false
+    },
+    {
+      "id": "c1f65c2c-46d5-4d06-95cb-710ce799d1cf",
+      "date": 1767294000000,
+      "hotWater": 1762,
+      "coldWater": 3003,
+      "dayElectricity": 8369,
+      "nightElectricity": 5280,
+      "shared": false
+    },
+    {
+      "id": "d21d9f22-c458-48e1-96ee-25c2bfacd5f7",
+      "date": 1767466800000,
+      "hotWater": 1766,
+      "coldWater": 3011,
+      "dayElectricity": 8383,
+      "nightElectricity": 5292,
+      "shared": false
+    },
+    {
+      "id": "adf19e91-a4ca-4a6a-8cf4-f1db16ced8ed",
+      "date": 1767639600000,
+      "hotWater": 1769,
+      "coldWater": 3018,
+      "dayElectricity": 8405,
+      "nightElectricity": 5306,
+      "shared": false
+    },
+    {
+      "id": "5e42d421-2004-4840-8938-5ef50edcc6e7",
+      "date": 1767812400000,
+      "hotWater": 1771,
+      "coldWater": 3025,
+      "dayElectricity": 8421,
+      "nightElectricity": 5313,
+      "shared": false
+    },
+    {
+      "id": "6b26cf1f-f7f8-43bd-8615-7139a26d3c28",
+      "date": 1767985200000,
+      "hotWater": 1775,
+      "coldWater": 3032,
+      "dayElectricity": 8432,
+      "nightElectricity": 5325,
+      "shared": false
+    },
+    {
+      "id": "5a1bbcb5-8224-452c-89b5-b2144039e7b0",
+      "date": 1768158000000,
+      "hotWater": 1778,
+      "coldWater": 3037,
+      "dayElectricity": 8447,
+      "nightElectricity": 5339,
+      "shared": false
+    },
+    {
+      "id": "ce12a350-f2d7-472b-81e0-866f19021942",
+      "date": 1768330800000,
+      "hotWater": 1783,
+      "coldWater": 3045,
+      "dayElectricity": 8462,
+      "nightElectricity": 5348,
+      "shared": false
+    },
+    {
+      "id": "b4713076-eacf-4476-a1ca-80be860824c0",
+      "date": 1768503600000,
+      "hotWater": 1786,
+      "coldWater": 3049,
+      "dayElectricity": 8475,
+      "nightElectricity": 5366,
+      "shared": false
+    },
+    {
+      "id": "d60b4671-892c-4164-a67a-920e09234113",
+      "date": 1768676400000,
+      "hotWater": 1788,
+      "coldWater": 3057,
+      "dayElectricity": 8499,
+      "nightElectricity": 5384,
+      "shared": false
+    },
+    {
+      "id": "5e4ea1b6-52ce-4fa3-bbcb-cd536866df6e",
+      "date": 1768849200000,
+      "hotWater": 1792,
+      "coldWater": 3062,
+      "dayElectricity": 8510,
+      "nightElectricity": 5395,
+      "shared": false
+    },
+    {
+      "id": "be6175ac-9639-4836-afda-1d263f0c792c",
+      "date": 1769022000000,
+      "hotWater": 1795,
+      "coldWater": 3070,
+      "dayElectricity": 8531,
+      "nightElectricity": 5404,
+      "shared": false
+    },
+    {
+      "id": "612e903c-5b3f-4b95-90db-2e291195e37f",
+      "date": 1769194800000,
+      "hotWater": 1798,
+      "coldWater": 3073,
+      "dayElectricity": 8544,
+      "nightElectricity": 5420,
+      "shared": false
+    },
+    {
+      "id": "e7d98388-6550-49c8-8e57-cec8a2261b20",
+      "date": 1769367600000,
+      "hotWater": 1801,
+      "coldWater": 3079,
+      "dayElectricity": 8557,
+      "nightElectricity": 5430,
+      "shared": false
+    },
+    {
+      "id": "413f2acd-07b7-4bf5-8981-77bd78987bd4",
+      "date": 1769540400000,
+      "hotWater": 1805,
+      "coldWater": 3087,
+      "dayElectricity": 8581,
+      "nightElectricity": 5439,
+      "shared": false
+    },
+    {
+      "id": "e7bf62fe-6b51-435f-aa4e-585cb4bdfb61",
+      "date": 1769713200000,
+      "hotWater": 1808,
+      "coldWater": 3095,
+      "dayElectricity": 8601,
+      "nightElectricity": 5456,
+      "shared": true
+    },
+    {
+      "id": "c2163c82-ca91-46e0-b2b9-667a26777d36",
+      "date": 1769886000000,
+      "hotWater": 1813,
+      "coldWater": 3103,
+      "dayElectricity": 8611,
+      "nightElectricity": 5468,
+      "shared": false
+    },
+    {
+      "id": "cfda8e99-5bd1-4f3a-92dc-09ca19bdf0e8",
+      "date": 1770058800000,
+      "hotWater": 1816,
+      "coldWater": 3109,
+      "dayElectricity": 8636,
+      "nightElectricity": 5476,
+      "shared": false
+    },
+    {
+      "id": "2487cb1a-f6d9-4f82-82c3-f808cf71da85",
+      "date": 1770231600000,
+      "hotWater": 1821,
+      "coldWater": 3116,
+      "dayElectricity": 8660,
+      "nightElectricity": 5489,
+      "shared": false
+    },
+    {
+      "id": "6adde61b-c105-4e51-b625-4d5654ebc6f0",
+      "date": 1770404400000,
+      "hotWater": 1826,
+      "coldWater": 3120,
+      "dayElectricity": 8681,
+      "nightElectricity": 5495,
+      "shared": false
+    },
+    {
+      "id": "2435e019-805c-48f6-be7f-03e5022b253e",
+      "date": 1770577200000,
+      "hotWater": 1831,
+      "coldWater": 3128,
+      "dayElectricity": 8697,
+      "nightElectricity": 5500,
+      "shared": false
+    },
+    {
+      "id": "71535392-1d2e-4935-a2cf-cfad53e5de41",
+      "date": 1770750000000,
+      "hotWater": 1835,
+      "coldWater": 3134,
+      "dayElectricity": 8709,
+      "nightElectricity": 5507,
+      "shared": false
+    },
+    {
+      "id": "87660923-5642-40c1-b1f1-532696d626f2",
+      "date": 1770922800000,
+      "hotWater": 1840,
+      "coldWater": 3138,
+      "dayElectricity": 8734,
+      "nightElectricity": 5525,
+      "shared": false
+    },
+    {
+      "id": "722bee84-28c7-41ce-a997-fdf3a2604628",
+      "date": 1771095600000,
+      "hotWater": 1844,
+      "coldWater": 3143,
+      "dayElectricity": 8755,
+      "nightElectricity": 5533,
+      "shared": false
+    },
+    {
+      "id": "5f9f3bb1-cc1b-4cdb-ad3a-0c6e956cccb0",
+      "date": 1771268400000,
+      "hotWater": 1846,
+      "coldWater": 3151,
+      "dayElectricity": 8779,
+      "nightElectricity": 5550,
+      "shared": false
+    },
+    {
+      "id": "13107167-3389-4a6b-95a5-ce5f24d6378f",
+      "date": 1771441200000,
+      "hotWater": 1849,
+      "coldWater": 3158,
+      "dayElectricity": 8802,
+      "nightElectricity": 5568,
+      "shared": false
+    },
+    {
+      "id": "ee97b8a0-5d67-489a-b69d-7b4e32c1b95a",
+      "date": 1771614000000,
+      "hotWater": 1853,
+      "coldWater": 3164,
+      "dayElectricity": 8817,
+      "nightElectricity": 5580,
+      "shared": false
+    },
+    {
+      "id": "d5bbfb3b-48b0-4a8d-bc87-ab6fe5bcfc39",
+      "date": 1771786800000,
+      "hotWater": 1858,
+      "coldWater": 3170,
+      "dayElectricity": 8832,
+      "nightElectricity": 5586,
+      "shared": false
+    },
+    {
+      "id": "8e90da1c-bfea-4a73-81a9-b5ac58fa7128",
+      "date": 1771959600000,
+      "hotWater": 1863,
+      "coldWater": 3176,
+      "dayElectricity": 8851,
+      "nightElectricity": 5591,
+      "shared": false
+    },
+    {
+      "id": "413e8e15-ece3-44ff-baf2-9d6ea2b75d7c",
+      "date": 1772132400000,
+      "hotWater": 1865,
+      "coldWater": 3184,
+      "dayElectricity": 8873,
+      "nightElectricity": 5607,
+      "shared": false
+    },
+    {
+      "id": "991895b5-82af-448c-8e1d-81b4b331b599",
+      "date": 1772305200000,
+      "hotWater": 1870,
+      "coldWater": 3192,
+      "dayElectricity": 8898,
+      "nightElectricity": 5625,
+      "shared": false
+    },
+    {
+      "id": "25313984-9afa-4b32-bbeb-9ce78847cdd5",
+      "date": 1772478000000,
+      "hotWater": 1875,
+      "coldWater": 3195,
+      "dayElectricity": 8919,
+      "nightElectricity": 5631,
+      "shared": false
+    },
+    {
+      "id": "28fa1a75-1fee-4303-ae4a-3529f8e319cd",
+      "date": 1772650800000,
+      "hotWater": 1879,
+      "coldWater": 3200,
+      "dayElectricity": 8935,
+      "nightElectricity": 5643,
+      "shared": false
+    },
+    {
+      "id": "de6057c7-c015-4730-bc1d-faf5b6a4febd",
+      "date": 1772823600000,
+      "hotWater": 1882,
+      "coldWater": 3207,
+      "dayElectricity": 8947,
+      "nightElectricity": 5657,
+      "shared": false
+    },
+    {
+      "id": "faccda4c-85d0-494e-b8b5-a7b946a2fc87",
+      "date": 1772996400000,
+      "hotWater": 1886,
+      "coldWater": 3214,
+      "dayElectricity": 8972,
+      "nightElectricity": 5675,
+      "shared": false
+    },
+    {
+      "id": "c4fad946-32e6-41d0-8649-1b3bbd1550e1",
+      "date": 1773169200000,
+      "hotWater": 1889,
+      "coldWater": 3222,
+      "dayElectricity": 8992,
+      "nightElectricity": 5690,
+      "shared": true
+    },
+    {
+      "id": "dda6a425-6562-48de-9a6b-8d2ee817b4e0",
+      "date": 1773342000000,
+      "hotWater": 1893,
+      "coldWater": 3228,
+      "dayElectricity": 9004,
+      "nightElectricity": 5708,
+      "shared": false
+    },
+    {
+      "id": "2e5fbabf-82a3-4b83-a671-a0f73ea35b30",
+      "date": 1773514800000,
+      "hotWater": 1897,
+      "coldWater": 3233,
+      "dayElectricity": 9022,
+      "nightElectricity": 5714,
+      "shared": false
+    },
+    {
+      "id": "97031eda-b503-4d73-b6ef-ef578944930c",
+      "date": 1773687600000,
+      "hotWater": 1902,
+      "coldWater": 3237,
+      "dayElectricity": 9040,
+      "nightElectricity": 5719,
+      "shared": false
+    },
+    {
+      "id": "e13d9060-0183-444d-bf7d-bc990a775c1a",
+      "date": 1773860400000,
+      "hotWater": 1905,
+      "coldWater": 3242,
+      "dayElectricity": 9064,
+      "nightElectricity": 5729,
+      "shared": false
+    },
+    {
+      "id": "3da2650a-3b68-4ccd-91c7-a78b109df837",
+      "date": 1774033200000,
+      "hotWater": 1908,
+      "coldWater": 3248,
+      "dayElectricity": 9086,
+      "nightElectricity": 5742,
+      "shared": false
+    },
+    {
+      "id": "b205f90f-583b-4a2a-86d5-a224e7fc1f89",
+      "date": 1774206000000,
+      "hotWater": 1910,
+      "coldWater": 3253,
+      "dayElectricity": 9109,
+      "nightElectricity": 5748,
+      "shared": false
+    },
+    {
+      "id": "6dfb03f6-1780-407f-a02f-cc47772e0ad5",
+      "date": 1774378800000,
+      "hotWater": 1912,
+      "coldWater": 3258,
+      "dayElectricity": 9132,
+      "nightElectricity": 5763,
+      "shared": false
+    },
+    {
+      "id": "b5b2b36c-47d8-4c3b-b04d-094638e2ac42",
+      "date": 1774551600000,
+      "hotWater": 1917,
+      "coldWater": 3264,
+      "dayElectricity": 9156,
+      "nightElectricity": 5781,
+      "shared": false
+    },
+    {
+      "id": "748a3eeb-9316-4293-8e93-2258b0b125bd",
+      "date": 1774724400000,
+      "hotWater": 1920,
+      "coldWater": 3268,
+      "dayElectricity": 9166,
+      "nightElectricity": 5788,
+      "shared": false
+    },
+    {
+      "id": "60e39925-40ec-4eae-9ba4-857e1e799029",
+      "date": 1774897200000,
+      "hotWater": 1922,
+      "coldWater": 3275,
+      "dayElectricity": 9179,
+      "nightElectricity": 5800,
+      "shared": false
+    },
+    {
+      "id": "4fac8a14-3499-49ed-8267-1efbe8cee8c4",
+      "date": 1775070000000,
+      "hotWater": 1924,
+      "coldWater": 3279,
+      "dayElectricity": 9203,
+      "nightElectricity": 5813,
+      "shared": false
+    },
+    {
+      "id": "14a319e5-59d0-41cc-bf40-3d31f5f729ef",
+      "date": 1775242800000,
+      "hotWater": 1928,
+      "coldWater": 3287,
+      "dayElectricity": 9226,
+      "nightElectricity": 5826,
+      "shared": false
+    },
+    {
+      "id": "dbf739f2-9666-4c53-8dd6-f2df4fffe5cb",
+      "date": 1775415600000,
+      "hotWater": 1930,
+      "coldWater": 3295,
+      "dayElectricity": 9246,
+      "nightElectricity": 5833,
+      "shared": false
+    },
+    {
+      "id": "236f80fc-5479-4839-9f28-43b5a18717d3",
+      "date": 1775588400000,
+      "hotWater": 1934,
+      "coldWater": 3302,
+      "dayElectricity": 9262,
+      "nightElectricity": 5847,
+      "shared": false
+    },
+    {
+      "id": "aaf4448a-44e3-4006-b294-c0a10686286d",
+      "date": 1775761200000,
+      "hotWater": 1937,
+      "coldWater": 3307,
+      "dayElectricity": 9279,
+      "nightElectricity": 5855,
+      "shared": false
+    },
+    {
+      "id": "bb37dd8a-b57a-4ef7-b9fd-8a0bbc354c1c",
+      "date": 1775934000000,
+      "hotWater": 1939,
+      "coldWater": 3315,
+      "dayElectricity": 9292,
+      "nightElectricity": 5873,
+      "shared": false
+    },
+    {
+      "id": "6499995e-519f-4e32-8739-d1cf59f184b3",
+      "date": 1776106800000,
+      "hotWater": 1942,
+      "coldWater": 3320,
+      "dayElectricity": 9313,
+      "nightElectricity": 5881,
+      "shared": false
+    },
+    {
+      "id": "32d3d619-3765-4c53-8ece-03571ac13d09",
+      "date": 1776279600000,
+      "hotWater": 1946,
+      "coldWater": 3328,
+      "dayElectricity": 9323,
+      "nightElectricity": 5888,
+      "shared": false
+    },
+    {
+      "id": "b3b319ad-2c5f-4d23-8422-748f92afa119",
+      "date": 1776452400000,
+      "hotWater": 1948,
+      "coldWater": 3336,
+      "dayElectricity": 9345,
+      "nightElectricity": 5893,
+      "shared": false
+    },
+    {
+      "id": "a2ba9182-7586-4f1b-b7dc-2737dd2f53da",
+      "date": 1776625200000,
+      "hotWater": 1953,
+      "coldWater": 3344,
+      "dayElectricity": 9356,
+      "nightElectricity": 5898,
+      "shared": true
+    },
+    {
+      "id": "8164bd76-0fdb-4def-bd10-d941b8587885",
+      "date": 1776798000000,
+      "hotWater": 1958,
+      "coldWater": 3350,
+      "dayElectricity": 9370,
+      "nightElectricity": 5904,
+      "shared": false
+    },
+    {
+      "id": "670b5867-cf11-45c9-9ace-820e12865bb7",
+      "date": 1776970800000,
+      "hotWater": 1962,
+      "coldWater": 3358,
+      "dayElectricity": 9383,
+      "nightElectricity": 5922,
+      "shared": false
+    },
+    {
+      "id": "7afdd11f-045d-4730-9dce-1554e0a3d623",
+      "date": 1777143600000,
+      "hotWater": 1967,
+      "coldWater": 3363,
+      "dayElectricity": 9403,
+      "nightElectricity": 5937,
+      "shared": false
+    },
+    {
+      "id": "0adf9982-fb70-440f-916a-bdbda98c20cd",
+      "date": 1777316400000,
+      "hotWater": 1969,
+      "coldWater": 3371,
+      "dayElectricity": 9419,
+      "nightElectricity": 5951,
+      "shared": false
+    },
+    {
+      "id": "3c579c09-537a-45d7-bf4b-d7301f20009f",
+      "date": 1777489200000,
+      "hotWater": 1971,
+      "coldWater": 3379,
+      "dayElectricity": 9442,
+      "nightElectricity": 5959,
+      "shared": false
+    },
+    {
+      "id": "4e8af472-1621-460b-a27b-f830aef80f87",
+      "date": 1777662000000,
+      "hotWater": 1975,
+      "coldWater": 3383,
+      "dayElectricity": 9459,
+      "nightElectricity": 5964,
+      "shared": false
+    },
+    {
+      "id": "a6adb69d-dcaf-4231-8fdd-0ce9a27c0b18",
+      "date": 1777834800000,
+      "hotWater": 1978,
+      "coldWater": 3388,
+      "dayElectricity": 9473,
+      "nightElectricity": 5972,
+      "shared": false
+    },
+    {
+      "id": "9a3a8ada-f21b-4442-990d-ea477ec92a0e",
+      "date": 1778007600000,
+      "hotWater": 1981,
+      "coldWater": 3394,
+      "dayElectricity": 9496,
+      "nightElectricity": 5984,
+      "shared": false
+    },
+    {
+      "id": "afa78cbc-68df-4b36-bd11-3722494e214e",
+      "date": 1778180400000,
+      "hotWater": 1986,
+      "coldWater": 3398,
+      "dayElectricity": 9520,
+      "nightElectricity": 5995,
+      "shared": false
+    },
+    {
+      "id": "ae3512ab-e54e-40ee-a89d-05f59f4a9dcb",
+      "date": 1778353200000,
+      "hotWater": 1988,
+      "coldWater": 3404,
+      "dayElectricity": 9530,
+      "nightElectricity": 6008,
+      "shared": false
+    },
+    {
+      "id": "6c28b634-a51d-4da3-8546-0f657e46b025",
+      "date": 1778526000000,
+      "hotWater": 1993,
+      "coldWater": 3408,
+      "dayElectricity": 9542,
+      "nightElectricity": 6025,
+      "shared": false
+    },
+    {
+      "id": "d674a887-05c2-411b-a393-dfca95cc1a1d",
+      "date": 1778698800000,
+      "hotWater": 1998,
+      "coldWater": 3411,
+      "dayElectricity": 9560,
+      "nightElectricity": 6042,
+      "shared": false
+    },
+    {
+      "id": "736e1955-05af-4707-ae53-dcef85d9262a",
+      "date": 1778871600000,
+      "hotWater": 2003,
+      "coldWater": 3416,
+      "dayElectricity": 9571,
+      "nightElectricity": 6059,
+      "shared": false
+    },
+    {
+      "id": "475a55b0-2206-4f31-a65e-037bae2f1da0",
+      "date": 1779044400000,
+      "hotWater": 2008,
+      "coldWater": 3424,
+      "dayElectricity": 9586,
+      "nightElectricity": 6065,
+      "shared": false
+    },
+    {
+      "id": "95ea1bdc-45e8-417c-9214-9e2fd73df782",
+      "date": 1779217200000,
+      "hotWater": 2010,
+      "coldWater": 3430,
+      "dayElectricity": 9606,
+      "nightElectricity": 6082,
+      "shared": false
+    },
+    {
+      "id": "9f55036a-787a-49bc-9223-18b84244a54e",
+      "date": 1779390000000,
+      "hotWater": 2013,
+      "coldWater": 3435,
+      "dayElectricity": 9620,
+      "nightElectricity": 6090,
+      "shared": false
+    },
+    {
+      "id": "c4628bdf-8035-4615-95f5-d32688c86e83",
+      "date": 1779562800000,
+      "hotWater": 2018,
+      "coldWater": 3438,
+      "dayElectricity": 9631,
+      "nightElectricity": 6105,
+      "shared": false
+    },
+    {
+      "id": "d20ff8fd-8ace-4c72-a6c5-d22b04a71cac",
+      "date": 1779735600000,
+      "hotWater": 2021,
+      "coldWater": 3445,
+      "dayElectricity": 9655,
+      "nightElectricity": 6123,
+      "shared": false
+    },
+    {
+      "id": "355d8dd6-3098-4c9a-8bfb-c0be3081c13d",
+      "date": 1779908400000,
+      "hotWater": 2025,
+      "coldWater": 3452,
+      "dayElectricity": 9675,
+      "nightElectricity": 6129,
+      "shared": false
+    },
+    {
+      "id": "54d9ba38-7665-478a-8699-0e3f47434aeb",
+      "date": 1780081200000,
+      "hotWater": 2027,
+      "coldWater": 3458,
+      "dayElectricity": 9688,
+      "nightElectricity": 6139,
+      "shared": true
+    },
+    {
+      "id": "94158b34-8ec2-4474-b3f7-7e9a4b96677a",
+      "date": 1780254000000,
+      "hotWater": 2031,
+      "coldWater": 3465,
+      "dayElectricity": 9701,
+      "nightElectricity": 6152,
+      "shared": false
+    },
+    {
+      "id": "1f3ef808-1585-4626-b046-754e3bba5207",
+      "date": 1780426800000,
+      "hotWater": 2034,
+      "coldWater": 3473,
+      "dayElectricity": 9725,
+      "nightElectricity": 6170,
+      "shared": false
+    },
+    {
+      "id": "b0af4d57-67ea-49bb-a46e-46ee4ff34457",
+      "date": 1780599600000,
+      "hotWater": 2038,
+      "coldWater": 3478,
+      "dayElectricity": 9750,
+      "nightElectricity": 6176,
+      "shared": false
+    },
+    {
+      "id": "b01fd202-9b2f-47e7-86b8-cd4ffe775ccc",
+      "date": 1780772400000,
+      "hotWater": 2041,
+      "coldWater": 3482,
+      "dayElectricity": 9769,
+      "nightElectricity": 6188,
+      "shared": false
+    },
+    {
+      "id": "95a60573-103f-4821-bfc2-37ee3866a450",
+      "date": 1780945200000,
+      "hotWater": 2046,
+      "coldWater": 3489,
+      "dayElectricity": 9789,
+      "nightElectricity": 6206,
+      "shared": false
+    },
+    {
+      "id": "09ae2131-8328-4f27-a958-44ef3442ad8a",
+      "date": 1781118000000,
+      "hotWater": 2050,
+      "coldWater": 3497,
+      "dayElectricity": 9808,
+      "nightElectricity": 6221,
+      "shared": false
+    },
+    {
+      "id": "0a01aebb-f3cf-4df8-8b84-063d5b626f4e",
+      "date": 1781290800000,
+      "hotWater": 2053,
+      "coldWater": 3505,
+      "dayElectricity": 9833,
+      "nightElectricity": 6231,
+      "shared": false
+    },
+    {
+      "id": "e397bb77-c0e1-4b75-a038-9ca92ed7b7ce",
+      "date": 1781463600000,
+      "hotWater": 2056,
+      "coldWater": 3512,
+      "dayElectricity": 9854,
+      "nightElectricity": 6246,
+      "shared": false
+    },
+    {
+      "id": "f47f85f5-2a6b-41c2-899e-5b68c4f3ae6f",
+      "date": 1781636400000,
+      "hotWater": 2058,
+      "coldWater": 3516,
+      "dayElectricity": 9871,
+      "nightElectricity": 6260,
+      "shared": false
+    },
+    {
+      "id": "05f083f2-c0d9-42ce-97ee-a50043b2d12f",
+      "date": 1781809200000,
+      "hotWater": 2061,
+      "coldWater": 3521,
+      "dayElectricity": 9884,
+      "nightElectricity": 6268,
+      "shared": false
+    },
+    {
+      "id": "3fe4887d-ef5b-4113-b75a-8e8dfa3199ab",
+      "date": 1781982000000,
+      "hotWater": 2064,
+      "coldWater": 3528,
+      "dayElectricity": 9905,
+      "nightElectricity": 6279,
+      "shared": false
+    },
+    {
+      "id": "6ffc3cf1-b487-4bb7-9706-0af2e727a086",
+      "date": 1782154800000,
+      "hotWater": 2067,
+      "coldWater": 3534,
+      "dayElectricity": 9924,
+      "nightElectricity": 6297,
+      "shared": false
+    },
+    {
+      "id": "7fa5ccc9-7603-439d-8a02-7a0676efc5c9",
+      "date": 1782327600000,
+      "hotWater": 2069,
+      "coldWater": 3538,
+      "dayElectricity": 9947,
+      "nightElectricity": 6308,
+      "shared": false
+    },
+    {
+      "id": "dbb15cb9-69fa-4420-bb90-d506f3d6e1f3",
+      "date": 1782500400000,
+      "hotWater": 2071,
+      "coldWater": 3542,
+      "dayElectricity": 9959,
+      "nightElectricity": 6324,
+      "shared": false
+    },
+    {
+      "id": "e83f88c2-659b-424a-961a-b1cef8c7b647",
+      "date": 1782673200000,
+      "hotWater": 2076,
+      "coldWater": 3545,
+      "dayElectricity": 9983,
+      "nightElectricity": 6340,
+      "shared": false
+    },
+    {
+      "id": "bc66e72e-8d12-409a-9a51-c295351861c5",
+      "date": 1782846000000,
+      "hotWater": 2081,
+      "coldWater": 3550,
+      "dayElectricity": 10008,
+      "nightElectricity": 6350,
+      "shared": false
+    },
+    {
+      "id": "2126f404-a744-4556-a589-c072026f064f",
+      "date": 1783018800000,
+      "hotWater": 2083,
+      "coldWater": 3558,
+      "dayElectricity": 10028,
+      "nightElectricity": 6361,
+      "shared": false
+    },
+    {
+      "id": "e9444a27-477f-4b34-82ca-cbff9d19d654",
+      "date": 1783191600000,
+      "hotWater": 2087,
+      "coldWater": 3561,
+      "dayElectricity": 10050,
+      "nightElectricity": 6372,
+      "shared": false
+    },
+    {
+      "id": "dfa03080-c563-402e-b5f8-9e45f91f2809",
+      "date": 1783364400000,
+      "hotWater": 2091,
+      "coldWater": 3567,
+      "dayElectricity": 10069,
+      "nightElectricity": 6379,
+      "shared": false
+    },
+    {
+      "id": "4eba5606-81b7-4e57-a474-d9cdbc266cae",
+      "date": 1783537200000,
+      "hotWater": 2095,
+      "coldWater": 3573,
+      "dayElectricity": 10088,
+      "nightElectricity": 6392,
+      "shared": true
+    },
+    {
+      "id": "64f88fa7-bb9f-4294-b8ba-335b824d0933",
+      "date": 1783710000000,
+      "hotWater": 2100,
+      "coldWater": 3578,
+      "dayElectricity": 10105,
+      "nightElectricity": 6403,
+      "shared": false
+    },
+    {
+      "id": "56e76b70-98e1-4a6a-8a9a-ee93a209ee24",
+      "date": 1783882800000,
+      "hotWater": 2105,
+      "coldWater": 3586,
+      "dayElectricity": 10124,
+      "nightElectricity": 6411,
+      "shared": false
+    },
+    {
+      "id": "fcebe1c9-3750-4c59-8dfc-9e56e1776257",
+      "date": 1784055600000,
+      "hotWater": 2110,
+      "coldWater": 3594,
+      "dayElectricity": 10145,
+      "nightElectricity": 6416,
+      "shared": false
+    },
+    {
+      "id": "9b01771d-45f7-44e0-acf0-600882dd6a8f",
+      "date": 1784228400000,
+      "hotWater": 2114,
+      "coldWater": 3601,
+      "dayElectricity": 10156,
+      "nightElectricity": 6421,
+      "shared": false
+    },
+    {
+      "id": "cb745f29-654a-4304-be66-54592cab0b37",
+      "date": 1784401200000,
+      "hotWater": 2116,
+      "coldWater": 3606,
+      "dayElectricity": 10166,
+      "nightElectricity": 6428,
+      "shared": false
+    },
+    {
+      "id": "6ed19ff3-4448-464c-b6e2-be5aa0574ecf",
+      "date": 1784574000000,
+      "hotWater": 2121,
+      "coldWater": 3611,
+      "dayElectricity": 10182,
+      "nightElectricity": 6443,
+      "shared": false
+    },
+    {
+      "id": "86ee8cdb-ef1a-456d-a579-eb4ff4d084eb",
+      "date": 1784746800000,
+      "hotWater": 2124,
+      "coldWater": 3618,
+      "dayElectricity": 10198,
+      "nightElectricity": 6450,
+      "shared": false
+    },
+    {
+      "id": "647c9cbd-62f8-4bf0-9fb5-dd67d7a255d2",
+      "date": 1784919600000,
+      "hotWater": 2129,
+      "coldWater": 3624,
+      "dayElectricity": 10214,
+      "nightElectricity": 6463,
+      "shared": false
+    },
+    {
+      "id": "5a6eeb8d-9658-437c-82f2-6f70282a6e95",
+      "date": 1785092400000,
+      "hotWater": 2132,
+      "coldWater": 3632,
+      "dayElectricity": 10227,
+      "nightElectricity": 6478,
+      "shared": false
+    },
+    {
+      "id": "d55ac10d-ed24-48ac-91e0-5a99ddcf45ff",
+      "date": 1785265200000,
+      "hotWater": 2135,
+      "coldWater": 3637,
+      "dayElectricity": 10248,
+      "nightElectricity": 6485,
+      "shared": false
+    },
+    {
+      "id": "0b61ace2-7b20-440d-a079-c312fa244b7a",
+      "date": 1785438000000,
+      "hotWater": 2140,
+      "coldWater": 3644,
+      "dayElectricity": 10262,
+      "nightElectricity": 6494,
+      "shared": false
+    },
+    {
+      "id": "5641e759-e859-4cbc-922e-5de74a2a08dd",
+      "date": 1785610800000,
+      "hotWater": 2144,
+      "coldWater": 3649,
+      "dayElectricity": 10281,
+      "nightElectricity": 6501,
+      "shared": false
+    },
+    {
+      "id": "4e298430-1057-4d6a-bc44-86305346004e",
+      "date": 1785783600000,
+      "hotWater": 2146,
+      "coldWater": 3652,
+      "dayElectricity": 10305,
+      "nightElectricity": 6514,
+      "shared": false
+    },
+    {
+      "id": "248403c8-5c24-4f1c-a5ce-46bd99b91dee",
+      "date": 1785956400000,
+      "hotWater": 2148,
+      "coldWater": 3659,
+      "dayElectricity": 10322,
+      "nightElectricity": 6520,
+      "shared": false
+    },
+    {
+      "id": "36fc4d66-1970-4b2a-bbf5-c03abe683334",
+      "date": 1786129200000,
+      "hotWater": 2153,
+      "coldWater": 3664,
+      "dayElectricity": 10342,
+      "nightElectricity": 6526,
+      "shared": false
+    },
+    {
+      "id": "a1d03299-38e7-4331-b224-985a1b1e75d8",
+      "date": 1786302000000,
+      "hotWater": 2156,
+      "coldWater": 3672,
+      "dayElectricity": 10356,
+      "nightElectricity": 6536,
+      "shared": false
+    },
+    {
+      "id": "7c3ba963-55ab-4c1f-b880-9a751bb63999",
+      "date": 1786474800000,
+      "hotWater": 2160,
+      "coldWater": 3678,
+      "dayElectricity": 10377,
+      "nightElectricity": 6544,
+      "shared": false
+    },
+    {
+      "id": "5ffee44a-2ab5-4abd-96b0-e89593c017bc",
+      "date": 1786647600000,
+      "hotWater": 2165,
+      "coldWater": 3681,
+      "dayElectricity": 10397,
+      "nightElectricity": 6562,
+      "shared": false
+    },
+    {
+      "id": "691b327a-c70a-469e-aa13-41037c336259",
+      "date": 1786820400000,
+      "hotWater": 2168,
+      "coldWater": 3689,
+      "dayElectricity": 10421,
+      "nightElectricity": 6568,
+      "shared": false
+    },
+    {
+      "id": "06d16a49-f8c7-48fe-8995-b0900a9b4347",
+      "date": 1786993200000,
+      "hotWater": 2172,
+      "coldWater": 3697,
+      "dayElectricity": 10445,
+      "nightElectricity": 6581,
+      "shared": true
+    },
+    {
+      "id": "1091eb86-27c0-4013-a86f-3baa34951cc1",
+      "date": 1787166000000,
+      "hotWater": 2175,
+      "coldWater": 3700,
+      "dayElectricity": 10464,
+      "nightElectricity": 6592,
+      "shared": false
+    },
+    {
+      "id": "f02d573c-ece3-4238-a718-cd05530febe6",
+      "date": 1787338800000,
+      "hotWater": 2179,
+      "coldWater": 3706,
+      "dayElectricity": 10483,
+      "nightElectricity": 6606,
+      "shared": false
+    },
+    {
+      "id": "95e28c0d-e74c-483c-ba60-c22d2f7cb911",
+      "date": 1787511600000,
+      "hotWater": 2183,
+      "coldWater": 3710,
+      "dayElectricity": 10508,
+      "nightElectricity": 6616,
+      "shared": false
+    },
+    {
+      "id": "97d4e9ba-7cba-42ea-a9df-03e01e44e959",
+      "date": 1787684400000,
+      "hotWater": 2187,
+      "coldWater": 3715,
+      "dayElectricity": 10519,
+      "nightElectricity": 6627,
+      "shared": false
+    },
+    {
+      "id": "e6043bde-418c-4d53-8f59-f840b9bc8d7d",
+      "date": 1787857200000,
+      "hotWater": 2189,
+      "coldWater": 3722,
+      "dayElectricity": 10535,
+      "nightElectricity": 6637,
+      "shared": false
+    },
+    {
+      "id": "d6d5905c-2b33-4c23-8cf4-5f56035adfdd",
+      "date": 1788030000000,
+      "hotWater": 2192,
+      "coldWater": 3728,
+      "dayElectricity": 10547,
+      "nightElectricity": 6642,
+      "shared": false
+    },
+    {
+      "id": "f48de09f-6d19-4ea9-aadc-b6ed5673f09c",
+      "date": 1788202800000,
+      "hotWater": 2196,
+      "coldWater": 3732,
+      "dayElectricity": 10568,
+      "nightElectricity": 6648,
+      "shared": false
+    },
+    {
+      "id": "481b9cc6-c3e2-4e86-a995-01ee2bef5ece",
+      "date": 1788375600000,
+      "hotWater": 2198,
+      "coldWater": 3738,
+      "dayElectricity": 10581,
+      "nightElectricity": 6664,
+      "shared": false
+    },
+    {
+      "id": "8a2b8860-d842-421d-a3d6-9253c195c9a5",
+      "date": 1788548400000,
+      "hotWater": 2203,
+      "coldWater": 3744,
+      "dayElectricity": 10598,
+      "nightElectricity": 6682,
+      "shared": false
+    },
+    {
+      "id": "e1e9be24-a31e-4ac6-a8d1-ec9f935ed99d",
+      "date": 1788721200000,
+      "hotWater": 2206,
+      "coldWater": 3748,
+      "dayElectricity": 10622,
+      "nightElectricity": 6688,
+      "shared": false
+    },
+    {
+      "id": "95259e3a-02e4-4d3a-a70a-60d99fce9585",
+      "date": 1788894000000,
+      "hotWater": 2208,
+      "coldWater": 3752,
+      "dayElectricity": 10646,
+      "nightElectricity": 6701,
+      "shared": false
+    },
+    {
+      "id": "56905597-2c4d-490d-87f6-d16636aab265",
+      "date": 1789066800000,
+      "hotWater": 2213,
+      "coldWater": 3756,
+      "dayElectricity": 10656,
+      "nightElectricity": 6711,
+      "shared": false
+    },
+    {
+      "id": "031b79a8-626f-441e-b7cd-40f69cd6f25e",
+      "date": 1789239600000,
+      "hotWater": 2217,
+      "coldWater": 3760,
+      "dayElectricity": 10679,
+      "nightElectricity": 6719,
+      "shared": false
+    },
+    {
+      "id": "b7dd3576-fdc3-4233-8b3f-a80257523e3d",
+      "date": 1789412400000,
+      "hotWater": 2222,
+      "coldWater": 3766,
+      "dayElectricity": 10695,
+      "nightElectricity": 6731,
+      "shared": false
+    },
+    {
+      "id": "9eb03e82-4ef7-42f0-b0f0-7c3d9c9d8230",
+      "date": 1789585200000,
+      "hotWater": 2227,
+      "coldWater": 3774,
+      "dayElectricity": 10706,
+      "nightElectricity": 6737,
+      "shared": false
+    },
+    {
+      "id": "4f295aa0-fb6e-4b08-9617-701350879ec2",
+      "date": 1789758000000,
+      "hotWater": 2231,
+      "coldWater": 3781,
+      "dayElectricity": 10720,
+      "nightElectricity": 6749,
+      "shared": false
+    },
+    {
+      "id": "5c3d8a93-1e67-44ee-961c-0791abc27c9e",
+      "date": 1789930800000,
+      "hotWater": 2236,
+      "coldWater": 3789,
+      "dayElectricity": 10736,
+      "nightElectricity": 6767,
+      "shared": false
+    },
+    {
+      "id": "f109e59b-8558-4d4d-ab84-82808dc5d236",
+      "date": 1790103600000,
+      "hotWater": 2240,
+      "coldWater": 3796,
+      "dayElectricity": 10749,
+      "nightElectricity": 6781,
+      "shared": false
+    },
+    {
+      "id": "db6aca63-d8e8-412e-ab33-e478abbc1f70",
+      "date": 1790276400000,
+      "hotWater": 2244,
+      "coldWater": 3802,
+      "dayElectricity": 10763,
+      "nightElectricity": 6789,
+      "shared": false
+    },
+    {
+      "id": "58bdb17b-a839-4065-8af2-43a77cc40ec8",
+      "date": 1790449200000,
+      "hotWater": 2246,
+      "coldWater": 3808,
+      "dayElectricity": 10783,
+      "nightElectricity": 6797,
+      "shared": true
+    },
+    {
+      "id": "f5e256f7-82d1-4a9a-bc38-8802ef5a3471",
+      "date": 1790622000000,
+      "hotWater": 2249,
+      "coldWater": 3812,
+      "dayElectricity": 10799,
+      "nightElectricity": 6810,
+      "shared": false
+    },
+    {
+      "id": "3a16daea-9d18-458f-a1bc-178c86271581",
+      "date": 1790794800000,
+      "hotWater": 2254,
+      "coldWater": 3818,
+      "dayElectricity": 10815,
+      "nightElectricity": 6823,
+      "shared": false
+    },
+    {
+      "id": "ddc7c545-ffc1-4bed-b367-7400fd6c6eac",
+      "date": 1790967600000,
+      "hotWater": 2258,
+      "coldWater": 3821,
+      "dayElectricity": 10825,
+      "nightElectricity": 6833,
+      "shared": false
+    },
+    {
+      "id": "f82947b1-0d8d-45b7-8e95-5e761a63e11b",
+      "date": 1791140400000,
+      "hotWater": 2260,
+      "coldWater": 3825,
+      "dayElectricity": 10848,
+      "nightElectricity": 6839,
+      "shared": false
+    },
+    {
+      "id": "d6e5e648-cca9-404b-b7d3-ffd593b3fe13",
+      "date": 1791313200000,
+      "hotWater": 2262,
+      "coldWater": 3832,
+      "dayElectricity": 10861,
+      "nightElectricity": 6853,
+      "shared": false
+    },
+    {
+      "id": "932e4846-ff38-46a1-bb19-6c02722ccf68",
+      "date": 1791486000000,
+      "hotWater": 2267,
+      "coldWater": 3838,
+      "dayElectricity": 10881,
+      "nightElectricity": 6862,
+      "shared": false
+    },
+    {
+      "id": "2bc25343-5d62-4843-9759-0a4b38f24142",
+      "date": 1791658800000,
+      "hotWater": 2271,
+      "coldWater": 3844,
+      "dayElectricity": 10893,
+      "nightElectricity": 6870,
+      "shared": false
+    },
+    {
+      "id": "5148eece-5d06-4e70-b431-6cba70deb7e6",
+      "date": 1791831600000,
+      "hotWater": 2275,
+      "coldWater": 3849,
+      "dayElectricity": 10908,
+      "nightElectricity": 6885,
+      "shared": false
+    },
+    {
+      "id": "da031cb0-42f0-47cd-9424-467aabd38e20",
+      "date": 1792004400000,
+      "hotWater": 2280,
+      "coldWater": 3855,
+      "dayElectricity": 10920,
+      "nightElectricity": 6894,
+      "shared": false
+    },
+    {
+      "id": "10eae6e5-aedc-4e87-b6fc-c9c8e4736b49",
+      "date": 1792177200000,
+      "hotWater": 2284,
+      "coldWater": 3861,
+      "dayElectricity": 10942,
+      "nightElectricity": 6912,
+      "shared": false
+    },
+    {
+      "id": "49435aaf-9a78-4c77-a215-7ee1e91110ea",
+      "date": 1792350000000,
+      "hotWater": 2289,
+      "coldWater": 3868,
+      "dayElectricity": 10963,
+      "nightElectricity": 6917,
+      "shared": false
+    },
+    {
+      "id": "56208d20-422b-44cd-b46c-25b2716c28b7",
+      "date": 1792522800000,
+      "hotWater": 2293,
+      "coldWater": 3875,
+      "dayElectricity": 10986,
+      "nightElectricity": 6932,
+      "shared": false
+    },
+    {
+      "id": "d54c8738-2cd4-4361-aac7-d91a6e208e81",
+      "date": 1792695600000,
+      "hotWater": 2296,
+      "coldWater": 3880,
+      "dayElectricity": 11001,
+      "nightElectricity": 6946,
+      "shared": false
+    },
+    {
+      "id": "0353e96d-8b0f-4d39-8fe0-be8766116006",
+      "date": 1792868400000,
+      "hotWater": 2301,
+      "coldWater": 3885,
+      "dayElectricity": 11012,
+      "nightElectricity": 6963,
+      "shared": false
+    },
+    {
+      "id": "fe0d0ba4-6fc2-4773-947b-34bbcaa32a3b",
+      "date": 1793041200000,
+      "hotWater": 2303,
+      "coldWater": 3891,
+      "dayElectricity": 11036,
+      "nightElectricity": 6976,
+      "shared": false
+    },
+    {
+      "id": "41270bb1-7aa0-465f-b68a-641435ea330d",
+      "date": 1793214000000,
+      "hotWater": 2306,
+      "coldWater": 3897,
+      "dayElectricity": 11054,
+      "nightElectricity": 6992,
+      "shared": false
+    },
+    {
+      "id": "4b91c797-4d03-48d1-89a3-c5998e373d64",
+      "date": 1793386800000,
+      "hotWater": 2311,
+      "coldWater": 3903,
+      "dayElectricity": 11075,
+      "nightElectricity": 7000,
+      "shared": false
+    },
+    {
+      "id": "faa470f8-70f7-4eb1-a8c4-14cbde17df30",
+      "date": 1793559600000,
+      "hotWater": 2316,
+      "coldWater": 3911,
+      "dayElectricity": 11093,
+      "nightElectricity": 7005,
+      "shared": false
+    },
+    {
+      "id": "a683e958-87e6-4f04-a580-81dfff255110",
+      "date": 1793732400000,
+      "hotWater": 2320,
+      "coldWater": 3919,
+      "dayElectricity": 11103,
+      "nightElectricity": 7015,
+      "shared": false
+    },
+    {
+      "id": "fa6eef3b-c42c-4406-a71b-0f2f4c8ee31c",
+      "date": 1793905200000,
+      "hotWater": 2325,
+      "coldWater": 3922,
+      "dayElectricity": 11117,
+      "nightElectricity": 7029,
+      "shared": true
+    },
+    {
+      "id": "0f3d482f-19e6-4a06-a09a-9e171d790e22",
+      "date": 1794078000000,
+      "hotWater": 2327,
+      "coldWater": 3925,
+      "dayElectricity": 11134,
+      "nightElectricity": 7046,
+      "shared": false
+    },
+    {
+      "id": "b30791dd-0fa4-4172-ba1c-9b8a2883c1d9",
+      "date": 1794250800000,
+      "hotWater": 2329,
+      "coldWater": 3929,
+      "dayElectricity": 11145,
+      "nightElectricity": 7056,
+      "shared": false
+    },
+    {
+      "id": "2ab03377-dbdc-484b-87dc-cc1d02b96d9d",
+      "date": 1794423600000,
+      "hotWater": 2334,
+      "coldWater": 3933,
+      "dayElectricity": 11167,
+      "nightElectricity": 7069,
+      "shared": false
+    },
+    {
+      "id": "fbba30cc-9d97-4647-b99f-672fa52af3ef",
+      "date": 1794596400000,
+      "hotWater": 2336,
+      "coldWater": 3937,
+      "dayElectricity": 11189,
+      "nightElectricity": 7077,
+      "shared": false
+    },
+    {
+      "id": "90574491-c507-442a-a802-9c642dea7afe",
+      "date": 1794769200000,
+      "hotWater": 2341,
+      "coldWater": 3945,
+      "dayElectricity": 11201,
+      "nightElectricity": 7087,
+      "shared": false
+    },
+    {
+      "id": "61267948-7b33-430a-9d0e-6a70a2c21103",
+      "date": 1794942000000,
+      "hotWater": 2345,
+      "coldWater": 3950,
+      "dayElectricity": 11221,
+      "nightElectricity": 7095,
+      "shared": false
+    },
+    {
+      "id": "c609cdad-bae1-404f-9baf-f3586b49b082",
+      "date": 1795114800000,
+      "hotWater": 2349,
+      "coldWater": 3958,
+      "dayElectricity": 11246,
+      "nightElectricity": 7113,
+      "shared": false
+    },
+    {
+      "id": "ac3d1b90-0d44-4ef9-8421-5e336941abd7",
+      "date": 1795287600000,
+      "hotWater": 2353,
+      "coldWater": 3964,
+      "dayElectricity": 11266,
+      "nightElectricity": 7129,
+      "shared": false
+    },
+    {
+      "id": "3a34c4d9-ac74-4847-9fac-cc14cd1ef1b8",
+      "date": 1795460400000,
+      "hotWater": 2355,
+      "coldWater": 3969,
+      "dayElectricity": 11276,
+      "nightElectricity": 7134,
+      "shared": false
+    },
+    {
+      "id": "b6bf8108-2a81-4b87-9449-2b69febb71b6",
+      "date": 1795633200000,
+      "hotWater": 2360,
+      "coldWater": 3975,
+      "dayElectricity": 11292,
+      "nightElectricity": 7150,
+      "shared": false
+    },
+    {
+      "id": "8c7cd57a-d7ab-43c5-b52d-a7f07abcb42c",
+      "date": 1795806000000,
+      "hotWater": 2364,
+      "coldWater": 3982,
+      "dayElectricity": 11315,
+      "nightElectricity": 7158,
+      "shared": false
+    },
+    {
+      "id": "b8470b8c-8275-401e-8b5a-0a34b120636d",
+      "date": 1795978800000,
+      "hotWater": 2366,
+      "coldWater": 3985,
+      "dayElectricity": 11335,
+      "nightElectricity": 7175,
+      "shared": false
+    },
+    {
+      "id": "8d4e2bc0-6232-4d90-a8d9-9ef44a808cbb",
+      "date": 1796151600000,
+      "hotWater": 2368,
+      "coldWater": 3989,
+      "dayElectricity": 11350,
+      "nightElectricity": 7182,
+      "shared": false
+    },
+    {
+      "id": "04a8210c-01ae-4ef3-a5f7-10c7adda871d",
+      "date": 1796324400000,
+      "hotWater": 2370,
+      "coldWater": 3993,
+      "dayElectricity": 11364,
+      "nightElectricity": 7200,
+      "shared": false
+    },
+    {
+      "id": "339c8cf7-d90d-44ef-972d-4584acb4a7d0",
+      "date": 1796497200000,
+      "hotWater": 2374,
+      "coldWater": 3997,
+      "dayElectricity": 11386,
+      "nightElectricity": 7207,
+      "shared": false
+    },
+    {
+      "id": "99cdc6a1-8e3d-4584-aec7-c7fb096edd60",
+      "date": 1796670000000,
+      "hotWater": 2376,
+      "coldWater": 4004,
+      "dayElectricity": 11410,
+      "nightElectricity": 7221,
+      "shared": false
+    },
+    {
+      "id": "3f476e8e-bec0-4ef7-8e3b-cb5ba65cdfb2",
+      "date": 1796842800000,
+      "hotWater": 2380,
+      "coldWater": 4010,
+      "dayElectricity": 11422,
+      "nightElectricity": 7238,
+      "shared": false
+    },
+    {
+      "id": "d0d3828b-d300-434e-ae90-1fb5cb42233f",
+      "date": 1797015600000,
+      "hotWater": 2384,
+      "coldWater": 4014,
+      "dayElectricity": 11437,
+      "nightElectricity": 7250,
+      "shared": false
+    },
+    {
+      "id": "c3060498-648f-4b59-9bf0-0f451e474d1c",
+      "date": 1797188400000,
+      "hotWater": 2387,
+      "coldWater": 4021,
+      "dayElectricity": 11449,
+      "nightElectricity": 7267,
+      "shared": false
+    },
+    {
+      "id": "f78b5880-8330-4e3b-af25-3115f4da03dc",
+      "date": 1797361200000,
+      "hotWater": 2391,
+      "coldWater": 4026,
+      "dayElectricity": 11466,
+      "nightElectricity": 7276,
+      "shared": true
+    },
+    {
+      "id": "0b17eff0-9c8c-4b2c-b428-fa0edeb5aadd",
+      "date": 1797534000000,
+      "hotWater": 2395,
+      "coldWater": 4033,
+      "dayElectricity": 11485,
+      "nightElectricity": 7288,
+      "shared": false
+    },
+    {
+      "id": "896f54b0-e92b-4661-bc74-525e0cfed442",
+      "date": 1797706800000,
+      "hotWater": 2400,
+      "coldWater": 4040,
+      "dayElectricity": 11501,
+      "nightElectricity": 7293,
+      "shared": false
+    },
+    {
+      "id": "b7057a9e-1db8-4ddc-b338-57e99164a1c1",
+      "date": 1797879600000,
+      "hotWater": 2404,
+      "coldWater": 4044,
+      "dayElectricity": 11520,
+      "nightElectricity": 7300,
+      "shared": false
+    },
+    {
+      "id": "07701550-08a4-4a4e-a078-13ea5df47b01",
+      "date": 1798052400000,
+      "hotWater": 2407,
+      "coldWater": 4050,
+      "dayElectricity": 11530,
+      "nightElectricity": 7313,
+      "shared": false
+    },
+    {
+      "id": "990ad304-b6f2-4969-82ed-47d20a003622",
+      "date": 1798225200000,
+      "hotWater": 2411,
+      "coldWater": 4054,
+      "dayElectricity": 11548,
+      "nightElectricity": 7322,
+      "shared": false
+    },
+    {
+      "id": "cd9476ef-8d50-447f-ae5d-d69e64599031",
+      "date": 1798398000000,
+      "hotWater": 2415,
+      "coldWater": 4059,
+      "dayElectricity": 11563,
+      "nightElectricity": 7331,
+      "shared": false
+    },
+    {
+      "id": "73ce3d3e-54d0-4fbe-8167-b0ee2ad74936",
+      "date": 1798570800000,
+      "hotWater": 2418,
+      "coldWater": 4063,
+      "dayElectricity": 11573,
+      "nightElectricity": 7347,
+      "shared": false
+    },
+    {
+      "id": "5c062113-5574-4bad-b1b1-1e1aafc76e84",
+      "date": 1798743600000,
+      "hotWater": 2422,
+      "coldWater": 4071,
+      "dayElectricity": 11590,
+      "nightElectricity": 7358,
+      "shared": false
+    },
+    {
+      "id": "0a9ede20-1c96-47b3-ae04-75447cf9530e",
+      "date": 1798916400000,
+      "hotWater": 2425,
+      "coldWater": 4074,
+      "dayElectricity": 11603,
+      "nightElectricity": 7374,
+      "shared": false
+    },
+    {
+      "id": "32a726dd-3dd5-45c9-9ee8-937d5dbbd6d1",
+      "date": 1799089200000,
+      "hotWater": 2430,
+      "coldWater": 4079,
+      "dayElectricity": 11616,
+      "nightElectricity": 7382,
+      "shared": false
+    },
+    {
+      "id": "1a70e23f-7ae2-4cc9-99dd-49ae96a68cdc",
+      "date": 1799262000000,
+      "hotWater": 2435,
+      "coldWater": 4084,
+      "dayElectricity": 11641,
+      "nightElectricity": 7398,
+      "shared": false
+    },
+    {
+      "id": "2e74a9ba-796e-4f71-a905-e8fc41dfef0f",
+      "date": 1799434800000,
+      "hotWater": 2438,
+      "coldWater": 4088,
+      "dayElectricity": 11659,
+      "nightElectricity": 7416,
+      "shared": false
+    },
+    {
+      "id": "3c362fe1-31da-4ec9-a734-3de903174d92",
+      "date": 1799607600000,
+      "hotWater": 2443,
+      "coldWater": 4094,
+      "dayElectricity": 11680,
+      "nightElectricity": 7426,
+      "shared": false
+    },
+    {
+      "id": "16981b35-7b40-4ae9-9d56-fcd42913eac2",
+      "date": 1799780400000,
+      "hotWater": 2448,
+      "coldWater": 4102,
+      "dayElectricity": 11704,
+      "nightElectricity": 7434,
+      "shared": false
+    },
+    {
+      "id": "0c6887f0-7718-48e8-895d-40d57dd79835",
+      "date": 1799953200000,
+      "hotWater": 2452,
+      "coldWater": 4109,
+      "dayElectricity": 11725,
+      "nightElectricity": 7442,
+      "shared": false
+    },
+    {
+      "id": "707e0192-b69e-49cb-abef-0fc460ebf7cd",
+      "date": 1800126000000,
+      "hotWater": 2455,
+      "coldWater": 4116,
+      "dayElectricity": 11750,
+      "nightElectricity": 7452,
+      "shared": false
+    },
+    {
+      "id": "b2ec2b7f-1298-4a34-a12a-fdfd14a4e323",
+      "date": 1800298800000,
+      "hotWater": 2457,
+      "coldWater": 4120,
+      "dayElectricity": 11774,
+      "nightElectricity": 7465,
+      "shared": false
+    },
+    {
+      "id": "dc6acdb5-d4c3-4598-b6fe-3311e7d3b2a0",
+      "date": 1800471600000,
+      "hotWater": 2460,
+      "coldWater": 4125,
+      "dayElectricity": 11793,
+      "nightElectricity": 7475,
+      "shared": false
+    },
+    {
+      "id": "ffba03b1-ce98-408e-a7be-ed59d7a91327",
+      "date": 1800644400000,
+      "hotWater": 2464,
+      "coldWater": 4132,
+      "dayElectricity": 11813,
+      "nightElectricity": 7484,
+      "shared": false
+    },
+    {
+      "id": "5fb21ed6-996a-4315-b664-88f94f5e4794",
+      "date": 1800817200000,
+      "hotWater": 2469,
+      "coldWater": 4135,
+      "dayElectricity": 11828,
+      "nightElectricity": 7501,
+      "shared": true
+    },
+    {
+      "id": "cc90a652-4fd8-4ccb-90ba-fbfa6e927fb9",
+      "date": 1800990000000,
+      "hotWater": 2471,
+      "coldWater": 4141,
+      "dayElectricity": 11853,
+      "nightElectricity": 7513,
+      "shared": false
+    },
+    {
+      "id": "8069cb6b-15a1-4494-bfdb-82c8841711c5",
+      "date": 1801162800000,
+      "hotWater": 2473,
+      "coldWater": 4147,
+      "dayElectricity": 11875,
+      "nightElectricity": 7520,
+      "shared": false
+    },
+    {
+      "id": "8b1d2dfe-9d65-4901-a18e-9acb024d60bc",
+      "date": 1801335600000,
+      "hotWater": 2478,
+      "coldWater": 4154,
+      "dayElectricity": 11900,
+      "nightElectricity": 7527,
+      "shared": false
+    },
+    {
+      "id": "ae2af16f-6f3c-4f5e-bcba-b9a286d0b03e",
+      "date": 1801508400000,
+      "hotWater": 2483,
+      "coldWater": 4162,
+      "dayElectricity": 11919,
+      "nightElectricity": 7532,
+      "shared": false
+    },
+    {
+      "id": "1a842deb-80f0-4329-8b8c-31b32111c611",
+      "date": 1801681200000,
+      "hotWater": 2488,
+      "coldWater": 4170,
+      "dayElectricity": 11932,
+      "nightElectricity": 7549,
+      "shared": false
+    },
+    {
+      "id": "876069c3-76a4-4cb4-9f98-1c57a86541c2",
+      "date": 1801854000000,
+      "hotWater": 2493,
+      "coldWater": 4176,
+      "dayElectricity": 11949,
+      "nightElectricity": 7560,
+      "shared": false
+    },
+    {
+      "id": "c1690ca0-3f09-4d36-aacd-e22286958c5a",
+      "date": 1802026800000,
+      "hotWater": 2495,
+      "coldWater": 4179,
+      "dayElectricity": 11974,
+      "nightElectricity": 7568,
+      "shared": false
+    },
+    {
+      "id": "0b63d4c8-5f72-40e7-8b40-02f48cfcc157",
+      "date": 1802199600000,
+      "hotWater": 2498,
+      "coldWater": 4184,
+      "dayElectricity": 11987,
+      "nightElectricity": 7579,
+      "shared": false
+    },
+    {
+      "id": "a4f9f3b4-5bba-493a-bb66-3bb10903622a",
+      "date": 1802372400000,
+      "hotWater": 2501,
+      "coldWater": 4190,
+      "dayElectricity": 11998,
+      "nightElectricity": 7596,
+      "shared": false
+    },
+    {
+      "id": "1b4f76e3-c583-4373-80e2-9696067ea017",
+      "date": 1802545200000,
+      "hotWater": 2505,
+      "coldWater": 4197,
+      "dayElectricity": 12015,
+      "nightElectricity": 7607,
+      "shared": false
+    },
+    {
+      "id": "4083c776-3904-4714-93e6-396d3d37462e",
+      "date": 1802718000000,
+      "hotWater": 2509,
+      "coldWater": 4204,
+      "dayElectricity": 12036,
+      "nightElectricity": 7622,
+      "shared": false
+    },
+    {
+      "id": "5eba1b3c-893a-452e-ab38-743ebc159191",
+      "date": 1802890800000,
+      "hotWater": 2514,
+      "coldWater": 4212,
+      "dayElectricity": 12056,
+      "nightElectricity": 7627,
+      "shared": false
+    },
+    {
+      "id": "73c23481-08cf-46ea-b6d9-cbe7fecdd432",
+      "date": 1803063600000,
+      "hotWater": 2518,
+      "coldWater": 4216,
+      "dayElectricity": 12076,
+      "nightElectricity": 7640,
+      "shared": false
+    },
+    {
+      "id": "36d93aa5-f875-4c64-afce-c6522ce20599",
+      "date": 1803236400000,
+      "hotWater": 2521,
+      "coldWater": 4224,
+      "dayElectricity": 12094,
+      "nightElectricity": 7645,
+      "shared": false
+    },
+    {
+      "id": "a63079de-8778-4ee4-a5cb-7ce40bfc4e7e",
+      "date": 1803409200000,
+      "hotWater": 2526,
+      "coldWater": 4231,
+      "dayElectricity": 12108,
+      "nightElectricity": 7653,
+      "shared": false
+    },
+    {
+      "id": "e3353e37-46bf-4721-b01e-1134029109d7",
+      "date": 1803582000000,
+      "hotWater": 2529,
+      "coldWater": 4238,
+      "dayElectricity": 12129,
+      "nightElectricity": 7660,
+      "shared": false
+    },
+    {
+      "id": "c0d8d9d6-aeb6-4fdb-96b9-fecc6c9a7268",
+      "date": 1803754800000,
+      "hotWater": 2531,
+      "coldWater": 4243,
+      "dayElectricity": 12145,
+      "nightElectricity": 7671,
+      "shared": false
+    },
+    {
+      "id": "b211419f-0b0b-4ef2-aafb-300e66d7c08c",
+      "date": 1803927600000,
+      "hotWater": 2533,
+      "coldWater": 4246,
+      "dayElectricity": 12158,
+      "nightElectricity": 7685,
+      "shared": false
+    },
+    {
+      "id": "b9b4ede9-b74f-43aa-aadc-050bf191c109",
+      "date": 1804100400000,
+      "hotWater": 2536,
+      "coldWater": 4249,
+      "dayElectricity": 12174,
+      "nightElectricity": 7695,
+      "shared": false
+    },
+    {
+      "id": "a2df7c46-3eac-4261-897d-f669a4095337",
+      "date": 1804273200000,
+      "hotWater": 2540,
+      "coldWater": 4254,
+      "dayElectricity": 12184,
+      "nightElectricity": 7711,
+      "shared": true
+    },
+    {
+      "id": "299ff2ba-d25b-4c99-a54c-4a3f5744cb2d",
+      "date": 1804446000000,
+      "hotWater": 2542,
+      "coldWater": 4261,
+      "dayElectricity": 12194,
+      "nightElectricity": 7719,
+      "shared": false
+    },
+    {
+      "id": "abaee694-15b0-4bc6-9da7-89c6cb03820a",
+      "date": 1804618800000,
+      "hotWater": 2544,
+      "coldWater": 4264,
+      "dayElectricity": 12217,
+      "nightElectricity": 7730,
+      "shared": false
+    },
+    {
+      "id": "bf264e10-8e87-433e-8ec1-b42001b699f3",
+      "date": 1804791600000,
+      "hotWater": 2547,
+      "coldWater": 4272,
+      "dayElectricity": 12233,
+      "nightElectricity": 7740,
+      "shared": false
+    },
+    {
+      "id": "4f1210bc-84b7-4240-8d0f-8a6702adbf70",
+      "date": 1804964400000,
+      "hotWater": 2550,
+      "coldWater": 4280,
+      "dayElectricity": 12245,
+      "nightElectricity": 7750,
+      "shared": false
+    },
+    {
+      "id": "3f6c67e5-28a6-4075-8eff-4be66bf36088",
+      "date": 1805137200000,
+      "hotWater": 2552,
+      "coldWater": 4288,
+      "dayElectricity": 12268,
+      "nightElectricity": 7766,
+      "shared": false
+    },
+    {
+      "id": "5595a385-5703-4d09-a07d-a17326b54f6c",
+      "date": 1805310000000,
+      "hotWater": 2554,
+      "coldWater": 4292,
+      "dayElectricity": 12289,
+      "nightElectricity": 7784,
+      "shared": false
+    },
+    {
+      "id": "349194fd-aac8-4584-a2f7-49e82f2ad1a1",
+      "date": 1805482800000,
+      "hotWater": 2558,
+      "coldWater": 4296,
+      "dayElectricity": 12309,
+      "nightElectricity": 7797,
+      "shared": false
+    },
+    {
+      "id": "1e81b398-a371-4c14-91c4-49aec04c226f",
+      "date": 1805655600000,
+      "hotWater": 2560,
+      "coldWater": 4303,
+      "dayElectricity": 12322,
+      "nightElectricity": 7810,
+      "shared": false
+    },
+    {
+      "id": "9224da9a-5890-4d16-9185-35f4deda962a",
+      "date": 1805828400000,
+      "hotWater": 2563,
+      "coldWater": 4307,
+      "dayElectricity": 12341,
+      "nightElectricity": 7826,
+      "shared": false
+    },
+    {
+      "id": "2d3f27f5-e188-44a0-9a7d-dbc8a4cd60d7",
+      "date": 1806001200000,
+      "hotWater": 2567,
+      "coldWater": 4315,
+      "dayElectricity": 12354,
+      "nightElectricity": 7843,
+      "shared": false
+    },
+    {
+      "id": "792a86d9-9c5a-422d-a51a-20c35a82f941",
+      "date": 1806174000000,
+      "hotWater": 2571,
+      "coldWater": 4322,
+      "dayElectricity": 12372,
+      "nightElectricity": 7858,
+      "shared": false
+    },
+    {
+      "id": "810f760c-3505-4697-a699-99db4e76a8ff",
+      "date": 1806346800000,
+      "hotWater": 2573,
+      "coldWater": 4326,
+      "dayElectricity": 12394,
+      "nightElectricity": 7874,
+      "shared": false
+    },
+    {
+      "id": "170e40cd-cd38-49fb-b338-756afa06a278",
+      "date": 1806519600000,
+      "hotWater": 2577,
+      "coldWater": 4330,
+      "dayElectricity": 12412,
+      "nightElectricity": 7886,
+      "shared": false
+    },
+    {
+      "id": "c23d0056-a567-47d0-bb47-b6772a4b47ab",
+      "date": 1806692400000,
+      "hotWater": 2579,
+      "coldWater": 4338,
+      "dayElectricity": 12429,
+      "nightElectricity": 7899,
+      "shared": false
+    },
+    {
+      "id": "35fb22d8-59c8-44cd-9c81-806084d670f5",
+      "date": 1806865200000,
+      "hotWater": 2582,
+      "coldWater": 4343,
+      "dayElectricity": 12451,
+      "nightElectricity": 7917,
+      "shared": false
+    },
+    {
+      "id": "a6ab7585-9276-416c-a72b-3452dab3ff5c",
+      "date": 1807038000000,
+      "hotWater": 2585,
+      "coldWater": 4351,
+      "dayElectricity": 12470,
+      "nightElectricity": 7922,
+      "shared": false
+    },
+    {
+      "id": "fb56bdd5-c463-43fa-b270-420d98312522",
+      "date": 1807210800000,
+      "hotWater": 2588,
+      "coldWater": 4356,
+      "dayElectricity": 12495,
+      "nightElectricity": 7938,
+      "shared": false
+    },
+    {
+      "id": "e331ecec-98fb-4c3e-beb6-05c0956387ce",
+      "date": 1807383600000,
+      "hotWater": 2592,
+      "coldWater": 4361,
+      "dayElectricity": 12508,
+      "nightElectricity": 7944,
+      "shared": false
+    },
+    {
+      "id": "e2b252f1-4d81-4219-be22-fe9612ac8633",
+      "date": 1807556400000,
+      "hotWater": 2597,
+      "coldWater": 4364,
+      "dayElectricity": 12527,
+      "nightElectricity": 7959,
+      "shared": false
+    }
+  ]
+}

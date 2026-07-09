@@ -99,6 +99,7 @@ fun App(
                     is AppRoute.Settings -> {
                         SettingsScreen(
                             viewModel = settingsViewModel,
+                            resourcesDataViewModel = resourcesDataViewModel,
                             onNavigateBack = { navigateBack() }
                         )
                     }

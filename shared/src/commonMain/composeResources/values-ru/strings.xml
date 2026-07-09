@@ -33,6 +33,12 @@
     <string name="home_search_content_desc">Поиск</string>
     <string name="home_search_hint">Поиск по дате…</string>
 
+    <!-- Home Screen — Date filter -->
+    <string name="home_date_filter_from">От</string>
+    <string name="home_date_filter_to">До</string>
+    <string name="home_date_filter_clear">Сбросить</string>
+    <string name="home_date_filter_picker_title">Выберите дату</string>
+
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Добавить показания</string>
     <string name="add_readings_edit_title">Изменить показания</string>
@@ -109,6 +115,12 @@
 
     <!-- Settings -->
     <string name="settings_template_example">Пример</string>
+    <string name="settings_address_section">Адрес объекта</string>
+    <string name="settings_template_section">Шаблон сообщения</string>
+    <string name="settings_data_section">Управление данными</string>
+    <string name="settings_export_button">Экспорт в JSON</string>
+    <string name="settings_import_button">Импорт из JSON</string>
+    <string name="settings_delete_all_button">Удалить все записи</string>
 
     <!-- Common -->
     <string name="dialog_ok">OK</string>

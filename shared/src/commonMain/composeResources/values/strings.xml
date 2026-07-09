@@ -33,6 +33,12 @@
     <string name="home_search_content_desc">Search</string>
     <string name="home_search_hint">Search by date…</string>
 
+    <!-- Home Screen — Date filter -->
+    <string name="home_date_filter_from">From</string>
+    <string name="home_date_filter_to">To</string>
+    <string name="home_date_filter_clear">Clear filter</string>
+    <string name="home_date_filter_picker_title">Select date</string>
+
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Add Readings</string>
     <string name="add_readings_edit_title">Edit Readings</string>
@@ -109,6 +115,12 @@
 
     <!-- Settings -->
     <string name="settings_template_example">Example</string>
+    <string name="settings_address_section">Property address</string>
+    <string name="settings_template_section">Message template</string>
+    <string name="settings_data_section">Data management</string>
+    <string name="settings_export_button">Export to JSON</string>
+    <string name="settings_import_button">Import from JSON</string>
+    <string name="settings_delete_all_button">Delete all records</string>
 
     <!-- Common -->
     <string name="dialog_ok">OK</string>
