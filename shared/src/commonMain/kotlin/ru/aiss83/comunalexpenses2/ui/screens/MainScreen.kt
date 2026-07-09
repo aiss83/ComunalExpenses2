@@ -37,7 +37,7 @@ fun App(
         Surface {
             var currentRoute: AppRoute by remember { mutableStateOf(startRoute) }
 
-            val navigateBack = { currentRoute = AppRoute.Home }
+            val navigateBack = remember { { currentRoute = AppRoute.Home } }
 
             val errorMessage by resourcesDataViewModel.errorMessage.collectAsState()
 
@@ -72,16 +72,16 @@ fun App(
                             allResourceData = allResourcesData,
                             userSettings = userSettings,
                             viewModel = resourcesDataViewModel,
-                            onNavigateToAddExpenses = { currentRoute = AppRoute.EditResources() },
-                            onNavigateToEditExpenses = { record -> currentRoute = AppRoute.EditResources(record) },
-                            onNavigateToSettings = { currentRoute = AppRoute.Settings },
-                            onNavigateToStats = { currentRoute = AppRoute.Stats }
+                            onNavigateToAddExpenses = remember { { currentRoute = AppRoute.EditResources() } },
+                            onNavigateToEditExpenses = remember { { record -> currentRoute = AppRoute.EditResources(record) } },
+                            onNavigateToSettings = remember { { currentRoute = AppRoute.Settings } },
+                            onNavigateToStats = remember { { currentRoute = AppRoute.Stats } }
                         )
                     }
 
                     is AppRoute.EditResources -> {
                         val allData by resourcesDataViewModel.allResourcesData.collectAsState()
-                        val sorted = allData.sortedBy { it.date }
+                        val sorted = remember(allData) { allData.sortedBy { it.date } }
                         val previousRecord = if (route.existingRecord != null) {
                             val idx = sorted.indexOfFirst { it.id == route.existingRecord.id }
                             if (idx > 0) sorted[idx - 1] else null

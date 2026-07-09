@@ -112,19 +112,20 @@ fun HomeScreen(
 
     val from = dateFromMillis
     val to = dateToMillis
-    val filteredData = if (from == null && to == null) {
-        allResourceData
-    } else {
-        allResourceData.filter { record ->
-            val passesFrom = from == null || record.date >= from
-            val passesTo = to == null || record.date < to + 86_400_000L
-            passesFrom && passesTo
+    val filteredData = remember(from, to, allResourceData) {
+        if (from == null && to == null) {
+            allResourceData
+        } else {
+            allResourceData.filter { record ->
+                val passesFrom = from == null || record.date >= from
+                val passesTo = to == null || record.date < to + 86_400_000L
+                passesFrom && passesTo
+            }
         }
     }
 
     // Delete confirmation
     var openRemoveDialog by rememberSaveable { mutableStateOf(false) }
-    var boundToRemove by rememberSaveable { mutableStateOf("") }
     var recordToRemove by remember { mutableStateOf<ResourceData?>(null) }
     var swipeResetKey by remember { mutableStateOf(0) }
     var swipeConfirmKey by remember { mutableStateOf(0) }
@@ -181,13 +182,11 @@ fun HomeScreen(
 
     val removeRecord = { record: ResourceData ->
         recordToRemove = record
-        boundToRemove = record.id.toString()
         openRemoveDialog = true
     }
 
     val dismissRemove = {
         openRemoveDialog = false
-        boundToRemove = ""
         recordToRemove = null
         swipeResetKey++
         Unit
@@ -197,7 +196,6 @@ fun HomeScreen(
         openRemoveDialog = false
         val record = recordToRemove
         swipeConfirmKey++
-        boundToRemove = ""
         recordToRemove = null
         if (record != null) {
             scope.launch {
