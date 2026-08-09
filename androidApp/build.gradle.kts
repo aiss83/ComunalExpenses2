@@ -88,6 +88,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
+    applicationVariants.configureEach {
+        outputs.configureEach {
+            val out = this as? com.android.build.gradle.internal.api.BaseVariantOutputImpl
+            out?.outputFileName = "ComunalExpenses-v${versionName}.apk"
+        }
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
