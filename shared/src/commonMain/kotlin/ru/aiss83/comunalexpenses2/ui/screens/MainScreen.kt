@@ -13,8 +13,10 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import comunalexpenses2.shared.generated.resources.*
 import kotlin.uuid.ExperimentalUuidApi
@@ -23,6 +25,8 @@ import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
 import ru.aiss83.comunalexpenses2.ui.AppRoute
 import ru.aiss83.comunalexpenses2.ui.theme.ComunalExpenses2Theme
+import ru.aiss83.comunalexpenses2.utils.toDayKey
+import kotlinx.datetime.Clock
 
 @OptIn(ExperimentalUuidApi::class)
 @Composable
@@ -35,7 +39,10 @@ fun App(
 
     ComunalExpenses2Theme(themeMode = userSettings.themeMode) {
         Surface {
-            var currentRoute: AppRoute by remember { mutableStateOf(startRoute) }
+            // Saved so rotating the device / process death keeps the current screen.
+            var currentRoute: AppRoute by rememberSaveable(stateSaver = AppRoute.RouteSaver) {
+                mutableStateOf(startRoute)
+            }
 
             val navigateBack = remember { { currentRoute = AppRoute.Home } }
 
@@ -82,18 +89,35 @@ fun App(
                     is AppRoute.EditResources -> {
                         val allData by resourcesDataViewModel.allResourcesData.collectAsState()
                         val sorted = remember(allData) { allData.sortedBy { it.date } }
-                        val previousRecord = if (route.existingRecord != null) {
-                            val idx = sorted.indexOfFirst { it.id == route.existingRecord.id }
-                            if (idx > 0) sorted[idx - 1] else null
+                        // Exactly one card per day: an "add" intent is redirected to today's
+                        // existing card, so the form always edits the single record of that day
+                        // (also covers the widget deep link and process-death restore).
+                        val target = remember(route, allData) {
+                            route.existingRecord
+                                ?: allData.firstOrNull { it.date == Clock.System.now().toEpochMilliseconds().toDayKey() }
+                        }
+                        val editIndex = target
+                            ?.let { record -> sorted.indexOfFirst { it.id == record.id } }
+                            ?: -1
+                        val previousRecord = if (target != null) {
+                            if (editIndex > 0) sorted[editIndex - 1] else null
                         } else {
                             sorted.lastOrNull()
                         }
-                        AddResourcesDataScreen(
-                            viewModel = resourcesDataViewModel,
-                            existingRecord = route.existingRecord,
-                            previousRecord = previousRecord,
-                            onNavigateBack = { navigateBack() }
-                        )
+                        // Values of an edited record must not exceed the following record either,
+                        // otherwise the consumption chart gets a bogus spike.
+                        val nextRecord = if (editIndex >= 0) sorted.getOrNull(editIndex + 1) else null
+                        // Re-keyed when the target arrives asynchronously, so the form is
+                        // initialised from the record instead of staying empty.
+                        key(target?.id) {
+                            AddResourcesDataScreen(
+                                viewModel = resourcesDataViewModel,
+                                existingRecord = target,
+                                previousRecord = previousRecord,
+                                nextRecord = nextRecord,
+                                onNavigateBack = { navigateBack() }
+                            )
+                        }
                     }
 
                     is AppRoute.Settings -> {

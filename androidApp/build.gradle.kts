@@ -21,8 +21,18 @@ val gitCommitCount: Int by lazy {
 
 val gitVersionName: String by lazy {
     val count = gitCommitCount
-    val tag = runGit(listOf("git", "describe", "--tags", "--abbrev=0")).takeIf { it.isNotEmpty() }
-    if (tag != null) "$tag.$count" else "1.0.$count"
+    val tag = runGit(listOf("git", "describe", "--tags", "--abbrev=0"))
+        .trim()
+        .removePrefix("v")
+
+    // A tag is a version *base*: "1.0" + 83 commits -> "1.0.83".
+    // A complete "1.2.3" tag is used as-is; anything else is ignored.
+    when {
+        tag.isEmpty() -> "1.0.$count"
+        Regex("""^\d+\.\d+$""").matches(tag) -> "$tag.$count"
+        Regex("""^\d+\.\d+\.\d+$""").matches(tag) -> tag
+        else -> "1.0.$count"
+    }
 }
 
 // Signing — read from keystore.properties (git-ignored)
@@ -54,19 +64,27 @@ android {
         }
     }
 
+    val hasReleaseKeystore = listOf("storeFile", "storePassword", "keyAlias", "keyPassword")
+        .all { key -> !keystoreProps[key].isNullOrBlank() }
+
     signingConfigs {
-        create("release") {
-            storeFile = file(keystoreProps["storeFile"] ?: return@create)
-            storePassword = keystoreProps["storePassword"] ?: return@create
-            keyAlias = keystoreProps["keyAlias"] ?: return@create
-            keyPassword = keystoreProps["keyPassword"] ?: return@create
+        if (hasReleaseKeystore) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProps.getValue("storeFile"))
+                storePassword = keystoreProps.getValue("storePassword")
+                keyAlias = keystoreProps.getValue("keyAlias")
+                keyPassword = keystoreProps.getValue("keyPassword")
+            }
         }
     }
 
     buildTypes {
         release {
-            signingConfig = if (keystoreProps.isNotEmpty()) signingConfigs.getByName("release") else signingConfigs.getByName("debug")
-            isMinifyEnabled = false
+            // Never fall back to the debug key: a debug-signed "release" cannot be published
+            // and silently installs as a different signer. Without a keystore the APK stays unsigned.
+            signingConfig = signingConfigs.findByName("release")
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

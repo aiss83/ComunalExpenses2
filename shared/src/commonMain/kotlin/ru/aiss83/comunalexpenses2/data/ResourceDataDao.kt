@@ -12,12 +12,17 @@ import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 /**
- * Extension function to convert SQLDelight record to domain model.
+ * Extension function to convert a SQLDelight record to the domain model.
+ *
+ * Returns `null` for a row whose `recordId` is not a valid UUID (corrupted or foreign data):
+ * one bad row must not take down the whole list flow, which previously threw and left the UI
+ * with an error and no data.
  */
 @OptIn(ExperimentalUuidApi::class)
-private fun Resources_records.toResourceData(): ResourceData {
+private fun Resources_records.toResourceData(): ResourceData? {
+    val id = runCatching { Uuid.parse(recordId) }.getOrNull() ?: return null
     return ResourceData(
-        id = Uuid.parse(recordId),
+        id = id,
         date = date,
         hotWater = waterHot,
         coldWater = waterCold,
@@ -44,7 +49,7 @@ class ResourceDataDao(private val database: ResourcesDatabase) {
             .asFlow()
             .mapToList(Dispatchers.IO)
             .map { records ->
-                records.map { it.toResourceData() }
+                records.mapNotNull { it.toResourceData() }
             }
     }
 
@@ -123,11 +128,14 @@ class ResourceDataDao(private val database: ResourcesDatabase) {
 
     /**
      * Bulk-import records in a single transaction for atomicity.
+     *
+     * Uses `INSERT OR REPLACE` so re-importing the same backup is idempotent instead of
+     * failing with a primary-key violation and aborting the whole transaction.
      */
     suspend fun importRecords(records: List<ResourceData>) = withContext(Dispatchers.IO) {
         database.transaction {
             for (data in records) {
-                queries.insertResourceData(
+                queries.insertOrReplaceResourceData(
                     recordId = data.id.toString(),
                     date = data.date,
                     waterHot = data.hotWater,

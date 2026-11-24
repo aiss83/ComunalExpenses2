@@ -6,12 +6,32 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import ru.aiss83.comunalexpenses2.data.ImportParseResult
 import ru.aiss83.comunalexpenses2.data.ResourceData
 import ru.aiss83.comunalexpenses2.data.ResourceDataRepository
 import ru.aiss83.comunalexpenses2.data.exportToJson
-import ru.aiss83.comunalexpenses2.data.importFromJson
+import ru.aiss83.comunalexpenses2.data.parseImportJson
+import ru.aiss83.comunalexpenses2.utils.clearWidgetData
+import ru.aiss83.comunalexpenses2.utils.updateWidgetData
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+
+/**
+ * Outcome of an import attempt, consumed by the settings screen.
+ */
+sealed interface ImportResult {
+    /** [imported] records were written, [skipped] malformed entries were ignored. */
+    data class Success(val imported: Int, val skipped: Int) : ImportResult
+
+    /** The picked file is not a valid export JSON. */
+    data object InvalidFile : ImportResult
+
+    /** The file parsed, but contained no usable records. */
+    data object NoValidRecords : ImportResult
+
+    /** The database rejected the import. */
+    data object Failed : ImportResult
+}
 
 /**
  * ViewModel for managing utility meter readings (resource data).
@@ -28,8 +48,8 @@ class ResourcesDataViewModel(
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage
 
-    private val _importedCount = MutableStateFlow<Int?>(null)
-    val importedCount: StateFlow<Int?> = _importedCount
+    private val _importResult = MutableStateFlow<ImportResult?>(null)
+    val importResult: StateFlow<ImportResult?> = _importResult
 
     init {
         observeAllResourcesData()
@@ -43,7 +63,28 @@ class ResourcesDataViewModel(
                 }
                 .collect { data ->
                     _allResourcesData.value = data
+                    syncHomeWidget(data)
                 }
+        }
+    }
+
+    /**
+     * Keep the home-screen widget in sync with the newest record.
+     * The DAO returns records ordered by date descending, so the first one is the latest.
+     * Called after every data change (add / edit / delete / import) for a single source of truth.
+     */
+    private fun syncHomeWidget(data: List<ResourceData>) {
+        val latest = data.firstOrNull()
+        if (latest == null) {
+            clearWidgetData()
+        } else {
+            updateWidgetData(
+                coldWater = latest.coldWater,
+                hotWater = latest.hotWater,
+                dayElectricity = latest.dayElectricity,
+                nightElectricity = latest.nightElectricity,
+                date = latest.formatDate()
+            )
         }
     }
 
@@ -81,8 +122,8 @@ class ResourcesDataViewModel(
         _errorMessage.value = null
     }
 
-    fun clearImportedCount() {
-        _importedCount.value = null
+    fun clearImportResult() {
+        _importResult.value = null
     }
 
     /**
@@ -134,20 +175,29 @@ class ResourcesDataViewModel(
     /**
      * Import records from a JSON string.
      * Parsing is synchronous, insertion is async.
-     * Observers should watch [importedCount] for the final inserted count.
+     * Observers should watch [importResult] — it is always set exactly once per call, so the
+     * UI can reliably clear its progress state on success *and* on failure.
      */
     fun importJson(jsonString: String) {
-        val parsed = importFromJson(jsonString)
-        if (parsed.isEmpty()) {
-            _errorMessage.value = "No valid records found in JSON"
-            return
-        }
-        viewModelScope.launch {
-            try {
-                repository.importRecords(parsed)
-                _importedCount.value = parsed.size
-            } catch (e: Exception) {
-                _errorMessage.value = "Failed to import: ${e.message}"
+        when (val parsed = parseImportJson(jsonString)) {
+            ImportParseResult.InvalidJson -> {
+                _importResult.value = ImportResult.InvalidFile
+            }
+
+            ImportParseResult.NoRecords -> {
+                _importResult.value = ImportResult.NoValidRecords
+            }
+
+            is ImportParseResult.Success -> viewModelScope.launch {
+                try {
+                    repository.importRecords(parsed.records)
+                    _importResult.value = ImportResult.Success(
+                        imported = parsed.records.size,
+                        skipped = parsed.skippedInvalid
+                    )
+                } catch (_: Exception) {
+                    _importResult.value = ImportResult.Failed
+                }
             }
         }
     }

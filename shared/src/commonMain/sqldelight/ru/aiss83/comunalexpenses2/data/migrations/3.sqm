@@ -1,0 +1,31 @@
+-- One card per calendar day.
+--
+-- 1. Keep only the latest record of each local calendar day. Older versions allowed several
+--    readings per day (including accidental duplicates), which made the list and the chart
+--    ambiguous. "Latest" = greatest original timestamp, ties broken by recordId.
+DELETE FROM resources_records
+WHERE recordId NOT IN (
+    SELECT (
+        SELECT r3.recordId
+        FROM resources_records r3
+        WHERE date(r3.date / 1000, 'unixepoch', 'localtime')
+            = date(r2.date / 1000, 'unixepoch', 'localtime')
+        ORDER BY r3.date DESC, r3.recordId DESC
+        LIMIT 1
+    )
+    FROM resources_records r2
+);
+
+-- 2. Convert stored instants to day keys: UTC midnight of the local calendar date.
+-- `'localtime'` shifts the value by the zone offset, so `'start of day'` truncates to the local
+-- calendar date; the resulting epoch seconds are exactly UTC midnight of that date.
+-- (Do not append `'utc'`: that would subtract the offset again and keep a local-midnight instant,
+-- which shifts by a day after a time-zone change.)
+UPDATE resources_records
+SET date = CAST(
+        strftime('%s', date / 1000, 'unixepoch', 'localtime', 'start of day') AS INTEGER
+    ) * 1000;
+
+-- 3. Enforce the invariant at the database level.
+CREATE UNIQUE INDEX IF NOT EXISTS resources_records_date_unique
+ON resources_records(date);

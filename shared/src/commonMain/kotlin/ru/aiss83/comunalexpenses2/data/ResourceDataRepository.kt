@@ -1,6 +1,8 @@
 package ru.aiss83.comunalexpenses2.data
 
 import kotlinx.coroutines.flow.Flow
+import ru.aiss83.comunalexpenses2.utils.MILLIS_PER_DAY
+import ru.aiss83.comunalexpenses2.utils.normalizeToDayKey
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -30,14 +32,14 @@ class ResourceDataRepository(private val dao: ResourceDataDao) {
      * Insert a new resource data record.
      */
     suspend fun insertResourcesData(data: ResourceData) {
-        dao.addResourceData(data)
+        dao.addResourceData(data.normalizedToDay())
     }
 
     /**
      * Update an existing resource data record.
      */
     suspend fun updateResourcesData(data: ResourceData) {
-        dao.updateResourceData(data)
+        dao.updateResourceData(data.normalizedToDay())
     }
 
     /**
@@ -65,6 +67,13 @@ class ResourceDataRepository(private val dao: ResourceDataDao) {
      * Bulk-import records in a single transaction.
      */
     suspend fun importRecords(records: List<ResourceData>) {
-        dao.importRecords(records)
+        dao.importRecords(records.map { it.normalizedToDay() })
     }
+
+    /**
+     * Boundary guard: every write stores a day key, so the UNIQUE(date) invariant cannot be
+     * bypassed by a caller that still has a raw timestamp.
+     */
+    private fun ResourceData.normalizedToDay(): ResourceData =
+        if (date % MILLIS_PER_DAY == 0L) this else copy(date = date.normalizeToDayKey())
 }

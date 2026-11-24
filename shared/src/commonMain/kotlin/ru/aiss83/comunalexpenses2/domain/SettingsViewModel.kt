@@ -1,12 +1,9 @@
 package ru.aiss83.comunalexpenses2.domain
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
 import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.data.SettingsManager
 import ru.aiss83.comunalexpenses2.data.ThemeMode
@@ -30,10 +27,11 @@ class SettingsViewModel(
 ) : ViewModel() {
 
     /**
-     * Settings flow. Starts eager so the UI gets cached values immediately.
+     * Settings flow. The manager already exposes a StateFlow holding the persisted values,
+     * so the first composition sees real data (no default-value flash that used to reset
+     * the input fields when the theme changed).
      */
     val settingsData: StateFlow<SettingsData> = settingsManager.settingsData
-        .stateIn(viewModelScope, SharingStarted.Eagerly, SettingsData())
 
     private val _saveResult = MutableStateFlow<SaveSettingsResult?>(null)
     val saveResult: StateFlow<SaveSettingsResult?> = _saveResult.asStateFlow()

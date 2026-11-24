@@ -25,6 +25,8 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <!-- Keep in sync with WidgetDataKeys.REFRESH_ACTION -->
+                <action android:name="ru.aiss83.comunalexpenses2.action.WIDGET_REFRESH" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

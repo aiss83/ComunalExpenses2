@@ -11,7 +11,6 @@ import platform.Foundation.create
 import platform.UIKit.UIDocumentPickerDelegateProtocol
 import platform.UIKit.UIDocumentPickerMode
 import platform.UIKit.UIDocumentPickerViewController
-import platform.UIKit.UIApplication
 import platform.darwin.NSObject
 
 /**
@@ -50,7 +49,6 @@ actual fun rememberJsonFilePicker(onFilePicked: (String?) -> Unit): () -> Unit {
             inMode = UIDocumentPickerMode.UIDocumentPickerModeImport
         )
         picker.delegate = delegate
-        val rootVC = UIApplication.sharedApplication.keyWindow?.rootViewController
-        rootVC?.presentViewController(picker, animated = true, completion = null)
+        topViewController()?.presentViewController(picker, animated = true, completion = null)
     }
 }

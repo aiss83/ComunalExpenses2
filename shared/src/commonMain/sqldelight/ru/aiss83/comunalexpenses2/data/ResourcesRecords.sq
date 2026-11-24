@@ -8,6 +8,10 @@ CREATE TABLE IF NOT EXISTS resources_records (
     shared INTEGER NOT NULL DEFAULT 0
 );
 
+-- `date` is a day key (UTC midnight of the local calendar date), so one record per day.
+CREATE UNIQUE INDEX IF NOT EXISTS resources_records_date_unique
+ON resources_records(date);
+
 getAllResourceData:
 SELECT * FROM resources_records ORDER BY date DESC;
 
@@ -19,6 +23,11 @@ SELECT * FROM resources_records WHERE date = :dataDate;
 
 insertResourceData:
 INSERT INTO resources_records (recordId, date, waterHot, waterCold, electricityDay, electricityNight, shared)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+-- Idempotent insert used by import: an existing record with the same id is replaced.
+insertOrReplaceResourceData:
+INSERT OR REPLACE INTO resources_records (recordId, date, waterHot, waterCold, electricityDay, electricityNight, shared)
 VALUES (?, ?, ?, ?, ?, ?, ?);
 
 updateResourceData:

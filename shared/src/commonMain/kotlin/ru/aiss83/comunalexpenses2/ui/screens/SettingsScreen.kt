@@ -45,6 +45,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
@@ -57,9 +58,11 @@ import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.SettingsData
 import ru.aiss83.comunalexpenses2.data.ThemeMode
 import ru.aiss83.comunalexpenses2.data.getAppVersion
+import ru.aiss83.comunalexpenses2.domain.ImportResult
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
 import ru.aiss83.comunalexpenses2.domain.SaveSettingsResult
 import ru.aiss83.comunalexpenses2.domain.SettingsViewModel
+import ru.aiss83.comunalexpenses2.utils.PlatformBackHandler
 import ru.aiss83.comunalexpenses2.utils.exportAndShareJson
 import ru.aiss83.comunalexpenses2.utils.rememberJsonFilePicker
 
@@ -82,19 +85,15 @@ fun SettingsScreen(
     val settings by viewModel.settingsData.collectAsState()
     val saveResult by viewModel.saveResult.collectAsState()
 
-    // Initialize fields from settings
-    var streetValue by remember { mutableStateOf(settings.street) }
-    var houseValue by remember { mutableStateOf(settings.house.toString()) }
-    var flatValue by remember { mutableStateOf(settings.flat.toString()) }
-    var shareTemplateValue by remember { mutableStateOf(settings.shareTemplate) }
+    // Initialise once from the persisted settings. Deliberately NOT re-synced on every
+    // settings emission: saving the theme would otherwise wipe unsaved address/template input.
+    // rememberSaveable keeps the draft alive across rotation.
+    var streetValue by rememberSaveable { mutableStateOf(settings.street) }
+    var houseValue by rememberSaveable { mutableStateOf(settings.house.toString()) }
+    var flatValue by rememberSaveable { mutableStateOf(settings.flat.toString()) }
+    var shareTemplateValue by rememberSaveable { mutableStateOf(settings.shareTemplate) }
 
-    // Sync fields when settings change (e.g. on first load)
-    LaunchedEffect(settings) {
-        streetValue = settings.street
-        houseValue = settings.house.toString()
-        flatValue = settings.flat.toString()
-        shareTemplateValue = settings.shareTemplate
-    }
+    PlatformBackHandler(enabled = true, onBack = onNavigateBack)
 
     // Navigate back on successful save
     LaunchedEffect(saveResult) {
@@ -116,23 +115,33 @@ fun SettingsScreen(
 
     // Pre-resolve strings used inside non-Composable lambdas
     val importedFmt = stringResource(Res.string.home_imported_count)
-    val deleteUndoneMsg = stringResource(Res.string.home_delete_undone)
+    val importedPartialFmt = stringResource(Res.string.settings_import_partial)
+    val importInvalidFmt = stringResource(Res.string.settings_import_invalid_file)
+    val importEmptyFmt = stringResource(Res.string.settings_import_empty_file)
+    val importFailedFmt = stringResource(Res.string.settings_import_failed)
+    val deleteAllDoneMsg = stringResource(Res.string.settings_delete_all_done)
     val exportTitle = stringResource(Res.string.home_export_title)
 
-    // Import feedback — also clears import progress
-    val importedCount by resourcesDataViewModel.importedCount.collectAsState()
-    LaunchedEffect(importedCount) {
-        val count = importedCount
-        if (count != null) {
-            isImporting = false
-            if (count > 0) {
-                snackbarHostState.showSnackbar(
-                    message = importedFmt.replaceFirst("%d", count.toString()),
-                    duration = SnackbarDuration.Short
-                )
-            }
-            resourcesDataViewModel.clearImportedCount()
+    // Import feedback — every attempt produces exactly one result (success or failure),
+    // so the progress state can never get stuck and leave the buttons disabled.
+    val importResult by resourcesDataViewModel.importResult.collectAsState()
+    LaunchedEffect(importResult) {
+        val result = importResult ?: return@LaunchedEffect
+        isImporting = false
+        val message = when (result) {
+            is ImportResult.Success ->
+                if (result.skipped > 0) {
+                    importedPartialFmt.replaceFirst("%d", result.imported.toString())
+                } else {
+                    importedFmt.replaceFirst("%d", result.imported.toString())
+                }
+
+            ImportResult.InvalidFile -> importInvalidFmt
+            ImportResult.NoValidRecords -> importEmptyFmt
+            ImportResult.Failed -> importFailedFmt
         }
+        snackbarHostState.showSnackbar(message = message, duration = SnackbarDuration.Short)
+        resourcesDataViewModel.clearImportResult()
     }
 
     // File picker for import — sets progress on file selection
@@ -180,7 +189,7 @@ fun SettingsScreen(
                     resourcesDataViewModel.deleteAllData()
                     scope.launch {
                         snackbarHostState.showSnackbar(
-                            message = deleteUndoneMsg,
+                            message = deleteAllDoneMsg,
                             duration = SnackbarDuration.Short
                         )
                         // Brief delay to let user see the progress indicator
@@ -277,17 +286,16 @@ fun SettingsScreen(
                         )
                     }
 
-                    // Live address preview from current input
-                    val liveStreet = streetValue.trim()
-                    val liveHouse = parseSettingsInt(houseValue)
-                    val liveFlat = parseSettingsInt(flatValue)
-                    if (liveStreet.isNotBlank() || liveHouse > 0 || liveFlat > 0) {
-                        val parts = mutableListOf<String>()
-                        if (liveStreet.isNotBlank()) parts += liveStreet
-                        if (liveHouse > 0) parts += "д. $liveHouse"
-                        if (liveFlat > 0) parts += "кв. $liveFlat"
+                    // Live address preview from current input — shares formatting with SettingsData
+                    // instead of duplicating the "д./кв." assembly here.
+                    val liveAddress = SettingsData(
+                        street = streetValue.trim(),
+                        house = parseSettingsInt(houseValue),
+                        flat = parseSettingsInt(flatValue)
+                    ).formatAddress()
+                    if (liveAddress.isNotBlank()) {
                         Text(
-                            text = "${stringResource(Res.string.settings_address_label)}: ${parts.joinToString(", ")}",
+                            text = "${stringResource(Res.string.settings_address_label)}: $liveAddress",
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.padding(top = 8.dp)

@@ -10,7 +10,6 @@ import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.create
 import platform.Foundation.writeToFile
 import platform.UIKit.UIActivityViewController
-import platform.UIKit.UIApplication
 
 /**
  * iOS implementation: saves JSON to Documents and shares via UIActivityViewController.
@@ -40,8 +39,7 @@ actual fun exportAndShareJson(json: String, filename: String, title: String) {
             activityItems = listOf(fileUrl),
             applicationActivities = null
         )
-        val rootVC = UIApplication.sharedApplication.keyWindow?.rootViewController
-        rootVC?.presentViewController(activityVC, animated = true, completion = null)
+        presentShareSheet(activityVC)
     } catch (_: Exception) {
         // Fallback: share as text
         shareText(json, title)

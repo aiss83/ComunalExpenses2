@@ -26,6 +26,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,35 +37,49 @@ import comunalexpenses2.shared.generated.resources.*
 import io.github.koalaplot.core.ChartLayout
 import io.github.koalaplot.core.line.LinePlot
 import io.github.koalaplot.core.style.LineStyle
+import io.github.koalaplot.core.xygraph.AxisContent
 import io.github.koalaplot.core.xygraph.CategoryAxisModel
 import io.github.koalaplot.core.xygraph.DefaultPoint
 import io.github.koalaplot.core.xygraph.FloatLinearAxisModel
 import io.github.koalaplot.core.xygraph.XYGraph
-import io.github.koalaplot.core.xygraph.AxisContent
 import io.github.koalaplot.core.xygraph.rememberAxisStyle
 import io.github.koalaplot.core.util.ExperimentalKoalaPlotApi
 import kotlinx.datetime.Clock
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
+import ru.aiss83.comunalexpenses2.domain.MetricPoint
+import ru.aiss83.comunalexpenses2.domain.downsampleLabels
+import ru.aiss83.comunalexpenses2.domain.metricSeries
+import ru.aiss83.comunalexpenses2.domain.summarize
 import ru.aiss83.comunalexpenses2.ui.theme.ResourceBlue
 import ru.aiss83.comunalexpenses2.ui.theme.ResourceOrange
 import ru.aiss83.comunalexpenses2.ui.theme.ResourcePurple
 import ru.aiss83.comunalexpenses2.ui.theme.ResourceRed
+import ru.aiss83.comunalexpenses2.utils.MILLIS_PER_DAY
+import ru.aiss83.comunalexpenses2.utils.PlatformBackHandler
+import ru.aiss83.comunalexpenses2.utils.formatDayKey
+import ru.aiss83.comunalexpenses2.utils.toDayKey
 
-private val metricColors = listOf(
-    ResourceBlue,
-    ResourceRed,
-    ResourceOrange,
-    ResourcePurple
-)
+/** Rough month length used by the period chips. */
+private const val MONTH_MILLIS = 30L * MILLIS_PER_DAY
 
-private data class MetricDef(
-    val label: String,
-    val extractor: (ResourceData) -> Long,
-    val color: Color
-)
+/** How many date labels stay readable on the chart. */
+private const val MAX_AXIS_LABELS = 6
 
-private data class PeriodFilter(val label: String, val months: Int)
+private enum class Metric(
+    val label: StringResource,
+    val color: Color,
+    val extractor: (ResourceData) -> Long
+) {
+    COLD_WATER(Res.string.stats_cold_water, ResourceBlue, { it.coldWater }),
+    HOT_WATER(Res.string.stats_hot_water, ResourceRed, { it.hotWater }),
+    DAY_ELECTRICITY(Res.string.stats_day_electricity, ResourceOrange, { it.dayElectricity }),
+    NIGHT_ELECTRICITY(Res.string.stats_night_electricity, ResourcePurple, { it.nightElectricity });
+
+    /** Bit of the saveable selection mask. */
+    val bit: Int get() = 1 shl ordinal
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -72,38 +87,46 @@ fun StatsScreen(
     allResourceData: List<ResourceData>,
     onNavigateBack: () -> Unit
 ) {
-    var selectedMetrics by remember { mutableStateOf(setOf(0)) }
-    var deltaMode by remember { mutableStateOf(false) }
-    var selectedPeriod by remember { mutableStateOf<PeriodFilter?>(null) }
+    // A bitmask keeps the selection in rememberSaveable-friendly state (Set<Int> is not saveable).
+    var selectedMask by rememberSaveable { mutableStateOf(Metric.COLD_WATER.bit) }
+    var deltaMode by rememberSaveable { mutableStateOf(false) }
+    var periodMonths by rememberSaveable { mutableStateOf(0) } // 0 = all time
 
-    val metrics = listOf(
-        MetricDef(stringResource(Res.string.stats_cold_water), { it.coldWater }, metricColors[0]),
-        MetricDef(stringResource(Res.string.stats_hot_water), { it.hotWater }, metricColors[1]),
-        MetricDef(stringResource(Res.string.stats_day_electricity), { it.dayElectricity }, metricColors[2]),
-        MetricDef(stringResource(Res.string.stats_night_electricity), { it.nightElectricity }, metricColors[3])
-    )
+    PlatformBackHandler(enabled = true, onBack = onNavigateBack)
 
-    val now = Clock.System.now().toEpochMilliseconds()
-    val periods = listOf(
-        PeriodFilter(stringResource(Res.string.stats_period_3m), 3),
-        PeriodFilter(stringResource(Res.string.stats_period_6m), 6),
-        PeriodFilter(stringResource(Res.string.stats_period_year), 12),
-    )
+    val sortedData = remember(allResourceData) { allResourceData.sortedBy { it.date } }
+    val cutoff = remember(periodMonths) {
+        if (periodMonths == 0) {
+            null
+        } else {
+            // Cut-off is a day key, matching record dates.
+            Clock.System.now().toEpochMilliseconds().toDayKey() - periodMonths.toLong() * MONTH_MILLIS
+        }
+    }
 
-    val sortedData = allResourceData.sortedBy { it.date }
-    val filteredData = if (selectedPeriod != null) {
-        val cutoff = now - selectedPeriod!!.months * 30L * 24 * 3600 * 1000
-        sortedData.filter { it.date >= cutoff }
-    } else sortedData
+    // Each metric is computed exactly once per data/filter change instead of once per plotted
+    // point (the previous implementation was O(n^2) and re-allocated lists inside composition).
+    val seriesByMetric = remember(sortedData, deltaMode, cutoff) {
+        Metric.entries.associateWith { metric ->
+            val points = metricSeries(sortedData, metric.extractor, deltaMode)
+            if (cutoff == null) points else points.filter { it.date >= cutoff }
+        }
+    }
+
+    val visibleMetrics = remember(selectedMask) {
+        // Guard against a corrupted saved mask: at least one metric must stay visible.
+        Metric.entries.filter { selectedMask and it.bit != 0 }.ifEmpty { listOf(Metric.COLD_WATER) }
+    }
+    val primarySeries = seriesByMetric[visibleMetrics.first()].orEmpty()
+    val summary = remember(primarySeries) { summarize(primarySeries.map { it.value }) }
+    val chartSeries = remember(seriesByMetric, visibleMetrics) {
+        visibleMetrics.map { metric -> metric to seriesByMetric[metric].orEmpty() }
+    }
+    val labels = remember(chartSeries) {
+        chartSeries.firstOrNull()?.second?.map { it.date.formatDayKey() }.orEmpty()
+    }
 
     val hasData = allResourceData.isNotEmpty()
-
-    fun metricValues(extractor: (ResourceData) -> Long): List<Long> {
-        val raw = filteredData.map(extractor)
-        return if (deltaMode) {
-            raw.mapIndexed { i, v -> if (i == 0) 0L else (v - raw[i - 1]).coerceAtLeast(0) }
-        } else raw
-    }
 
     Scaffold(
         topBar = {
@@ -126,16 +149,20 @@ fun StatsScreen(
             // Filters — hidden when no data
             if (hasData) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    metrics.forEachIndexed { index, metric ->
+                    Metric.entries.forEach { metric ->
+                        val selected = selectedMask and metric.bit != 0
                         FilterChip(
-                            selected = index in selectedMetrics,
+                            selected = selected,
                             onClick = {
-                                selectedMetrics = if (index in selectedMetrics) {
-                                    if (selectedMetrics.size > 1) selectedMetrics - index else selectedMetrics
-                                } else selectedMetrics + index
+                                selectedMask = if (selected) {
+                                    // Never let the user deselect the last metric.
+                                    if (selectedMask.countOneBits() > 1) selectedMask and metric.bit.inv() else selectedMask
+                                } else {
+                                    selectedMask or metric.bit
+                                }
                             },
-                            label = { Text(metric.label, style = MaterialTheme.typography.labelSmall) },
-                            leadingIcon = if (index in selectedMetrics) {
+                            label = { Text(stringResource(metric.label), style = MaterialTheme.typography.labelSmall) },
+                            leadingIcon = if (selected) {
                                 { Box(Modifier.size(10.dp).background(metric.color, MaterialTheme.shapes.extraSmall)) }
                             } else null
                         )
@@ -149,11 +176,11 @@ fun StatsScreen(
                         onClick = { deltaMode = !deltaMode },
                         label = { Text(stringResource(Res.string.stats_delta_mode), style = MaterialTheme.typography.labelSmall) },
                     )
-                    periods.forEach { period ->
+                    periodChips().forEach { (months, labelRes) ->
                         FilterChip(
-                            selected = selectedPeriod == period,
-                            onClick = { selectedPeriod = if (selectedPeriod == period) null else period },
-                            label = { Text(period.label, style = MaterialTheme.typography.labelSmall) },
+                            selected = periodMonths == months,
+                            onClick = { periodMonths = if (periodMonths == months) 0 else months },
+                            label = { Text(stringResource(labelRes), style = MaterialTheme.typography.labelSmall) },
                         )
                     }
                 }
@@ -184,7 +211,7 @@ fun StatsScreen(
                         )
                     }
                 }
-            } else if (filteredData.size < 2) {
+            } else if (labels.size < 2) {
                 // Need at least 2 points for a chart
                 Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text(
@@ -194,29 +221,38 @@ fun StatsScreen(
                     )
                 }
             } else {
-                val dataIndex = filteredData.withIndex().associate { (i, r) -> r to i }
                 KoalaLineChart(
-                    data = filteredData,
-                    selectedMetrics = selectedMetrics,
-                    metrics = metrics,
-                    valueFn = { m, r -> metricValues(m.extractor)[dataIndex[r]!!] },
+                    labels = labels,
+                    series = chartSeries,
                     modifier = Modifier.fillMaxWidth().weight(1f)
                 )
 
                 Spacer(Modifier.height(8.dp))
 
-                val primary = selectedMetrics.first()
-                val values = metricValues(metrics[primary].extractor)
-                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-                    StatItem(stringResource(Res.string.stats_min), (values.minOrNull() ?: 0).toString())
-                    StatItem(stringResource(Res.string.stats_max), (values.maxOrNull() ?: 0).toString())
-                    StatItem(stringResource(Res.string.stats_avg), values.average().toLong().toString())
-                    StatItem(stringResource(Res.string.stats_total), values.sum().toString())
+                if (summary != null) {
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                        StatItem(stringResource(Res.string.stats_min), summary.min.toString())
+                        StatItem(stringResource(Res.string.stats_max), summary.max.toString())
+                        StatItem(stringResource(Res.string.stats_avg), summary.average.toString())
+                        if (deltaMode) {
+                            // Sum of per-period consumption is meaningful.
+                            StatItem(stringResource(Res.string.stats_total), summary.total.toString())
+                        } else {
+                            // Sum of absolute meter readings is not, so show the latest reading.
+                            StatItem(stringResource(Res.string.stats_last), summary.last.toString())
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+private fun periodChips(): List<Pair<Int, StringResource>> = listOf(
+    3 to Res.string.stats_period_3m,
+    6 to Res.string.stats_period_6m,
+    12 to Res.string.stats_period_year
+)
 
 @Composable
 private fun StatItem(label: String, value: String) {
@@ -229,41 +265,50 @@ private fun StatItem(label: String, value: String) {
 @OptIn(ExperimentalKoalaPlotApi::class)
 @Composable
 private fun KoalaLineChart(
-    data: List<ResourceData>,
-    selectedMetrics: Set<Int>,
-    metrics: List<MetricDef>,
-    valueFn: (MetricDef, ResourceData) -> Long,
+    labels: List<String>,
+    series: List<Pair<Metric, List<MetricPoint>>>,
     modifier: Modifier = Modifier
 ) {
-    val dateLabels = data.map { it.formatDate() }
-    val allValues = selectedMetrics.flatMap { idx -> data.map { valueFn(metrics[idx], it) } }
+    // The category is the point index, not the formatted date: two readings taken on the same
+    // day would otherwise map to one category and collapse onto a single x position.
+    val categories = remember(labels) { labels.indices.toList() }
+    // Only a handful of dates are drawn to keep the axis readable.
+    val shownLabels = remember(labels) { downsampleLabels(labels, MAX_AXIS_LABELS) }
+    val labelIndicesToDraw = remember(shownLabels) {
+        shownLabels.indices.filter { shownLabels[it].isNotEmpty() }.toSet()
+    }
+
+    val allValues = remember(series) { series.flatMap { (_, points) -> points.map { it.value } } }
     val minVal = (allValues.minOrNull() ?: 0L).toFloat()
     // Ensure range is at least 1 to avoid zero-range axis crash
     val maxVal = (allValues.maxOrNull() ?: 1L).toFloat().coerceAtLeast(minVal + 1f)
 
     ChartLayout(modifier = modifier) {
         XYGraph(
-            xAxisModel = CategoryAxisModel(dateLabels),
+            xAxisModel = CategoryAxisModel(categories),
             yAxisModel = FloatLinearAxisModel(minVal..maxVal),
             xAxisContent = AxisContent(
-                labels = { Text(it, style = MaterialTheme.typography.labelSmall) },
+                labels = { index ->
+                    val text = if (index in labelIndicesToDraw) labels.getOrElse(index) { "" } else ""
+                    Text(text = text, style = MaterialTheme.typography.labelSmall)
+                },
                 title = {},
                 style = rememberAxisStyle(),
             ),
             yAxisContent = AxisContent(
-                labels = { Text(formatAxisValue(it.toLong()), style = MaterialTheme.typography.labelSmall) },
+                labels = { value -> Text(formatAxisValue(value.toLong()), style = MaterialTheme.typography.labelSmall) },
                 title = {},
                 style = rememberAxisStyle(),
             ),
         ) {
-            selectedMetrics.forEach { idx ->
-                val points = data.map { record ->
-                    DefaultPoint(record.formatDate(), valueFn(metrics[idx], record).toFloat())
+            series.forEach { (metric, points) ->
+                val data = points.mapIndexed { index, point ->
+                    DefaultPoint(index, point.value.toFloat())
                 }
                 @Suppress("DEPRECATION")
                 LinePlot(
-                    data = points,
-                    lineStyle = LineStyle(brush = SolidColor(metrics[idx].color), strokeWidth = 2.dp),
+                    data = data,
+                    lineStyle = LineStyle(brush = SolidColor(metric.color), strokeWidth = 2.dp),
                 )
             }
         }

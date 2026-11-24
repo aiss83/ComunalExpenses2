@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,8 +44,9 @@ import ru.aiss83.comunalexpenses2.ui.theme.ResourceOrange
 import ru.aiss83.comunalexpenses2.ui.theme.ResourcePurple
 import ru.aiss83.comunalexpenses2.ui.theme.ResourceRed
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
-import ru.aiss83.comunalexpenses2.utils.formatEpochMillis
-import ru.aiss83.comunalexpenses2.utils.updateWidgetData
+import ru.aiss83.comunalexpenses2.utils.PlatformBackHandler
+import ru.aiss83.comunalexpenses2.utils.formatDayKey
+import ru.aiss83.comunalexpenses2.utils.toDayKey
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -54,23 +56,25 @@ fun AddResourcesDataScreen(
     viewModel: ResourcesDataViewModel,
     existingRecord: ResourceData? = null,
     previousRecord: ResourceData? = null,
+    nextRecord: ResourceData? = null,
     onNavigateBack: () -> Unit
 ) {
     val isEditing = existingRecord != null
 
-    var coldWaterValue by remember { mutableStateOf(existingRecord?.coldWater?.toString() ?: "") }
-    var hotWaterValue by remember { mutableStateOf(existingRecord?.hotWater?.toString() ?: "") }
-    var daykWhValue by remember { mutableStateOf(existingRecord?.dayElectricity?.toString() ?: "") }
-    var nightkWhValue by remember { mutableStateOf(existingRecord?.nightElectricity?.toString() ?: "") }
+    // rememberSaveable: entered readings survive rotation / process death.
+    var coldWaterValue by rememberSaveable { mutableStateOf(existingRecord?.coldWater?.toString() ?: "") }
+    var hotWaterValue by rememberSaveable { mutableStateOf(existingRecord?.hotWater?.toString() ?: "") }
+    var daykWhValue by rememberSaveable { mutableStateOf(existingRecord?.dayElectricity?.toString() ?: "") }
+    var nightkWhValue by rememberSaveable { mutableStateOf(existingRecord?.nightElectricity?.toString() ?: "") }
 
     var showDiscardDialog by remember { mutableStateOf(false) }
-    var showValidationError by remember { mutableStateOf(false) }
+    var validationError by remember { mutableStateOf<ValidationError?>(null) }
 
-    // Get current date for display
+    // The record is identified by its day key, so the header always shows that day.
     val formattedDate = if (isEditing) {
-        existingRecord.date.formatEpochMillis()
+        existingRecord.date.formatDayKey()
     } else {
-        Clock.System.now().toEpochMilliseconds().formatEpochMillis()
+        Clock.System.now().toEpochMilliseconds().toDayKey().formatDayKey()
     }
 
     val hasInput = coldWaterValue.isNotEmpty() || hotWaterValue.isNotEmpty() ||
@@ -84,24 +88,40 @@ fun AddResourcesDataScreen(
         }
     }
 
+    // System back must go through the same discard confirmation as the toolbar arrow.
+    PlatformBackHandler(enabled = true, onBack = handleBack)
+
     val handleSave = saveLambda@{
         val coldVal = coldWaterValue.toLongOrNull() ?: 0
         val hotVal = hotWaterValue.toLongOrNull() ?: 0
         val dayVal = daykWhValue.toLongOrNull() ?: 0
         val nightVal = nightkWhValue.toLongOrNull() ?: 0
 
-        // Block if values are lower than previous
+        // Values must stay inside the window between the previous and the next record,
+        // otherwise the consumption chart shows a bogus negative/positive spike.
         if (previousRecord != null &&
             (coldVal < previousRecord.coldWater || hotVal < previousRecord.hotWater ||
              dayVal < previousRecord.dayElectricity || nightVal < previousRecord.nightElectricity)
         ) {
-            showValidationError = true
+            validationError = ValidationError.LOWER_THAN_PREVIOUS
+            return@saveLambda
+        }
+        if (nextRecord != null &&
+            (coldVal > nextRecord.coldWater || hotVal > nextRecord.hotWater ||
+             dayVal > nextRecord.dayElectricity || nightVal > nextRecord.nightElectricity)
+        ) {
+            validationError = ValidationError.HIGHER_THAN_NEXT
+            return@saveLambda
+        }
+        // A shared record is locked: it was already sent and must not be changed.
+        if (existingRecord?.shared == true) {
+            validationError = ValidationError.LOCKED
             return@saveLambda
         }
 
         val data = ResourceData(
             id = existingRecord?.id ?: Uuid.random(),
-            date = existingRecord?.date ?: Clock.System.now().toEpochMilliseconds(),
+            date = existingRecord?.date ?: Clock.System.now().toEpochMilliseconds().toDayKey(),
             coldWater = coldWaterValue.toLongOrNull() ?: 0,
             hotWater = hotWaterValue.toLongOrNull() ?: 0,
             dayElectricity = daykWhValue.toLongOrNull() ?: 0,
@@ -112,7 +132,7 @@ fun AddResourcesDataScreen(
         } else {
             viewModel.addResourcesData(data)
         }
-        updateWidgetData(coldVal, hotVal, dayVal, nightVal, formattedDate)
+        // The widget is refreshed by the ViewModel from the stored data (single source of truth).
         onNavigateBack()
     }
 
@@ -139,13 +159,24 @@ fun AddResourcesDataScreen(
     }
 
     // Validation error dialog
-    if (showValidationError) {
+    val currentError = validationError
+    if (currentError != null) {
         AlertDialog(
-            onDismissRequest = { showValidationError = false },
+            onDismissRequest = { validationError = null },
             title = { Text(stringResource(Res.string.add_readings_validation_title)) },
-            text = { Text(stringResource(Res.string.add_readings_validation_text)) },
+            text = {
+                Text(
+                    stringResource(
+                        when (currentError) {
+                            ValidationError.LOWER_THAN_PREVIOUS -> Res.string.add_readings_validation_text
+                            ValidationError.HIGHER_THAN_NEXT -> Res.string.add_readings_validation_high_text
+                            ValidationError.LOCKED -> Res.string.add_readings_locked_text
+                        }
+                    )
+                )
+            },
             confirmButton = {
-                TextButton(onClick = { showValidationError = false }) {
+                TextButton(onClick = { validationError = null }) {
                     Text(stringResource(Res.string.dialog_ok))
                 }
             }
@@ -281,6 +312,13 @@ fun AddResourcesDataScreen(
             Spacer(modifier = Modifier.weight(1f))
         }
     }
+}
+
+/** Which boundary the entered readings violate. */
+private enum class ValidationError {
+    LOWER_THAN_PREVIOUS,
+    HIGHER_THAN_NEXT,
+    LOCKED
 }
 
 /** Keep only digits and strip leading zeros (except single "0"). */

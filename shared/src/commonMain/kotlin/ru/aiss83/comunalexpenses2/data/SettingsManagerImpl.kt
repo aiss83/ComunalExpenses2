@@ -1,15 +1,19 @@
 package ru.aiss83.comunalexpenses2.data
 
 import com.russhwolf.settings.Settings
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 /**
  * Interface for settings storage using multiplatform-settings.
  */
 interface SettingsManager {
-    val settingsData: Flow<SettingsData>
+    /**
+     * Current settings. A [StateFlow] (not a plain Flow) so the UI can read the persisted
+     * values synchronously on the very first composition instead of starting from defaults.
+     */
+    val settingsData: StateFlow<SettingsData>
     fun saveSettings(data: SettingsData)
 }
 
@@ -28,7 +32,7 @@ class SettingsManagerImpl(private val settings: Settings) : SettingsManager {
     }
 
     private val _settingsData = MutableStateFlow(getCurrentSettings())
-    override val settingsData: Flow<SettingsData> = _settingsData.asStateFlow()
+    override val settingsData: StateFlow<SettingsData> = _settingsData.asStateFlow()
 
     private fun getCurrentSettings(): SettingsData {
         val themeModeStr = settings.getString(KEY_THEME_MODE, ThemeMode.SYSTEM.name)

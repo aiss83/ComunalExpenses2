@@ -75,6 +75,7 @@ import kotlin.math.roundToInt
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 import kotlinx.coroutines.delay
+import kotlinx.datetime.Clock
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 import ru.aiss83.comunalexpenses2.data.ResourceData
@@ -85,7 +86,10 @@ import ru.aiss83.comunalexpenses2.ui.theme.ResourcePurple
 import ru.aiss83.comunalexpenses2.ui.theme.DeleteRed
 import ru.aiss83.comunalexpenses2.ui.theme.ResourceRed
 import ru.aiss83.comunalexpenses2.domain.ResourcesDataViewModel
-import ru.aiss83.comunalexpenses2.utils.formatEpochMillis
+import ru.aiss83.comunalexpenses2.utils.dayEndExclusive
+import ru.aiss83.comunalexpenses2.utils.formatDayKey
+import ru.aiss83.comunalexpenses2.utils.isInDayKeyRange
+import ru.aiss83.comunalexpenses2.utils.toDayKey
 import ru.aiss83.comunalexpenses2.utils.shareText
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -110,16 +114,16 @@ fun HomeScreen(
     var showFromPicker by remember { mutableStateOf(false) }
     var showToPicker by remember { mutableStateOf(false) }
 
-    val from = dateFromMillis
-    val to = dateToMillis
-    val filteredData = remember(from, to, allResourceData) {
-        if (from == null && to == null) {
+    // Both the picker value and every record date are day keys (UTC midnights), so the filter
+    // is a plain range comparison with no time-zone arithmetic.
+    val fromDayKey = dateFromMillis
+    val toDayEndExclusive = dateToMillis?.dayEndExclusive()
+    val filteredData = remember(fromDayKey, toDayEndExclusive, allResourceData) {
+        if (fromDayKey == null && toDayEndExclusive == null) {
             allResourceData
         } else {
             allResourceData.filter { record ->
-                val passesFrom = from == null || record.date >= from
-                val passesTo = to == null || record.date < to + 86_400_000L
-                passesFrom && passesTo
+                record.date.isInDayKeyRange(fromDayKey, toDayEndExclusive)
             }
         }
     }
@@ -138,6 +142,7 @@ fun HomeScreen(
     val dateToLabel = stringResource(Res.string.home_date_filter_to)
     val datePickerTitle = stringResource(Res.string.home_date_filter_picker_title)
     val clearFilterDesc = stringResource(Res.string.home_date_filter_clear)
+    val todayLockedMsg = stringResource(Res.string.home_today_locked)
 
     // Share confirmation
     var openShareDialog by remember { mutableStateOf(false) }
@@ -259,6 +264,7 @@ fun HomeScreen(
             onDismissRequest = { showFromPicker = false },
             confirmButton = {
                 TextButton(onClick = {
+                    // DatePicker already reports UTC midnight, which *is* the day key.
                     dateFromMillis = fromPickerState.selectedDateMillis
                     showFromPicker = false
                 }) {
@@ -339,7 +345,7 @@ fun HomeScreen(
                         TextButton(onClick = { showFromPicker = true }) {
                             Text(
                                 text = if (dateFromMillis != null)
-                                    "$dateFromLabel: ${dateFromMillis!!.formatEpochMillis()}"
+                                    "$dateFromLabel: ${dateFromMillis!!.formatDayKey()}"
                                 else dateFromLabel,
                                 style = MaterialTheme.typography.bodyMedium
                             )
@@ -347,7 +353,7 @@ fun HomeScreen(
                         TextButton(onClick = { showToPicker = true }) {
                             Text(
                                 text = if (dateToMillis != null)
-                                    "$dateToLabel: ${dateToMillis!!.formatEpochMillis()}"
+                                    "$dateToLabel: ${dateToMillis!!.formatDayKey()}"
                                 else dateToLabel,
                                 style = MaterialTheme.typography.bodyMedium
                             )
@@ -366,7 +372,22 @@ fun HomeScreen(
             }
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = onNavigateToAddExpenses) {
+            FloatingActionButton(
+                onClick = {
+                    // Exactly one record per day: if today's card already exists, open it for
+                    // editing instead of creating a second one.
+                    val todayKey = Clock.System.now().toEpochMilliseconds().toDayKey()
+                    val existingToday = allResourceData.firstOrNull { it.date == todayKey }
+                    when {
+                        existingToday == null -> onNavigateToAddExpenses()
+                        existingToday.shared -> scope.launch {
+                            snackbarHostState.showSnackbar(todayLockedMsg, duration = SnackbarDuration.Short)
+                        }
+
+                        else -> onNavigateToEditExpenses(existingToday)
+                    }
+                }
+            ) {
                 Icon(Icons.Rounded.Add, stringResource(Res.string.home_add_content_desc))
             }
         },

@@ -22,22 +22,15 @@
     <string name="home_shared_ok">Отправлено ✓</string>
     <string name="home_imported_count">Импортировано %d записей</string>
     <string name="home_share_title">Коммунальные расходы</string>
-    <string name="home_export_content_desc">Экспорт в JSON</string>
     <string name="home_export_title">Резервная копия Коммунальные расходы</string>
-    <string name="home_export_saved">Сохранено ✓</string>
-    <string name="home_import_content_desc">Импорт из JSON</string>
-    <string name="home_import_title">Импорт данных</string>
-    <string name="home_import_placeholder">Вставьте JSON сюда...</string>
-    <string name="home_import_button">Импорт</string>
     <string name="home_stats_content_desc">Статистика</string>
-    <string name="home_search_content_desc">Поиск</string>
-    <string name="home_search_hint">Поиск по дате…</string>
 
     <!-- Home Screen — Date filter -->
     <string name="home_date_filter_from">От</string>
     <string name="home_date_filter_to">До</string>
     <string name="home_date_filter_clear">Сбросить</string>
     <string name="home_date_filter_picker_title">Выберите дату</string>
+    <string name="home_today_locked">Показания за сегодня уже отправлены и заблокированы</string>
 
     <!-- Add Readings Screen -->
     <string name="add_readings_title">Добавить показания</string>
@@ -57,6 +50,8 @@
     <string name="add_readings_warning_lower">Значения меньше предыдущих показаний</string>
     <string name="add_readings_validation_title">Нельзя сохранить</string>
     <string name="add_readings_validation_text">Новые показания не могут быть меньше предыдущих. Проверьте значения.</string>
+    <string name="add_readings_validation_high_text">Показания не могут быть больше следующей записи. Проверьте значения.</string>
+    <string name="add_readings_locked_text">Запись уже отправлена и заблокирована для редактирования.</string>
 
     <!-- Settings Screen -->
     <string name="settings_title">Настройки</string>
@@ -88,6 +83,7 @@
     <string name="stats_max">Макс</string>
     <string name="stats_avg">Сред</string>
     <string name="stats_total">Всего</string>
+    <string name="stats_last">Последнее</string>
 
     <!-- Delete Confirmation Dialog -->
     <string name="delete_dialog_title">Подтверждение удаления</string>
@@ -99,7 +95,6 @@
     <!-- Delete All Dialog -->
     <string name="delete_all_dialog_title">Удалить все записи?</string>
     <string name="delete_all_dialog_text">Все показания будут удалены без возможности восстановления.</string>
-    <string name="home_clear_all_content_desc">Удалить все записи</string>
 
     <!-- Share Confirmation Dialog -->
     <string name="share_dialog_title">Отправить показания?</string>
@@ -121,6 +116,11 @@
     <string name="settings_export_button">Экспорт в JSON</string>
     <string name="settings_import_button">Импорт из JSON</string>
     <string name="settings_delete_all_button">Удалить все записи</string>
+    <string name="settings_delete_all_done">Все записи удалены</string>
+    <string name="settings_import_partial">Импортировано записей: %d, часть записей пропущена</string>
+    <string name="settings_import_invalid_file">Файл не похож на резервную копию</string>
+    <string name="settings_import_empty_file">В файле нет записей</string>
+    <string name="settings_import_failed">Не удалось импортировать записи</string>
 
     <!-- About -->
     <string name="settings_about_title">О программе</string>
