@@ -119,8 +119,9 @@ iOS: открыть `iosApp/iosApp.xcodeproj` в Xcode и запустить с�
 ./gradlew :androidApp:lintDebug       # Android Lint
 ```
 
-CI (GitHub Actions) выполняет тесты, сборку debug APK и lint на каждый push/PR, а также
-компиляцию iOS-таргета на macOS-раннере. Локально включены parallel, build cache и
+CI (GitHub Actions) выполняет тесты, сборку debug APK и lint на каждый push/PR.
+Компиляция iOS-таргета запускается вручную (`workflow_dispatch`): macOS-раннеры недоступны
+для приватных репозиториев без платного плана. Локально включены parallel, build cache и
 configuration cache (`gradle.properties`).
 
 ## Локализация

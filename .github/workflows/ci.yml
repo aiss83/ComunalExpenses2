@@ -23,8 +23,17 @@ jobs:
           java-version: '21'
           cache: gradle
 
-      # Provides the Android SDK / cmdline-tools and accepts the licenses on a clean runner.
-      - uses: android-actions/setup-android@v3
+      # The runner image already ships the Android SDK. Recent images broke
+      # android-actions/setup-android (it still tries to install the removed "tools" package),
+      # so only make sure the platform required by compileSdk is present.
+      - name: Ensure Android platform 36
+        run: |
+          SDKMANAGER=$(ls "$ANDROID_HOME"/cmdline-tools/*/bin/sdkmanager 2>/dev/null | head -1)
+          if [ -n "$SDKMANAGER" ] && ! "$SDKMANAGER" --list_installed 2>/dev/null | grep -q "platforms;android-36"; then
+            yes | "$SDKMANAGER" --licenses >/dev/null 2>&1 || true
+            "$SDKMANAGER" "platforms;android-36" >/dev/null
+          fi
+          echo "ANDROID_HOME=$ANDROID_HOME"
 
       - name: Unit tests (shared)
         run: ./gradlew :shared:testDebugUnitTest --console=plain
@@ -48,11 +57,9 @@ jobs:
 
   ios:
     name: iOS target (compile)
-    # The macOS runner is slow and expensive, so it only runs for main branches and manually.
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' &&
-       (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/multiplatform'))
+    # Manual only: macOS runners are not available for private repositories without a paid plan,
+    # and cancelling such a job on every push is just noise. Run it from the Actions tab.
+    if: github.event_name == 'workflow_dispatch'
     runs-on: macos-14
     timeout-minutes: 45
     steps:
