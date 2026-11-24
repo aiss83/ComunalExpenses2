@@ -1,17 +1,22 @@
 @startuml
-title Entity-Relationship Diagram for Communal Expenses Tracking
+title ERD — resources_records
 
-entity "ResourceRecord" as Resource {
-    + recordId : TEXT (PK) - Unique ID for this usage instance
+entity "resources_records" as resources {
+    * recordId : TEXT <<PK>>
     --
-    Date : INTEGER / Datestamp of measurement
-    WaterHot : INTEGER / Hot water used (units)
-    WaterCold : INTEGER / Cold water used (units)
-    ElectricityDay : INTEGER / Day tariff electricity usage
-    ElectricityNight : INTEGER / Night tariff electricity usage
+    * date : INTEGER
+    * waterHot : INTEGER
+    * waterCold : INTEGER
+    * electricityDay : INTEGER
+    * electricityNight : INTEGER
+    * shared : INTEGER
 }
 
-' In this specific current schema, the entity is atomic (one table/one transaction).
-' If there were separate tables for Users, Meters, or Tariffs, relationships would be drawn here.
+note right of resources
+    date — ключ дня: UTC-полночь календарной даты
+    UNIQUE(date): ровно одна карточка на календарный день
+    shared — 0/1: запись отправлена и заблокирована от правки
+    Единицы измерения задаются счётчиком (целые числа)
+end note
 
 @enduml

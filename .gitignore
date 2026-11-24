@@ -38,3 +38,11 @@ local.properties
 .kotlin/
 package-lock.json
 
+# Build artifacts of the release pipeline
+androidApp/release/
+
+# Xcode user-specific state
+*.xcuserstate
+
+# Locally generated test fixture (regenerate with gen_test_data.py)
+/test_data_600.json

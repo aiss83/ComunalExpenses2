@@ -1,70 +1,78 @@
 @startuml
-title Communal Expenses Tracking Application Architecture
+title ComunalExpenses2 — architecture
 
-package "Presentation (UI)" {
-    class MainScreen {
-        + mainView(data)
-        - ResourcesDataViewModel: Drives screen state
-    }
-    class HomeScreen {
-        + displayData(data)
-        - ResourcesDataViewModel: Fetches/Updates data
-    }
-    class SettingsScreen {
-        + settingsView()
-        - SettingsViewModel: Manages setting changes
-    }
-    class AddResourcesDataScreen {
-        + addNewRecord(data)
-        - ResourcesDataViewModel: Executes insertion
-    }
-
-    package "Domain" {
-        class MainViewModel {
-            + viewDidLoad()
-            - ResourcesDataRepository: Accesses persistence layer
-        }
-        class SettingsViewModel {
-            + loadSettings()
-            + updateSetting(key, value)
-        }
-    }
-
-    package "Data" {
-        interface ResourceDataRepository {
-            + getAllResourceData(): List<Record>
-            + insertResourceData(record: ResourceRecord)
-            + findResourceDataByDate(date): Optional<Record>
-        }
-
-        class ResourceDataDao {
-            + getAllResourceData(): List<Record> // Maps to ResourcesRecords.sq
-            + insert(record)
-            // ... other DAO operations
-        }
-
-        class ResourceDataRepositoryImpl implements ResourceDataRepository {
-            - dao: ResourceDataDao
-        }
-
-        class DatabaseFactory {
-            + initializeDatabase()
-        }
-    }
+package "androidApp" {
+    class MainActivity
+    class ComunalExpensesApplication
+    class QuickInputWidgetProvider
 }
 
-' --- Relationships ---
-MainScreen --> MainViewModel : views/drives data
-HomeScreen --> ResourcesDataViewModel : displays/updates usage
-SettingsScreen --> SettingsViewModel : manages application settings
+package "shared / ui" {
+    class App
+    class HomeScreen
+    class AddResourcesDataScreen
+    class SettingsScreen
+    class StatsScreen
+    sealed class AppRoute
+}
 
-MainViewModel *-- ResourcesDataRepository : depends on
-ResourcesDataViewModel *-- ResourcesDataRepository : depends on
+package "shared / domain" {
+    class ResourcesDataViewModel
+    class SettingsViewModel
+    class StatsCalculations <<pure functions>>
+}
 
-ResourceDataRepositoryImpl --> ResourceDataDao : implements/uses
-DatabaseFactory --> ResourceDataDao : manages connection
+package "shared / data" {
+    class ResourceDataRepository
+    class ResourceDataDao
+    interface SettingsManager
+    class SettingsManagerImpl
+    class ExportImport <<pure functions>>
+    class ResourcesDatabase <<SQLDelight>>
+}
 
-ResourceRecordEntity "1" -- "*" ResourceData.kt
-' Assumes the data entities are passed between layers
+package "shared / utils (expect/actual)" {
+    class PlatformBackHandler
+    class ShareUtils
+    class FileExport
+    class FilePicker
+    class WidgetData
+    class DateUtils
+}
+
+MainActivity --> App
+MainActivity --> ResourcesDataViewModel
+MainActivity --> SettingsViewModel
+
+App --> HomeScreen
+App --> AddResourcesDataScreen
+App --> SettingsScreen
+App --> StatsScreen
+App --> AppRoute
+
+HomeScreen --> ResourcesDataViewModel
+AddResourcesDataScreen --> ResourcesDataViewModel
+SettingsScreen --> ResourcesDataViewModel
+SettingsScreen --> SettingsViewModel
+
+StatsScreen --> StatsCalculations
+ResourcesDataViewModel --> ResourceDataRepository
+SettingsViewModel --> SettingsManager
+ResourceDataRepository --> ResourceDataDao
+ResourceDataDao --> ResourcesDatabase
+ResourcesDataViewModel --> ExportImport
+ResourcesDataViewModel --> WidgetData
+
+HomeScreen --> ShareUtils
+HomeScreen --> PlatformBackHandler
+AddResourcesDataScreen --> PlatformBackHandler
+SettingsScreen --> PlatformBackHandler
+StatsScreen --> PlatformBackHandler
+SettingsScreen --> FilePicker
+SettingsScreen --> FileExport
+HomeScreen --> DateUtils
+StatsScreen --> DateUtils
+
+QuickInputWidgetProvider ..> WidgetData : SharedPreferences + WIDGET_REFRESH broadcast
 
 @enduml

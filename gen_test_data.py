@@ -1,5 +1,7 @@
-import json, uuid, random
+import json, os, random, uuid
 from datetime import datetime, timedelta
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 start = datetime(2024, 1, 1)
 records = []
@@ -28,7 +30,7 @@ container = {
     'records': records
 }
 
-with open('/Users/aleksandr/AndroidStudioProjects/ComunalExpenses2/test_data_600.json', 'w') as f:
+with open(os.path.join(BASE_DIR, 'test_data_600.json'), 'w') as f:
     json.dump(container, f, indent=2)
 
 print(f'Generated {len(records)} records')
